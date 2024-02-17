@@ -52,14 +52,26 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: Responsive.height(10, context),
                 ),
-                 const Stack(
-                  alignment: Alignment.topCenter,
-                  children:[
-                   Image(image: AssetImage('assets/images/homepage_folders/Execution.png'),),
-                   Positioned(
-                    top:80 ,
-                    child: Image(image: AssetImage('assets/images/homepage_folders/ProjectManagement.png'),))
-                   ])
+                 const Expanded(
+                   child: Stack(
+                    alignment: Alignment.topCenter,
+                    children:[
+                     Image(image: AssetImage('assets/images/homepage_folders/Execution.png'),),
+                     Positioned(
+                      top:100 ,
+                      child: Image(image: AssetImage('assets/images/homepage_folders/ProjectManagement.png'),)),
+                      Positioned(
+                      top:180 ,
+                      child: Image(image: AssetImage('assets/images/homepage_folders/DesignAndArchitecture.png'),)),
+                      Positioned(
+                      top:280 ,
+                      child: Image(image: AssetImage('assets/images/homepage_folders/RealEstate.png'),)),
+                      Positioned(
+                      top:350 ,
+                      child: Image(image: AssetImage('assets/images/homepage_folders/SwimmingPool.png'),))
+
+                     ]),
+                 )
                 
               
             ],
