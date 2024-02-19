@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../utilities/responsive.dart';
 
@@ -13,10 +14,23 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     const Color customPurple = Color(0xFF6C3CA9);
     const Color customGrey = Color(0xFF515151);
+    
+            var _height=Responsive.height(10, context);
     var  leftSpacing= Responsive.width(5.3, context);
     return   Material(
       child: SafeArea(
         child: Scaffold(
+           floatingActionButton: FloatingActionButton(
+          // When the user taps the button
+          onPressed: () {
+            // Use setState to rebuild the widget with new values.
+            setState(() {
+              // Create a random number generator.
+             _height=_height*2.5;
+            });
+          },
+          child: const Icon(Icons.play_arrow),
+        ),
           body: Column(
             children: [
               Padding(
@@ -49,13 +63,13 @@ class _HomePageState extends State<HomePage> {
                 child: const Text('All-in-one civil services app that streamlines real estate, design, project management, consultancy and flawless execution', softWrap: true, style: TextStyle(color: customGrey, fontWeight: FontWeight.w500),),
                 ),
                 SizedBox(
-                  height: Responsive.height(10, context),
+                  height: Responsive.height(9.3, context),
                 ),
                    Expanded(
                    child: Stack(
                     alignment: Alignment.topCenter,
                     children:[
-                     const Image(image: AssetImage('assets/images/homepage_folders/Execution.png'),),
+                     Image(image: AssetImage('assets/images/homepage_folders/Execution.png'),),
                      Positioned(
                       top:Responsive.height(11, context) ,
                       child: const Image(image: AssetImage('assets/images/homepage_folders/ProjectManagement.png'),)),
