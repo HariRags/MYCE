@@ -65,30 +65,75 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: Responsive.height(9.3, context),
                 ),
-                   Expanded(
-                   child: Stack(
-                    alignment: Alignment.topCenter,
-                    children:[
-                     Image(image: AssetImage('assets/images/homepage_folders/Execution.png'),),
-                     Positioned(
-                      top:Responsive.height(11, context) ,
-                      child: const Image(image: AssetImage('assets/images/homepage_folders/ProjectManagement.png'),)),
-                      Positioned(
-                      top:Responsive.height(22, context) ,
-                      child: const Image(image: AssetImage('assets/images/homepage_folders/DesignAndArchitecture.png'),)),
-                      Positioned(
-                      top:Responsive.height(33, context) ,
-                      child: const Image(image: AssetImage('assets/images/homepage_folders/RealEstate.png'),)),
-                      Positioned(
-                      top:Responsive.height(44, context) ,
-                      child: const Image(image: AssetImage('assets/images/homepage_folders/SwimmingPool.png'),))
+                Container(
+                  height: Responsive.height(60, context),
+                  width: Responsive.width(90, context),
+                  child: ClipPath(
+                        clipper: CurvyCutoutClipper(),
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Colors.purple.shade50) ,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: Responsive.height(4.3, context),),
+                              Container(
+                                padding: EdgeInsets.only(left: Responsive.width(8, context)) ,
+                                child: Text(
+                                  'Execution',
+                                  style: TextStyle(color: Colors.black, fontSize: Responsive.height(2.7, context), fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                )
+                //    Expanded(
+                //    child: Stack(
+                //     alignment: Alignment.topCenter,
+                //     children:[
+                //      Image(image: AssetImage('assets/images/homepage_folders/Execution.png'),),
+                //      Positioned(
+                //       top:Responsive.height(11, context) ,
+                //       child: const Image(image: AssetImage('assets/images/homepage_folders/ProjectManagement.png'),)),
+                //       Positioned(
+                //       top:Responsive.height(22, context) ,
+                //       child: const Image(image: AssetImage('assets/images/homepage_folders/DesignAndArchitecture.png'),)),
+                //       Positioned(
+                //       top:Responsive.height(33, context) ,
+                //       child: const Image(image: AssetImage('assets/images/homepage_folders/RealEstate.png'),)),
+                //       Positioned(
+                //       top:Responsive.height(44, context) ,
+                //       child: const Image(image: AssetImage('assets/images/homepage_folders/SwimmingPool.png'),))
 
-                     ]),
-                 )
+                //      ]),
+                //  )
             ],
           )
         ),
       ),
     );
+  }
+}
+class CurvyCutoutClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.moveTo(0.0, 0.0);
+    path.lineTo(size.width*0.50, 0.0);
+    path.cubicTo(size.width*0.61, size.height*0, size.width*0.62, size.height*0.08, size.width*0.73, size.height*0.08); 
+    path.lineTo(size.width*0.93, size.height*0.08);
+    path.quadraticBezierTo(size.width, size.height*0.081, size.width, size.height*0.13);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0.0, size.height);
+    path.lineTo(0.0, 0.0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
   }
 }
