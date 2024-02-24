@@ -84,7 +84,38 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(color: Colors.black, fontSize: Responsive.height(2.7, context), fontWeight: FontWeight.w600),
                                 ),
                               ),
-                            ],
+                              SizedBox(height: Responsive.height(4.1, context),),
+                              Container(
+                                padding: EdgeInsets.only(left: Responsive.width(8, context),right: Responsive.width(4, context) ),
+                                child: Text('the quick brown fox jumps over the diry dog and the dirty dog chases the quick brown fox',softWrap: true, style: TextStyle(color: Colors.black, fontSize: Responsive.height(1.7, context), ),)),
+                              SizedBox(height: Responsive.height(2, context),),
+                              Container(
+                                padding: EdgeInsets.only(left: Responsive.width(8, context),right: Responsive.width(4, context) )
+                                ,child: Wrap(
+                                  spacing: Responsive.width(3, context),
+                                  runSpacing: Responsive.height(2, context),
+                                  children: List<Widget>.generate(4,(index)  {
+                                        return Container(
+                                          width: Responsive.width(30, context),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.purple.shade300),
+                                          child: Center(child: TextButton(child: Text('Button', style: TextStyle(color: Colors.white)),onPressed: (){},)),
+                                          
+                                        );
+                                      }),
+                                
+                                ),
+                              )
+                              // GridView.count(crossAxisCount: 2, 
+                              // children: List.generate(4, (index) {
+                              //   return Container(
+                              //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.purple.shade300) ,
+                              //     child:const Center(child: Text('Text', style: TextStyle(color: Colors.white),),)
+                              //   );
+
+                              // })
+                              // )
+                              ],
+                            
                           ),
                         ),
                       ),
