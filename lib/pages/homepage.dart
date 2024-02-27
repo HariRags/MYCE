@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
@@ -115,6 +114,13 @@ class _HomePageState extends State<HomePage> {
                         buttonText: ['Commercial', 'Residential', 'Industrial'],
                       ),
                       Positioned(
+                        top: Responsive.height(9, context),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        color:  Color(0xFFF6F0FF),
+                      )),
+                      Positioned(
                         top: Responsive.height(11, context),
                         child: Container(
                         height: Responsive.height(60, context),
@@ -129,6 +135,12 @@ class _HomePageState extends State<HomePage> {
                         buttonText: ['Project','Property'],
                       ),),
                       ),
+                      Positioned(top: Responsive.height(21, context),
+                      child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        color:  Color(0xFFE2D2F8),
+                      )),
                       Positioned(
                         top: Responsive.height(22, context),
                         child: Container(
@@ -144,6 +156,12 @@ class _HomePageState extends State<HomePage> {
                         buttonText: ['House','Commericial','Industrial'],
                       ),),
                       ),
+                       Positioned(top: Responsive.height(31, context),
+                      child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        color:  Color(0xFFB185EB),
+                      )),
                       Positioned(
                         top: Responsive.height(33, context),
                         child: Container(
@@ -162,6 +180,12 @@ class _HomePageState extends State<HomePage> {
                         )
                         )
                       ),
+                      Positioned(top: Responsive.height(42, context),
+                      child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        color:  Color(0xFF6B4397),
+                      )),
                       Positioned(
                         top: Responsive.height(44, context),
                         child: Container(
