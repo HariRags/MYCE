@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: Responsive.height(9.3, context),
+              height: Responsive.height(8, context),
             ),
             Container(
                 height: Responsive.height(64, context),
@@ -127,6 +127,55 @@ class _HomePageState extends State<HomePage> {
                         buttonColor: Color(0xFFDABEFF),
                         buttonTextColor: Colors.black,
                         buttonText: ['Project','Property'],
+                      ),),
+                      ),
+                      Positioned(
+                        top: Responsive.height(22, context),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        child: const Folders(
+                        title: 'Design and\nArchitecture',
+                        titleColor: Colors.white,
+                        color: Color(0xFFB185EB),
+                        numberOfButtons: 3,
+                        buttonColor: Color(0xFFA176D9),
+                        buttonTextColor: Colors.white,
+                        buttonText: ['House','Commericial','Industrial'],
+                      ),),
+                      ),
+                      Positioned(
+                        top: Responsive.height(33, context),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        child: const Folders(
+                        title: 'Real Estate',
+                        titleColor: Colors.white,
+                        color: Color(0xFF6B4397),
+                        description: 'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
+                        numberOfButtons: 5,
+                        buttonColor: Color(0xFF7A4DAC),
+                        buttonTextColor: Colors.white,
+                        buttonText: ['Buy','Sell','Rent','Lease','Property']
+                        
+                        )
+                        )
+                      ),
+                      Positioned(
+                        top: Responsive.height(44, context),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        child: const Folders(
+                        title: 'Swimming Pool',
+                        titleColor: Colors.white,
+                        color: Color(0xFF34185A),
+                        description: 'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
+                        numberOfButtons: 0,
+                        buttonColor: Color(0xFF5E2A8A),
+                        buttonTextColor: Colors.white,
+                        buttonText: [],
                       ),),
                       ),
                               ]),

@@ -32,7 +32,7 @@ class _FoldersState extends State<Folders> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: Responsive.height(4.3, context),
+              height: Responsive.height(2, context),
             ),
             Container(
               padding: EdgeInsets.only(left: Responsive.width(8, context)),
@@ -151,7 +151,7 @@ class _FolderButtons extends StatelessWidget {
                   buttonText[index],
                   style: TextStyle(
                     color: buttonTextColor,
-                    fontSize: Responsive.height(2.1, context),
+                    fontSize: Responsive.height(2.0, context),
                   ),
                 ),
                 onPressed: () {},
