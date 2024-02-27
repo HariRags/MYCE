@@ -92,10 +92,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: Responsive.height(8, context),
+              height: Responsive.height(6.5, context),
             ),
             Container(
-                height: Responsive.height(64, context),
+                height: Responsive.height(67, context),
                 width: Responsive.width(90, context),
                 child:  ClipRRect(
                   borderRadius: BorderRadius.circular(20),  
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                         color:  Color(0xFFF6F0FF),
                       )),
                       Positioned(
-                        top: Responsive.height(11, context),
+                        top: Responsive.height(10, context),
                         child: Container(
                         height: Responsive.height(60, context),
                         width: Responsive.width(90, context),
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                         color:  Color(0xFFB185EB),
                       )),
                       Positioned(
-                        top: Responsive.height(33, context),
+                        top: Responsive.height(34, context),
                         child: Container(
                         height: Responsive.height(60, context),
                         width: Responsive.width(90, context),
@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                         color:  Color(0xFF6B4397),
                       )),
                       Positioned(
-                        top: Responsive.height(44, context),
+                        top: Responsive.height(43, context),
                         child: Container(
                         height: Responsive.height(60, context),
                         width: Responsive.width(90, context),
