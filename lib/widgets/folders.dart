@@ -70,9 +70,9 @@ class FolderClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
     path.moveTo(0.0, 0.0);
-    path.lineTo(size.width * 0.50, 0.0);
-    path.cubicTo(size.width * 0.61, size.height * 0, size.width * 0.62,
-        size.height * 0.08, size.width * 0.73, size.height * 0.08);
+    path.lineTo(size.width * 0.58, 0.0);
+    path.cubicTo(size.width * 0.69, size.height * 0, size.width * 0.70,
+        size.height * 0.08, size.width * 0.81, size.height * 0.08);
     path.lineTo(size.width * 0.93, size.height * 0.08);
     path.quadraticBezierTo(
         size.width, size.height * 0.081, size.width, size.height * 0.13);
@@ -105,8 +105,9 @@ class _Description extends StatelessWidget {
         description,
         softWrap: true,
         style: TextStyle(
-          color: titleColor,
+          color: Color(0xFFE5E5E5),
           fontSize: Responsive.height(1.7, context),
+          
         ),
       ),
     );
