@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
                 height: Responsive.height(67, context),
-                width: Responsive.width(90, context),
+                width: Responsive.width(94, context),
                 child:  ClipRRect(
                   borderRadius: BorderRadius.circular(20),  
                   child: Expanded(
@@ -117,14 +117,14 @@ class _HomePageState extends State<HomePage> {
                         top: Responsive.height(9, context),
                         child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
-                        color:  Color(0xFFF6F0FF),
+                        width: Responsive.width(94, context),
+                        color:  const Color(0xFFF6F0FF),
                       )),
                       Positioned(
                         top: Responsive.height(10, context),
                         child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
+                        width: Responsive.width(94, context),
                         child: const Folders(
                         title: 'Project \nManagement',
                         titleColor: Colors.black,
@@ -138,14 +138,14 @@ class _HomePageState extends State<HomePage> {
                       Positioned(top: Responsive.height(21, context),
                       child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
-                        color:  Color(0xFFE2D2F8),
+                        width: Responsive.width(94, context),
+                        color:  const Color(0xFFE2D2F8),
                       )),
                       Positioned(
-                        top: Responsive.height(22, context),
+                        top: Responsive.height(21, context),
                         child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
+                        width: Responsive.width(94, context),
                         child: const Folders(
                         title: 'Design and\nArchitecture',
                         titleColor: Colors.white,
@@ -159,14 +159,14 @@ class _HomePageState extends State<HomePage> {
                        Positioned(top: Responsive.height(31, context),
                       child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
-                        color:  Color(0xFFB185EB),
+                        width: Responsive.width(94, context),
+                        color:  const Color(0xFFB185EB),
                       )),
                       Positioned(
-                        top: Responsive.height(34, context),
+                        top: Responsive.height(32, context),
                         child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
+                        width: Responsive.width(94, context),
                         child: const Folders(
                         title: 'Real Estate',
                         titleColor: Colors.white,
@@ -183,14 +183,14 @@ class _HomePageState extends State<HomePage> {
                       Positioned(top: Responsive.height(42, context),
                       child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
-                        color:  Color(0xFF6B4397),
+                        width: Responsive.width(94, context),
+                        color:  const Color(0xFF6B4397),
                       )),
                       Positioned(
-                        top: Responsive.height(43, context),
+                        top: Responsive.height(42, context),
                         child: Container(
                         height: Responsive.height(60, context),
-                        width: Responsive.width(90, context),
+                        width: Responsive.width(94, context),
                         child: const Folders(
                         title: 'Swimming Pool',
                         titleColor: Colors.white,
@@ -205,27 +205,6 @@ class _HomePageState extends State<HomePage> {
                               ]),
                   ),
                 )),
-
-            //    Expanded(
-            //    child: Stack(
-            //     alignment: Alignment.topCenter,
-            //     children:[
-            //      Image(image: AssetImage('assets/images/homepage_folders/Execution.png'),),
-            //      Positioned(
-            //       top:Responsive.height(11, context) ,
-            //       child: const Image(image: AssetImage('assets/images/homepage_folders/ProjectManagement.png'),)),
-            //       Positioned(
-            //       top:Responsive.height(22, context) ,
-            //       child: const Image(image: AssetImage('assets/images/homepage_folders/DesignAndArchitecture.png'),)),
-            //       Positioned(
-            //       top:Responsive.height(33, context) ,
-            //       child: const Image(image: AssetImage('assets/images/homepage_folders/RealEstate.png'),)),
-            //       Positioned(
-            //       top:Responsive.height(44, context) ,
-            //       child: const Image(image: AssetImage('assets/images/homepage_folders/SwimmingPool.png'),))
-
-            //      ]),
-            //  )
           ],
         )),
       ),
