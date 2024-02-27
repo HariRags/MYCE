@@ -96,16 +96,41 @@ class _HomePageState extends State<HomePage> {
               height: Responsive.height(9.3, context),
             ),
             Container(
-                height: Responsive.height(60, context),
+                height: Responsive.height(64, context),
                 width: Responsive.width(90, context),
-                child: const Folders(
-                  title: 'Execution',
-                  titleColor: Colors.black,
-                  color: Color(0xFFF6F0FF),
-                  numberOfButtons: 3,
-                  buttonColor: Color.fromARGB(255, 230, 216, 249),
-                  buttonTextColor: Colors.black,
-                  buttonText: ['Commercial', 'Residential', 'Industrial'],
+                child:  ClipRRect(
+                  borderRadius: BorderRadius.circular(20),  
+                  child: Expanded(
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      fit: StackFit.expand,
+                      alignment: Alignment.topCenter,
+                      children: [ const Folders(
+                        title: 'Execution',
+                        titleColor: Colors.black,
+                        color: Color(0xFFF6F0FF),
+                        numberOfButtons: 3,
+                        buttonColor: Color.fromARGB(255, 230, 216, 249),
+                        buttonTextColor: Colors.black,
+                        buttonText: ['Commercial', 'Residential', 'Industrial'],
+                      ),
+                      Positioned(
+                        top: Responsive.height(11, context),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(90, context),
+                        child: const Folders(
+                        title: 'Project \nManagement',
+                        titleColor: Colors.black,
+                        color: Color(0xFFE2D2F8),
+                        numberOfButtons: 2,
+                        buttonColor: Color(0xFFDABEFF),
+                        buttonTextColor: Colors.black,
+                        buttonText: ['Project','Property'],
+                      ),),
+                      ),
+                              ]),
+                  ),
                 )),
 
             //    Expanded(

@@ -48,8 +48,7 @@ class _FoldersState extends State<Folders> {
               height: Responsive.height(4.1, context),
             ),
             widget.description.isNotEmpty
-            ? Description(description: widget.description, titleColor: widget.titleColor!, context: context)
-
+            ? _Description(description: widget.description, titleColor: widget.titleColor!, context: context)
             :Container(),
 
             widget.description.isNotEmpty
@@ -57,7 +56,8 @@ class _FoldersState extends State<Folders> {
               height: Responsive.height(2, context),
             )
             :Container(),
-            FolderButtons(numberOfButtons: widget.numberOfButtons!, buttonText: widget.buttonText, buttonColor:widget.buttonColor!, buttonTextColor: widget.buttonTextColor!, context: context)
+
+            _FolderButtons(numberOfButtons: widget.numberOfButtons!, buttonText: widget.buttonText, buttonColor:widget.buttonColor!, buttonTextColor: widget.buttonTextColor!, context: context)
           ],
         ),
       ),
@@ -88,12 +88,12 @@ class FolderClipper extends CustomClipper<Path> {
     return true;
   }
 }
-class Description extends StatelessWidget {
+class _Description extends StatelessWidget {
   final String description;
   final Color titleColor;
   final BuildContext context;
 
-  const Description({Key? key, required this.description,required this.titleColor,required this.context}) : super(key: key);
+  const _Description({Key? key, required this.description,required this.titleColor,required this.context}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -112,14 +112,14 @@ class Description extends StatelessWidget {
     );
   }
 }
-class FolderButtons extends StatelessWidget {
+class _FolderButtons extends StatelessWidget {
   final int numberOfButtons;
   final List<String> buttonText;
   final Color buttonColor;
   final Color buttonTextColor;
   final BuildContext context;
 
-  const FolderButtons({Key? key, 
+  const _FolderButtons({Key? key, 
     required this.numberOfButtons,
     required this.buttonText,
     required this.buttonColor,
