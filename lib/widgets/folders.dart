@@ -1,10 +1,9 @@
-import 'dart:ffi' as ffi;
 
 import 'package:flutter/material.dart';
 import '../utilities/responsive.dart';
 
 class Folders extends StatefulWidget {
-  const Folders({Key? key, required this.title,required this.titleColor,required this.description,required this.color,required this.numberOfButtons,required this.buttonColor,required this.buttonTextColor,required this.buttonText}) : super(key: key) ;
+  const Folders({Key? key, required this.title,required this.titleColor, this.description= '',required this.color,required this.numberOfButtons,required this.buttonColor,required this.buttonTextColor,required this.buttonText}) : super(key: key) ;
   final String title;
   final Color? titleColor;
   final String description;
@@ -12,7 +11,7 @@ class Folders extends StatefulWidget {
   final int? numberOfButtons;
   final Color? buttonColor;
   final Color? buttonTextColor;
-  final ffi.Array? buttonText;
+  final List<String> buttonText;
 
 
   @override
@@ -28,7 +27,7 @@ class _FoldersState extends State<Folders> {
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: Colors.purple.shade50),
+            color: widget.color,),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,9 +37,9 @@ class _FoldersState extends State<Folders> {
             Container(
               padding: EdgeInsets.only(left: Responsive.width(8, context)),
               child: Text(
-                'sd',
+                widget.title,
                 style: TextStyle(
-                    color: Colors.black,
+                    color: widget.titleColor, 
                     fontSize: Responsive.height(2.7, context),
                     fontWeight: FontWeight.w600),
               ),
@@ -48,45 +47,17 @@ class _FoldersState extends State<Folders> {
             SizedBox(
               height: Responsive.height(4.1, context),
             ),
-            Container(
-                padding: EdgeInsets.only(
-                    left: Responsive.width(8, context),
-                    right: Responsive.width(4, context)),
-                child: Text(
-                  'the quick brown fox jumps over the diry dog and the dirty dog chases the quick brown fox',
-                  softWrap: true,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: Responsive.height(1.7, context),
-                  ),
-                )),
-            SizedBox(
+            widget.description.isNotEmpty
+            ? Description(description: widget.description, titleColor: widget.titleColor!, context: context)
+
+            :Container(),
+
+            widget.description.isNotEmpty
+            ?SizedBox(
               height: Responsive.height(2, context),
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                  left: Responsive.width(8, context),
-                  right: Responsive.width(4, context)),
-              child: Wrap(
-                spacing: Responsive.width(3, context),
-                runSpacing: Responsive.height(2, context),
-                children: List<Widget>.generate(4, (index) {
-                  return Container(
-                    width: Responsive.width(30, context),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.purple.shade300),
-                    child: Center(
-                        child: TextButton(
-                      child:
-                          Text('Button', style: TextStyle(color: Colors.white)),
-                      onPressed: () {},
-                    )),
-                  );
-                }),
-              ),
             )
-            
+            :Container(),
+            FolderButtons(numberOfButtons: widget.numberOfButtons!, buttonText: widget.buttonText, buttonColor:widget.buttonColor!, buttonTextColor: widget.buttonTextColor!, context: context)
           ],
         ),
       ),
@@ -115,5 +86,80 @@ class FolderClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return true;
+  }
+}
+class Description extends StatelessWidget {
+  final String description;
+  final Color titleColor;
+  final BuildContext context;
+
+  const Description({Key? key, required this.description,required this.titleColor,required this.context}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          left: Responsive.width(8, context),
+          right: Responsive.width(4, context)),
+      child: Text(
+        description,
+        softWrap: true,
+        style: TextStyle(
+          color: titleColor,
+          fontSize: Responsive.height(1.7, context),
+        ),
+      ),
+    );
+  }
+}
+class FolderButtons extends StatelessWidget {
+  final int numberOfButtons;
+  final List<String> buttonText;
+  final Color buttonColor;
+  final Color buttonTextColor;
+  final BuildContext context;
+
+  const FolderButtons({Key? key, 
+    required this.numberOfButtons,
+    required this.buttonText,
+    required this.buttonColor,
+    required this.buttonTextColor,
+    required this.context,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+        left: Responsive.width(8, context),
+        right: Responsive.width(4, context),
+      ),
+      child: Wrap(
+        spacing: Responsive.width(3, context),
+        runSpacing: Responsive.height(2, context),
+        children: List<Widget>.generate(numberOfButtons, (index) {
+          return Container(
+            width: Responsive.width(35, context),
+            height: Responsive.height(7, context),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: buttonColor,
+            ),
+            child: Center(
+              child: TextButton(
+                child: Text(
+                  buttonText[index],
+                  style: TextStyle(
+                    color: buttonTextColor,
+                    fontSize: Responsive.height(2.1, context),
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          );
+        }),
+      ),
+    );
   }
 }
