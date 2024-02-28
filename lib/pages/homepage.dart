@@ -6,16 +6,27 @@ import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  
+  const HomePage({Key? key,}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  Offset offset = Offset.zero;
+class HomePageState extends State<HomePage> {
+  
+  String selectedFolder ='';
+    void updateOffset(folderToAnimate)
+   {
+      selectedFolder=folderToAnimate;
+      setState(() {
+        
+      });
+   }
   @override
   Widget build(BuildContext context) {
+     Offset offset = const Offset(0,-0.33);
+  final animationDuration = const  Duration(milliseconds: 600);
     const Color customPurple = Color(0xFF6C3CA9);
     const Color customGrey = Color(0xFF515151);
     
@@ -26,9 +37,10 @@ class _HomePageState extends State<HomePage> {
           floatingActionButton: TextButton(
             child: Text('Get Started'),
             onPressed: () {
+              print("leftSpacing");
               setState(() {
                 if(offset == Offset(0,0))
-                offset = Offset(0,-1);
+                offset = Offset(0,-0.33);
                 else
                 offset = Offset(0,0);
               });
@@ -119,19 +131,30 @@ class _HomePageState extends State<HomePage> {
                   children: [ 
                     Positioned(
                     top: Responsive.height(0, context),
-                    child: Container(
-                      height: Responsive.height(60, context), 
-                      width: Responsive.width(94, context),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: const Folders(
-                          title: 'Execution',
-                          titleColor: Colors.black,
-                          color: Color(0xFFF6F0FF),
-                          numberOfButtons: 3,
-                          buttonColor: Color.fromARGB(255, 230, 216, 249),
-                          buttonTextColor: Colors.black,
-                          buttonText: ['Commercial', 'Residential', 'Industrial'],
+                    child: AnimatedSlide(
+                     offset: selectedFolder=='Execution' ?offset :Offset.zero,
+                      duration:  animationDuration,
+                      curve: Curves.easeInOut,
+                      child: GestureDetector(
+                        onTap: ()=> {updateOffset('Execution'),setState(() {
+                          
+                        })},
+                        child: Container(
+                          height: Responsive.height(60, context), 
+                          width: Responsive.width(94, context),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child:  const Folders(
+                              title: 'Execution',
+                              titleColor: Colors.black,
+                              color: Color(0xFFF6F0FF),
+                              numberOfButtons: 3,
+                              buttonColor: Color.fromARGB(255, 230, 216, 249),
+                              buttonTextColor: Colors.black,
+                              buttonText: ['Commercial', 'Residential', 'Industrial'],
+                              
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -145,7 +168,6 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                         height: Responsive.height(60, context),
                         width: Responsive.width(94, context),
-                        
                         color:  const Color(0xFFF6F0FF),
                                               ),
                       ),
@@ -153,24 +175,28 @@ class _HomePageState extends State<HomePage> {
                   Positioned(
                     top: Responsive.height(10, context),
                     child: AnimatedSlide(
-                       offset: offset,
-                      duration: const Duration(milliseconds: 5000),
+                       offset: selectedFolder=='Product Management' ?offset :Offset.zero,
+                      duration: animationDuration,
                       curve: Curves.easeInOut,
-                      child: Container(
-                      height: Responsive.height(60, context),
-                      width: Responsive.width(94, context),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: const Folders(
-                        title: 'Project \nManagement',
-                        titleColor: Colors.black,
-                        color: Color(0xFFE2D2F8),
-                        numberOfButtons: 2,
-                        buttonColor: Color(0xFFDABEFF),
-                        buttonTextColor: Colors.black,
-                        buttonText: ['Project','Property'],
-                                          ),
-                      ),),
+                      child: GestureDetector(
+                        onTap: ()=> updateOffset('Product Management') ,
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(94, context),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child:  const Folders(
+                          title: 'Project \nManagement',
+                          titleColor: Colors.black,
+                          color: Color(0xFFE2D2F8),
+                          numberOfButtons: 2,
+                          buttonColor: Color(0xFFDABEFF),
+                          buttonTextColor: Colors.black,
+                          buttonText: ['Project','Property'],
+                          
+                                            ),
+                        ),),
+                      ),
                     ),
                   ),
                   Positioned(top: Responsive.height(21, context),
@@ -182,21 +208,30 @@ class _HomePageState extends State<HomePage> {
                   )),
                   Positioned(
                     top: Responsive.height(21, context),
-                    child: Container(
-                    height: Responsive.height(60, context),
-                    width: Responsive.width(94, context),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: const Folders(
-                      title: 'Design and\nArchitecture',
-                      titleColor: Colors.white,
-                      color: Color(0xFFB185EB),
-                      numberOfButtons: 3,
-                      buttonColor: Color(0xFFA176D9),
-                      buttonTextColor: Colors.white,
-                      buttonText: ['House','Commericial','Industrial'],
-                                        ),
-                    ),),
+                    child: AnimatedSlide(
+                      offset: selectedFolder=='Design and Architecture' ?offset :Offset.zero,
+                      duration: animationDuration,
+                      curve: Curves.easeInOut,
+                      child: GestureDetector(
+                        onTap: ()=> updateOffset('Design and Architecture'),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(94, context),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child:  const Folders(
+                          title: 'Design and\nArchitecture',
+                          titleColor: Colors.white,
+                          color: Color(0xFFB185EB),
+                          numberOfButtons: 3,
+                          buttonColor: Color(0xFFA176D9),
+                          buttonTextColor: Colors.white,
+                          buttonText: ['House','Commericial','Industrial'],
+                          
+                                            ),
+                        ),),
+                      ),
+                    ),
                   ),
                    Positioned(top: Responsive.height(31, context),
                   child: Container(
@@ -207,20 +242,29 @@ class _HomePageState extends State<HomePage> {
                   )),
                   Positioned(
                     top: Responsive.height(32, context),
-                    child: Container(
-                    height: Responsive.height(60, context),
-                    width: Responsive.width(94, context),
-                    child: const Folders(
-                    title: 'Real Estate',
-                    titleColor: Colors.white,
-                    color: Color(0xFF6B4397),
-                    description: 'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
-                    numberOfButtons: 5,
-                    buttonColor: Color(0xFF7A4DAC),
-                    buttonTextColor: Colors.white,
-                    buttonText: ['Buy','Sell','Rent','Lease','Property']
-                    
-                    )
+                    child: AnimatedSlide(
+                      offset: selectedFolder=='Real Estate' ?offset :Offset.zero,
+                      duration: animationDuration,
+                      curve: Curves.easeInOut,
+                      child: GestureDetector(
+                        onTap: ()=> updateOffset('Real Estate'),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(94, context),
+                        child: const  Folders(
+                        title: 'Real Estate',
+                        titleColor: Colors.white,
+                        color: Color(0xFF6B4397),
+                        description: 'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
+                        numberOfButtons: 5,
+                        buttonColor: Color(0xFF7A4DAC),
+                        buttonTextColor: Colors.white,
+                        buttonText: ['Buy','Sell','Rent','Lease','Property'],
+                        
+                        
+                        )
+                        ),
+                      ),
                     )
                   ),
                   Positioned(top: Responsive.height(42, context),
@@ -231,22 +275,31 @@ class _HomePageState extends State<HomePage> {
                   )),
                   Positioned(
                     top: Responsive.height(42, context),
-                    child: Container(
-                    height: Responsive.height(60, context),
-                    width: Responsive.width(94, context),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: const Folders(
-                      title: 'Swimming Pool',
-                      titleColor: Colors.white,
-                      color: Color(0xFF34185A),
-                      description: 'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
-                      numberOfButtons: 0,
-                      buttonColor: Color(0xFF5E2A8A),
-                      buttonTextColor: Colors.white,
-                      buttonText: [],
-                                        ),
-                    ),),
+                    child: AnimatedSlide(
+                      offset: selectedFolder=='Swimming Pool' ?offset :Offset.zero,
+                      duration: animationDuration,
+                      curve: Curves.easeInOut,
+                      child: GestureDetector(
+                        onTap: ()=> updateOffset('Swimming Pool'),
+                        child: Container(
+                        height: Responsive.height(60, context),
+                        width: Responsive.width(94, context),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: const  Folders(
+                          title: 'Swimming Pool',
+                          titleColor: Colors.white,
+                          color: Color(0xFF34185A),
+                          description: 'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
+                          numberOfButtons: 0,
+                          buttonColor: Color(0xFF5E2A8A),
+                          buttonTextColor: Colors.white,
+                          buttonText: [],
+                          
+                                            ),
+                        ),),
+                      ),
+                    ),
                   ),
                           ])),
           ],

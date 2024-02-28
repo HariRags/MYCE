@@ -1,9 +1,13 @@
 
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../utilities/responsive.dart';
+import '../pages/homepage.dart' ;
 
 class Folders extends StatefulWidget {
-  const Folders({Key? key, required this.title,required this.titleColor, this.description= '',required this.color,required this.numberOfButtons,required this.buttonColor,required this.buttonTextColor,required this.buttonText}) : super(key: key) ;
+  const Folders({Key? key, required this.title,required this.titleColor, this.description= '',required this.color,required this.numberOfButtons,required this.buttonColor,required this.buttonTextColor,required this.buttonText,}) : super(key: key) ;
   final String title;
   final Color? titleColor;
   final String description;
@@ -12,13 +16,15 @@ class Folders extends StatefulWidget {
   final Color? buttonColor;
   final Color? buttonTextColor;
   final List<String> buttonText;
-
+  
 
   @override
   State<Folders> createState() => _FoldersState();
 }
 
 class _FoldersState extends State<Folders> {
+  
+  
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -34,16 +40,18 @@ class _FoldersState extends State<Folders> {
             SizedBox(
               height: Responsive.height(2, context),
             ),
-            Container(
-              padding: EdgeInsets.only(left: Responsive.width(8, context)),
-              child: Text(
-                widget.title,
-                style: TextStyle(
-                    color: widget.titleColor, 
-                    fontSize: Responsive.height(2.7, context),
-                    fontWeight: FontWeight.w600),
+            
+               Container(
+                padding: EdgeInsets.only(left: Responsive.width(8, context)),
+                child: Text(
+                  widget.title,
+                  style: TextStyle(
+                      color: widget.titleColor, 
+                      fontSize: Responsive.height(2.7, context),
+                      fontWeight: FontWeight.w600),
+                ),
               ),
-            ),
+            
             SizedBox(
               height: Responsive.height(4.1, context),
             ),
