@@ -311,12 +311,23 @@ class BottomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.moveTo(size.width, size.height*0.90);
-    path.quadraticBezierTo(size.width, size.height, size.width*0.95, size.height*0.98);
-    path.lineTo(size.width*0.05, size.height*0.98);
-    path.quadraticBezierTo(0, size.height, 0, size.height*0.90);  
+    path.moveTo(size.width*0.95, size.height*0.95);
+    path.conicTo(size.width*0.95, size.height*0.994, size.width*0.85, size.height*0.99,0.7);
+    path.lineTo(size.width*0.15, size.height*0.99);
+    path.conicTo(size.width*0.05, size.height*0.994, size.width*0.05, size.height*0.95,0.7);  
     path.lineTo(0, 0);
     path.lineTo(size.width, 0);
+    double radius = 15; // adjust this value as per your requirement
+// double offset = 20; // adjust this value to move the clipper up or down
+
+// path.lineTo(0, size.height - offset);
+// path.quadraticBezierTo(0, size.height - offset, radius, size.height - offset);
+// path.lineTo(size.width - radius, size.height - offset);
+// path.quadraticBezierTo(size.width, size.height - offset, size.width, size.height - radius - offset);
+// path.lineTo(size.width, 0);
+// path.lineTo(0, 0);
+// path.close();
+   
     return path;
   }
 
