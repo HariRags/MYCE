@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kriv/widgets/myce_backbutton.dart';
 import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
 
@@ -21,27 +22,7 @@ class  HouseState extends State <House> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(left:Responsive.width(3.5, context), bottom: Responsive.height(1, context),),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon:  Icon(Icons.arrow_back_ios, size: Responsive.height(2.4, context)),
-                    color: Colors.black,
-                    visualDensity: VisualDensity.compact,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  GestureDetector(
-                                    child: Image.asset('assets/images/myce_back_icon.png'),
-                                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                                  ),
-                ],
-              ),
-            ),
+            const MYCEBackButton(),
             Container(
               margin: EdgeInsets.only(left:Responsive.width(3.5, context), bottom: Responsive.height(3.2, context),),
               child: Row(
