@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
+import 'package:kriv/widgets/navigation.dart';
 import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
 
@@ -23,18 +24,7 @@ class  HouseState extends State <House> {
         child: Column(
           children: [
             const MYCEBackButton(),
-            Container(
-              margin: EdgeInsets.only(left:Responsive.width(3.5, context), bottom: Responsive.height(3.2, context),),
-              child: Row(
-                children: [
-                  Text('Execution', style: TextStyle(fontFamily:'Poppins', fontSize: Responsive.height(2.5, context), color: const Color.fromRGBO(132, 132, 132, 1),letterSpacing: -0.2),),
-                  SizedBox(width: Responsive.width(4, context),),
-                  Icon(Icons.arrow_forward_ios_rounded, color: const Color.fromRGBO(132, 132, 132, 1), size: Responsive.height(1.7, context),),
-                  SizedBox(width: Responsive.width(4, context),),
-                  Text('House', style: TextStyle(fontFamily:'Poppins', fontSize: Responsive.height(2.5, context), color:const Color.fromRGBO(70, 70, 70, 1), fontWeight: FontWeight.w600),),
-                ],
-              ) ,
-            ),
+            const NavigationWidget(navigationItems: ['Execution', 'House']),
             Container(
               child: SingleChildScrollView(
                 child: Column(
