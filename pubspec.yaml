@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/images/burger_icon.png
     - assets/images/myce_back_icon.png
+    - assets/images/villa_pic.png
     - assets/images/homepage_folders/Execution.png
     - assets/images/homepage_folders/ProjectManagement.png
     - assets/images/homepage_folders/RealEstate.png
