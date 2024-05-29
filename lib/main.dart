@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kriv/pages/house.dart';
+import 'package:kriv/pages/execution/commercial.dart';
+import 'package:kriv/pages/execution/house.dart';
+import 'package:kriv/pages/execution/industrial.dart';
 import 'pages/homepage.dart';
 
 void main() {
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const House(),
+      home: const Commercial(),
     );
   }
 }

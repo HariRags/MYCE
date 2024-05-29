@@ -51,7 +51,7 @@ class _ImageCardState extends State<ImageCard> {
                               ],),
                             ),
                            Container(
-                            height: Responsive.height(12.5, context),
+                            // height: Responsive.height(12.5, context),
                              child: Image.asset(
                                widget.imagePath,
                                fit: BoxFit.cover,
