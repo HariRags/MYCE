@@ -7,14 +7,14 @@ import 'package:kriv/widgets/navigation.dart';
 
 import '../../widgets/card.dart';
 
-class House extends StatefulWidget {
-  const House({Key? key}) : super(key: key);
+class InteriorDesign extends StatefulWidget {
+  const InteriorDesign({Key? key}) : super(key: key);
 
   @override
-  State <House> createState() =>  HouseState();
+  State <InteriorDesign> createState() =>  InteriorDesignState();
 }
 
-class  HouseState extends State <House> {
+class  InteriorDesignState extends State <InteriorDesign> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -22,7 +22,7 @@ class  HouseState extends State <House> {
         child: Column(
           children: [
             const MYCEBackButton(),
-            const NavigationWidget(navigationItems: ['Execution', 'House']),
+            const NavigationWidget(navigationItems: ['Architecture & Design', 'Interior Design']),
             Container(
               height: Responsive.height(80, context),
               child: SingleChildScrollView(
@@ -32,7 +32,7 @@ class  HouseState extends State <House> {
                       onTap:(){},
                       child: const ImageCard(
                         title: 'Villa',
-                        description: 'A large and luxurious house, often located in a scenic or desirable area.',
+                        description: 'Planning and creating the aesthetic and functional layout of the inside spaces of a luxury house.',
                         imagePath: 'assets/images/execution/villa.png',)
                         
                     ),
@@ -40,7 +40,7 @@ class  HouseState extends State <House> {
                       onTap:(){},
                       child: const ImageCard(
                         title: 'Bungalow',
-                        description: 'A small, single-story house, often with a veranda.',
+                        description: 'Planning and creating the interior layout, decor, and furnishings for a single-story house.',
                         imagePath: 'assets/images/execution/bungalow.png',)
                         
                     ),
@@ -48,15 +48,31 @@ class  HouseState extends State <House> {
                       onTap:(){},
                       child: const ImageCard(
                         title: 'Farmhouse',
-                        description: 'A house typically located in a rural or agricultural area, used as a residence and often surrounded by farmland.',
+                        description: 'Planning and creating the interior layout, decor, and furnishings of a rural residential building.',
                         imagePath: 'assets/images/execution/farmhouse.png',)
                         
                     ),
                     InkWell(
                       onTap:(){},
                       child: const ImageCard(
-                        title: 'Apartment',
-                        description: 'A self-contained housing unit within a larger building, often part of a residential complex.',
+                        title: 'Residential Apartment',
+                        description: 'Planning and creating the interior layout, decor, and functionality of a housing unit within a multi-story building.',
+                        imagePath: 'assets/images/execution/apartment.png',)
+                        
+                    ),
+                    InkWell(
+                      onTap:(){},
+                      child: const ImageCard(
+                        title: 'Commercial',
+                        description: 'Retail spaces, Office Spaces',
+                        imagePath: 'assets/images/execution/apartment.png',)
+                        
+                    ),
+                    InkWell(
+                      onTap:(){},
+                      child: const ImageCard(
+                        title: 'Industrial',
+                        description: 'Warehouses, Factories, Modern Sheds.',
                         imagePath: 'assets/images/execution/apartment.png',)
                         
                     ),

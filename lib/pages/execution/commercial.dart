@@ -33,7 +33,7 @@ class  CommercialState extends State <Commercial> {
                       imagePath: 'assets/images/execution/villa.png',)
                       
                   ),
-                  InkWell(
+                  InkWell(  
                     onTap:(){},
                     child: const ImageCard(
                       title: 'Warehouses',
