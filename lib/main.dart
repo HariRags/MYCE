@@ -7,6 +7,7 @@ import 'package:kriv/pages/execution/industrial.dart';
 import 'package:kriv/pages/project_management.dart/project.dart';
 import 'package:kriv/pages/real_estate/buy.dart';
 import 'package:kriv/pages/real_estate/sell.dart';
+import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
 import 'pages/homepage.dart';
 
 void main() {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const Sell(),
+      home: const SwimmingPool(),
     );
   }
 }
