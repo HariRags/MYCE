@@ -5,6 +5,8 @@ import 'package:kriv/pages/execution/commercial.dart';
 import 'package:kriv/pages/execution/house.dart';
 import 'package:kriv/pages/execution/industrial.dart';
 import 'package:kriv/pages/project_management.dart/project.dart';
+import 'package:kriv/pages/real_estate/buy.dart';
+import 'package:kriv/pages/real_estate/sell.dart';
 import 'pages/homepage.dart';
 
 void main() {
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const InteriorDesign(),
+      home: const Sell(),
     );
   }
 }
