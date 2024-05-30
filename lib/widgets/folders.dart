@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import '../utilities/responsive.dart';
-import '../pages/homepage.dart' ;
 
 class Folders extends StatefulWidget {
   const Folders({Key? key, required this.title,required this.titleColor, this.description= '',required this.color,required this.numberOfButtons,required this.buttonColor,required this.buttonTextColor,required this.buttonText,}) : super(key: key) ;
@@ -110,7 +109,7 @@ class _Description extends StatelessWidget {
         description,
         softWrap: true,
         style: TextStyle(
-          color: Color(0xFFE5E5E5),
+          color:const  Color(0xFFE5E5E5),
           fontSize: Responsive.height(1.7, context),
           
         ),

@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kriv/pages/architecture_and_design/architecture_design.dart';
-import 'package:kriv/pages/architecture_and_design/interior_design.dart';
-import 'package:kriv/pages/execution/commercial.dart';
-import 'package:kriv/pages/execution/house.dart';
-import 'package:kriv/pages/execution/industrial.dart';
-import 'package:kriv/pages/project_management.dart/project.dart';
-import 'package:kriv/pages/real_estate/buy.dart';
-import 'package:kriv/pages/real_estate/sell.dart';
+import 'package:kriv/pages/execution/house_villa.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
 import 'pages/homepage.dart';
 
@@ -27,7 +20,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const SwimmingPool(),
+      home: const HouseVilla(),
     );
   }
 }
