@@ -3,21 +3,21 @@ import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 
-class HouseVilla extends StatefulWidget {
-  const HouseVilla({Key? key}) : super(key: key);
+class HouseBungalow extends StatefulWidget {
+  const HouseBungalow({Key? key}) : super(key: key);
 
   @override
-  State<HouseVilla> createState() => _HouseVillaState();
+  State<HouseBungalow> createState() => _HouseBungalowState();
 }
 
-class _HouseVillaState extends State<HouseVilla> {
+class _HouseBungalowState extends State<HouseBungalow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
             child: Column(children: [
       const MYCEBackButton(),
-      const NavigationWidget(navigationItems: ['Execution', 'House', 'Villa']),
+      const NavigationWidget(navigationItems: ['Execution', 'House', 'Bungalow']),
       Container(
           margin: EdgeInsets.only(
             left: Responsive.width(3.5, context),
