@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:kriv/pages/architecture_and_design/structure_villa.dart';
 import 'package:kriv/pages/execution/house_villa.dart';
 import 'package:kriv/pages/project_management/services.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const Services(),
+      home: const StructureVilla(),
     );
   }
 }
