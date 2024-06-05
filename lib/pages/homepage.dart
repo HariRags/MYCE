@@ -2,6 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kriv/pages/architecture_and_design/architecture_design.dart';
+import 'package:kriv/pages/architecture_and_design/interior_design.dart';
+import 'package:kriv/pages/execution/commercial.dart';
+import 'package:kriv/pages/execution/house.dart';
+import 'package:kriv/pages/execution/industrial.dart';
+import 'package:kriv/pages/project_management/project.dart';
+import 'package:kriv/pages/project_management/services.dart';
+import 'package:kriv/pages/real_estate/buy_land.dart';
+import 'package:kriv/pages/real_estate/sell_land.dart';
+import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
 import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
 
@@ -16,6 +26,11 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   bool repeatTap = false;
   String selectedFolder ='';
+  List<Function> executionNavigation = [() => const House(), () => const Industrial(), () => const Commercial()];
+  List<Function> productManagementNavigation = [() => const Project(), () => const Services()];
+  List<Function> designNavigation = [() => const ArchitectureDesign(), () => const InteriorDesign(), () => const Industrial()];
+  List<Function> realEstateNavigation = [() => const BuyLand(), () => const SellLand()];
+  List<Function> swimmingPoolNavigation = [() => const SwimmingPool()];
     void updateOffset(folderToAnimate)
    {
       if(selectedFolder==folderToAnimate && repeatTap==false)
@@ -156,14 +171,15 @@ class HomePageState extends State<HomePage> {
                             width: Responsive.width(94, context),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(25),
-                              child:  const Folders(
+                              child:   Folders(
                                 title: 'Execution',
                                 titleColor: Colors.black,
-                                color: Color(0xFFF6F0FF),
+                                color: const Color(0xFFF6F0FF),
                                 numberOfButtons: 3,
-                                buttonColor: Color.fromARGB(255, 230, 216, 249),
+                                buttonColor: const Color.fromARGB(255, 230, 216, 249),
                                 buttonTextColor: Colors.black,
                                 buttonText: ['House', 'Industrial', 'Commercial'],
+                                buttonFunctions: executionNavigation,
                                 
                               ),
                             ),
@@ -197,14 +213,15 @@ class HomePageState extends State<HomePage> {
                           width: Responsive.width(94, context),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(25),
-                            child:  const Folders(
+                            child:   Folders(
                             title: 'Project \nManagement',
                             titleColor: Colors.black,
-                            color: Color(0xFFE2D2F8),
+                            color: const Color(0xFFE2D2F8),
                             numberOfButtons: 2,
-                            buttonColor: Color(0xFFDABEFF),
+                            buttonColor: const Color(0xFFDABEFF),
                             buttonTextColor: Colors.black,
                             buttonText: ['Project','Property'],
+                            buttonFunctions: productManagementNavigation,
                             
                                               ),
                           ),),
@@ -231,14 +248,15 @@ class HomePageState extends State<HomePage> {
                           width: Responsive.width(94, context),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(25),
-                            child:  const Folders(
+                            child:   Folders(
                             title: 'Design and\nArchitecture',
                             titleColor: Colors.white,
-                            color: Color(0xFFB185EB),
+                            color: const Color(0xFFB185EB),
                             numberOfButtons: 3,
-                            buttonColor: Color(0xFFA176D9),
+                            buttonColor: const Color(0xFFA176D9),
                             buttonTextColor: Colors.white,
                             buttonText: ['House','Commericial','Industrial'],
+                            buttonFunctions: designNavigation,
                             
                                               ),
                           ),),
@@ -263,22 +281,25 @@ class HomePageState extends State<HomePage> {
                           child: Container(
                           height: Responsive.height(60, context),
                           width: Responsive.width(94, context),
-                          child: const  Folders(
+                          child:   Folders(
                           title: 'Real Estate',
                           titleColor: Colors.white,
-                          color: Color(0xFF6B4397),
+                          color: const Color(0xFF6B4397),
                           description: 'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
                           numberOfButtons: 5,
-                          buttonColor: Color(0xFF7A4DAC),
+                          buttonColor: const Color(0xFF7A4DAC),
                           buttonTextColor: Colors.white,
                           buttonText: ['Buy','Sell','Study','Lias','Paperworks'],
+                          buttonFunctions: realEstateNavigation,
                           
+                          ),
+                          ),
                           
                           )
                           ),
                         ),
-                      )
-                    ),
+                      
+                    
                     Positioned(top: Responsive.height(42, context),
                     child: Container(
                       height: Responsive.height(60, context),
@@ -292,13 +313,13 @@ class HomePageState extends State<HomePage> {
                         duration: animationDuration,
                         curve: Curves.easeInOut,
                         child: GestureDetector(
-                          onTap: ()=> updateOffset('Swimming Pool'),
+                          onTap: ()=> const SwimmingPool(),
                           child: Container(
                           height: Responsive.height(60, context),
                           width: Responsive.width(94, context),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(25),
-                            child: const  Folders(
+                            child:  const Folders(
                             title: 'Swimming Pool',
                             titleColor: Colors.white,
                             color: Color(0xFF34185A),
@@ -307,6 +328,7 @@ class HomePageState extends State<HomePage> {
                             buttonColor: Color(0xFF5E2A8A),
                             buttonTextColor: Colors.white,
                             buttonText: [],
+                            buttonFunctions: [],
                             
                                               ),
                           ),),

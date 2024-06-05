@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../utilities/responsive.dart';
 
 class Folders extends StatefulWidget {
-  const Folders({Key? key, required this.title,required this.titleColor, this.description= '',required this.color,required this.numberOfButtons,required this.buttonColor,required this.buttonTextColor,required this.buttonText,}) : super(key: key) ;
+  const Folders({Key? key, required this.title,required this.titleColor, this.description= '',required this.color,required this.numberOfButtons,required this.buttonColor,required this.buttonTextColor,required this.buttonText, required this.buttonFunctions}) : super(key: key) ;
   final String title;
   final Color? titleColor;
   final String description;
@@ -12,6 +12,7 @@ class Folders extends StatefulWidget {
   final Color? buttonColor;
   final Color? buttonTextColor;
   final List<String> buttonText;
+  final List<Function> buttonFunctions;
   
 
   @override
@@ -61,7 +62,7 @@ class _FoldersState extends State<Folders> {
             )
             :Container(),
 
-            _FolderButtons(numberOfButtons: widget.numberOfButtons!, buttonText: widget.buttonText, buttonColor:widget.buttonColor!, buttonTextColor: widget.buttonTextColor!, context: context)
+            _FolderButtons(numberOfButtons: widget.numberOfButtons!, buttonText: widget.buttonText, buttonColor:widget.buttonColor!, buttonTextColor: widget.buttonTextColor!,buttonFunction:widget.buttonFunctions, context: context)
           ],
         ),
       ),
@@ -123,13 +124,15 @@ class _FolderButtons extends StatelessWidget {
   final Color buttonColor;
   final Color buttonTextColor;
   final BuildContext context;
+  final List<Function> buttonFunction;
 
   const _FolderButtons({Key? key, 
     required this.numberOfButtons,
     required this.buttonText,
     required this.buttonColor,
     required this.buttonTextColor,
-    required this.context,
+    required this.context, 
+    required this.buttonFunction
   }) : super(key: key);
 
   @override
@@ -159,7 +162,10 @@ class _FolderButtons extends StatelessWidget {
                     fontSize: Responsive.height(2.0, context),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  buttonFunction[index]()),
+    );},
               ),
             ),
           );
