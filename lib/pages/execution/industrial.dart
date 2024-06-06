@@ -30,7 +30,7 @@ class  IndustrialState extends State <Industrial> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap:(){IndustrialOfficeSpace();},
+                    onTap:(){const IndustrialOfficeSpace();},
                     child: const ImageCard(
                       title: 'Office Space',
                       description: 'Areas within a building specifically designed for working, typically equipped with desks, computers, and other work-related amenities.',
@@ -38,7 +38,7 @@ class  IndustrialState extends State <Industrial> {
                       
                   ),
                   GestureDetector(
-                    onTap:(){IndustrialRetail();},
+                    onTap:(){const IndustrialRetail();},
                     child: const ImageCard(
                       title: 'Retail Space',
                       description: 'Commercial areas where goods or services are sold directly to consumers.',

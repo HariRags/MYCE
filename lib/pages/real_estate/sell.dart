@@ -1,5 +1,10 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:kriv/pages/real_estate/sell_commercial.dart';
+import 'package:kriv/pages/real_estate/sell_land.dart';
+import 'package:kriv/pages/real_estate/sell_residential.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -28,24 +33,24 @@ class  SellState extends State <Sell> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    InkWell(
-                      onTap:(){},
+                    GestureDetector(
+                      onTap:(){const SellLand();},
                       child: const ImageCard(
                         title: 'Land',
                         description: 'A person or entity purchases a piece of land, usually for development, investment, or personal use.',
                         imagePath: 'assets/images/execution/villa.png',)
                         
                     ),
-                    InkWell(
-                      onTap:(){},
+                    GestureDetector(
+                      onTap:(){const SellResidential();},
                       child: const ImageCard(
                         title: 'Residential',
                         description: 'A person or entity purchases a residential property for personal use or investment.',
                         imagePath: 'assets/images/execution/bungalow.png',)
                         
                     ),
-                    InkWell(
-                      onTap:(){},
+                    GestureDetector(
+                      onTap:(){const SellCommercial ();},
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'A business or investor purchases property for the purpose of generating income or conducting business activities.',
