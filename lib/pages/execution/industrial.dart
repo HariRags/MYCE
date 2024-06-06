@@ -1,5 +1,9 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:kriv/pages/execution/industrial_office_space.dart';
+import 'package:kriv/pages/execution/industrial_retail.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
@@ -25,16 +29,16 @@ class  IndustrialState extends State <Industrial> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  InkWell(
-                    onTap:(){},
+                  GestureDetector(
+                    onTap:(){IndustrialOfficeSpace();},
                     child: const ImageCard(
                       title: 'Office Space',
                       description: 'Areas within a building specifically designed for working, typically equipped with desks, computers, and other work-related amenities.',
                       imagePath: 'assets/images/execution/villa.png',)
                       
                   ),
-                  InkWell(
-                    onTap:(){},
+                  GestureDetector(
+                    onTap:(){IndustrialRetail();},
                     child: const ImageCard(
                       title: 'Retail Space',
                       description: 'Commercial areas where goods or services are sold directly to consumers.',

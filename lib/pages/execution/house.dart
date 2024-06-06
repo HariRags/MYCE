@@ -1,5 +1,11 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:kriv/pages/execution/house_apartment.dart';
+import 'package:kriv/pages/execution/house_bungalow.dart';
+import 'package:kriv/pages/execution/house_farmhouse.dart';
+import 'package:kriv/pages/execution/house_villa.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -28,32 +34,32 @@ class  HouseState extends State <House> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    InkWell(
-                      onTap:(){},
+                    GestureDetector(
+                      onTap:(){HouseVilla();},
                       child: const ImageCard(
                         title: 'Villa',
                         description: 'A large and luxurious house, often located in a scenic or desirable area.',
                         imagePath: 'assets/images/execution/villa.png',)
                         
                     ),
-                    InkWell(
-                      onTap:(){},
+                    GestureDetector(
+                      onTap:(){HouseBungalow();},
                       child: const ImageCard(
                         title: 'Bungalow',
                         description: 'A small, single-story house, often with a veranda.',
                         imagePath: 'assets/images/execution/bungalow.png',)
                         
                     ),
-                    InkWell(
-                      onTap:(){},
+                    GestureDetector(
+                      onTap:(){HouseFarmhouse();},
                       child: const ImageCard(
                         title: 'Farmhouse',
                         description: 'A house typically located in a rural or agricultural area, used as a residence and often surrounded by farmland.',
                         imagePath: 'assets/images/execution/farmhouse.png',)
                         
                     ),
-                    InkWell(
-                      onTap:(){},
+                    GestureDetector(
+                      onTap:(){HouseApartment();},
                       child: const ImageCard(
                         title: 'Apartment',
                         description: 'A self-contained housing unit within a larger building, often part of a residential complex.',
