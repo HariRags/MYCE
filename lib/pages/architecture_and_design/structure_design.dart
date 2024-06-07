@@ -1,13 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:kriv/pages/architecture_and_design/interior_bungalow.dart';
-import 'package:kriv/pages/architecture_and_design/interior_commercial.dart';
-import 'package:kriv/pages/architecture_and_design/interior_farmhouse.dart';
-import 'package:kriv/pages/architecture_and_design/interior_industrial.dart';
-import 'package:kriv/pages/architecture_and_design/interior_residential.dart';
-import 'package:kriv/pages/architecture_and_design/interior_villa.dart';
 import 'package:kriv/pages/architecture_and_design/structure_bungalow.dart';
 import 'package:kriv/pages/architecture_and_design/structure_commercial.dart';
 import 'package:kriv/pages/architecture_and_design/structure_farmhouse.dart';
