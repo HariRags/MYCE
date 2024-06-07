@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,38 +13,50 @@ class Commercial extends StatefulWidget {
   const Commercial({Key? key}) : super(key: key);
 
   @override
-  State <Commercial> createState() =>  CommercialState();
+  State<Commercial> createState() => CommercialState();
 }
 
-class  CommercialState extends State <Commercial> {
+class CommercialState extends State<Commercial> {
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             const MYCEBackButton(),
-            const NavigationWidget(navigationItems: ['Execution', 'Commercial']),
+            const NavigationWidget(
+                navigationItems: ['Execution', 'Commercial']),
             SingleChildScrollView(
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap:(){const CommercialFactory();},
-                    child: const ImageCard(
-                      title: 'Factory Structure',
-                      description: 'The overall layout and organization of a manufacturing facility, including buildings, equipment, and workflow.',
-                      imagePath: 'assets/images/execution/villa.png',)
-                      
-                  ),
-                  GestureDetector(  
-                    onTap:(){const CommercialWarehouse();},
-                    child: const ImageCard(
-                      title: 'Warehouses',
-                      description: 'Large buildings used for storing goods or merchandise, typically used in logistics and supply chain operations.',
-                      imagePath: 'assets/images/execution/bungalow.png',)
-                      
-                  ),
-                  
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CommercialFactory()),
+                        );
+                      },
+                      child: const ImageCard(
+                        title: 'Factory Structure',
+                        description:
+                            'The overall layout and organization of a manufacturing facility, including buildings, equipment, and workflow.',
+                        imagePath: 'assets/images/execution/villa.png',
+                      )),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CommercialWarehouse()),
+                        );
+                      },
+                      child: const ImageCard(
+                        title: 'Warehouses',
+                        description:
+                            'Large buildings used for storing goods or merchandise, typically used in logistics and supply chain operations.',
+                        imagePath: 'assets/images/execution/bungalow.png',
+                      )),
                 ],
               ),
             ),

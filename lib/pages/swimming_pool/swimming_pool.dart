@@ -32,7 +32,11 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap:(){const PoolExecution();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PoolExecution()),
+                        );},
                       child: const ImageCard(
                         title: 'Execution ',
                         description: 'This involves the physical construction and installation of the pool based on the design plans.',
@@ -40,7 +44,11 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){const PoolMaintenance();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PoolMaintenance()),
+                        );},
                       child: const ImageCard(
                         title: 'Maintenance',
                         description: 'This involves cleaning, repairing, and ensuring the proper functioning of the pool and its equipment.',
@@ -48,7 +56,11 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){const PoolEquipment();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PoolEquipment()),
+                        );},
                       child: const ImageCard(
                         title: 'Equipments',
                         description: 'The devices and machinery used for filtration, circulation, heating, and maintenance of the pool water.',

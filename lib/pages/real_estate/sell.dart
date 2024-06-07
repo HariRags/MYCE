@@ -34,7 +34,11 @@ class  SellState extends State <Sell> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){const SellLand();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SellLand()),
+                        );},
                       child: const ImageCard(
                         title: 'Land',
                         description: 'A person or entity purchases a piece of land, usually for development, investment, or personal use.',
@@ -42,7 +46,11 @@ class  SellState extends State <Sell> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const SellResidential();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SellResidential()),
+                        );},
                       child: const ImageCard(
                         title: 'Residential',
                         description: 'A person or entity purchases a residential property for personal use or investment.',
@@ -50,7 +58,11 @@ class  SellState extends State <Sell> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const SellCommercial ();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SellCommercial()),
+                        );},
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'A business or investor purchases property for the purpose of generating income or conducting business activities.',

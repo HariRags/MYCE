@@ -35,7 +35,11 @@ class  HouseState extends State <House> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){HouseVilla();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HouseVilla()),
+                        );},
                       child: const ImageCard(
                         title: 'Villa',
                         description: 'A large and luxurious house, often located in a scenic or desirable area.',
@@ -43,7 +47,11 @@ class  HouseState extends State <House> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){HouseBungalow();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HouseBungalow()),
+                        );},
                       child: const ImageCard(
                         title: 'Bungalow',
                         description: 'A small, single-story house, often with a veranda.',
@@ -51,7 +59,11 @@ class  HouseState extends State <House> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){HouseFarmhouse();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HouseFarmhouse()),
+                        );},
                       child: const ImageCard(
                         title: 'Farmhouse',
                         description: 'A house typically located in a rural or agricultural area, used as a residence and often surrounded by farmland.',
@@ -59,7 +71,11 @@ class  HouseState extends State <House> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){HouseApartment();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HouseApartment()),
+                        );},
                       child: const ImageCard(
                         title: 'Apartment',
                         description: 'A self-contained housing unit within a larger building, often part of a residential complex.',

@@ -35,7 +35,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){const StructureVilla();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StructureVilla()),
+                        );},
                       child: const ImageCard(
                         title: 'Villa',
                         description: 'Planning and creating the architectural framework and support systems for a luxury house.',
@@ -43,7 +47,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const StructureBungalow();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StructureBungalow()),
+                        );},
                       child: const ImageCard(
                         title: 'Bungalow',
                         description: 'Planning and creating the architectural framework and support systems for a single-story house.',
@@ -51,7 +59,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const StructureFarmhouse();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StructureFarmhouse()),
+                        );},
                       child: const ImageCard(
                         title: 'Farmhouse',
                         description: 'Planning and creating the architectural framework and support systems for a rural residential building typically surrounded by agricultural land.',
@@ -59,7 +71,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const StructureResidential();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StructureResidential()),
+                        );},
                       child: const ImageCard(
                         title: 'Residential Apartment',
                         description: 'Planning and creating the architectural framework and support systems for a multi-story housing unit.',
@@ -67,7 +83,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const StructureCommercial();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StructureCommercial()),
+                        );},
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'Planning and creating the architectural framework and support systems for areas used for business activities or providing services.',
@@ -75,7 +95,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const StructureIndustrial();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StructureIndustrial()),
+                        );},
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Planning and creating the architectural framework and support systems for areas used in manufacturing, production, or storage of goods.',

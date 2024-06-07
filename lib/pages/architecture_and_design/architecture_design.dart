@@ -37,59 +37,99 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){const ArchitectureVilla();},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArchitectureVilla(),
+                          ),
+                        );
+                      },
                       child: const ImageCard(
                         title: 'Villa',
                         description: 'Planning and creating the layout, appearance, and functionality of a luxury house.',
-                        imagePath: 'assets/images/execution/villa.png',)
-                        
+                        imagePath: 'assets/images/execution/villa.png',
+                      ),
                     ),
                     GestureDetector(
-                      onTap:(){const ArchitectureBungalow();},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArchitectureBungalow(),
+                          ),
+                        );
+                      },
                       child: const ImageCard(
                         title: 'Bungalow',
                         description: 'Planning and creating the layout, appearance, and functionality of a single-story house.',
-                        imagePath: 'assets/images/execution/bungalow.png',)
-                        
+                        imagePath: 'assets/images/execution/bungalow.png',
+                      ),
                     ),
                     GestureDetector(
-                      onTap:(){const ArchitectureFarmhouse();},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArchitectureFarmhouse(),
+                          ),
+                        );
+                      },
                       child: const ImageCard(
                         title: 'Farmhouse',
                         description: 'Planning and creating the layout, appearance, and functionality of a rural residential building typically surrounded by agricultural land.',
-                        imagePath: 'assets/images/execution/farmhouse.png',)
-                        
+                        imagePath: 'assets/images/execution/farmhouse.png',
+                      ),
                     ),
                     GestureDetector(
-                      onTap:(){const ArchitectureResedential();},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArchitectureResedential(),
+                          ),
+                        );
+                      },
                       child: const ImageCard(
                         title: 'Residential Apartment',
                         description: 'Planning and creating the layout, appearance, and functionality of a housing unit within a multi-story building.',
-                        imagePath: 'assets/images/execution/apartment.png',)
-                        
+                        imagePath: 'assets/images/execution/apartment.png',
+                      ),
                     ),
                     GestureDetector(
-                      onTap:(){const ArchitectureCommercial();},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArchitectureCommercial(),
+                          ),
+                        );
+                      },
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'Planning and creating the layout, appearance, and functionality of areas used for conducting business activities or providing services.',
-                        imagePath: 'assets/images/execution/apartment.png',)
-                        
+                        imagePath: 'assets/images/execution/apartment.png',
+                      ),
                     ),
                     GestureDetector(
-                      onTap:(){const ArchitectureIndustrial();},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArchitectureIndustrial(),
+                          ),
+                        );
+                      },
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Planning and creating the layout, appearance, and functionality of areas used for manufacturing, production, or storage of goods.',
-                        imagePath: 'assets/images/execution/apartment.png',)
-                        
+                        imagePath: 'assets/images/execution/apartment.png',
+                      ),
                     ),
-                    
                   ],
                 ),
               ),
-            ),
-          ],
+        )],
         ),
       ),
     );

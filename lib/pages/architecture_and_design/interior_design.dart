@@ -37,7 +37,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){const InteriorVilla();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InteriorVilla()),
+                        );},
                       child: const ImageCard(
                         title: 'Villa',
                         description: 'Planning and creating the aesthetic and functional layout of the inside spaces of a luxury house.',
@@ -45,7 +49,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorBungalow();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InteriorBungalow()),
+                        );},
                       child: const ImageCard(
                         title: 'Bungalow',
                         description: 'Planning and creating the interior layout, decor, and furnishings for a single-story house.',
@@ -53,7 +61,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorFarmhouse();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InteriorFarmhouse()),
+                        );;},
                       child: const ImageCard(
                         title: 'Farmhouse',
                         description: 'Planning and creating the interior layout, decor, and furnishings of a rural residential building.',
@@ -61,7 +73,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorResidential();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InteriorResidential()),
+                        );},
                       child: const ImageCard(
                         title: 'Residential Apartment',
                         description: 'Planning and creating the interior layout, decor, and functionality of a housing unit within a multi-story building.',
@@ -69,7 +85,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorCommercial();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InteriorCommercial()),
+                        );},
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'Retail spaces, Office Spaces',
@@ -77,7 +97,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorIndustrial();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InteriorIndustrial()),
+                        );},
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Warehouses, Factories, Modern Sheds.',

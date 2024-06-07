@@ -34,7 +34,11 @@ class  BuyState extends State <Buy> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){const BuyLand();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BuyLand()),
+                        );},
                       child: const ImageCard(
                         title: 'Land',
                         description: 'Ownership of land is transferred from the seller to the buyer in exchange for an agreed-upon price.',
@@ -42,7 +46,11 @@ class  BuyState extends State <Buy> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){const BuyResidential();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BuyResidential()),
+                        );},
                       child: const ImageCard(
                         title: 'Residential',
                         description: 'Selling of a residential property by property owner to a buyer, typically facilitated by a real estate agent or broker.',
@@ -50,7 +58,11 @@ class  BuyState extends State <Buy> {
                         
                     ),
                     InkWell(
-                      onTap:(){const BuyCommercial();},
+                      onTap:(){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BuyCommercial()),
+                        );},
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'A property intended for business use is marketed and sold to a buyer for commercial purposes.',
