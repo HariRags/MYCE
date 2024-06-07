@@ -313,7 +313,11 @@ class HomePageState extends State<HomePage> {
                         duration: animationDuration,
                         curve: Curves.easeInOut,
                         child: GestureDetector(
-                          onTap: ()=> const SwimmingPool(),
+                          onTap: (){Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SwimmingPool()),
+                        );},
                           child: Container(
                           height: Responsive.height(60, context),
                           width: Responsive.width(94, context),
