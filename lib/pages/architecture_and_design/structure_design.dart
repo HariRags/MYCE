@@ -8,6 +8,12 @@ import 'package:kriv/pages/architecture_and_design/interior_farmhouse.dart';
 import 'package:kriv/pages/architecture_and_design/interior_industrial.dart';
 import 'package:kriv/pages/architecture_and_design/interior_residential.dart';
 import 'package:kriv/pages/architecture_and_design/interior_villa.dart';
+import 'package:kriv/pages/architecture_and_design/structure_bungalow.dart';
+import 'package:kriv/pages/architecture_and_design/structure_commercial.dart';
+import 'package:kriv/pages/architecture_and_design/structure_farmhouse.dart';
+import 'package:kriv/pages/architecture_and_design/structure_industrial.dart';
+import 'package:kriv/pages/architecture_and_design/structure_residential.dart';
+import 'package:kriv/pages/architecture_and_design/structure_villa.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -15,14 +21,14 @@ import 'package:kriv/widgets/navigation.dart';
 
 import '../../widgets/card.dart';
 
-class InteriorDesign extends StatefulWidget {
-  const InteriorDesign({Key? key}) : super(key: key);
+class StrcutureDesign extends StatefulWidget {
+  const StrcutureDesign({Key? key}) : super(key: key);
 
   @override
-  State <InteriorDesign> createState() =>  InteriorDesignState();
+  State <StrcutureDesign> createState() =>  StrcutureDesignState();
 }
 
-class  InteriorDesignState extends State <InteriorDesign> {
+class  StrcutureDesignState extends State <StrcutureDesign> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -30,57 +36,57 @@ class  InteriorDesignState extends State <InteriorDesign> {
         child: Column(
           children: [
             const MYCEBackButton(),
-            const NavigationWidget(navigationItems: ['Architecture & Design', 'Interior Design']),
+            const NavigationWidget(navigationItems: ['Architecture & Design', 'Structure Design']),
             Container(
               height: Responsive.height(80, context),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){const InteriorVilla();},
+                      onTap:(){const StructureVilla();},
                       child: const ImageCard(
                         title: 'Villa',
-                        description: 'Planning and creating the aesthetic and functional layout of the inside spaces of a luxury house.',
+                        description: 'Planning and creating the architectural framework and support systems for a luxury house.',
                         imagePath: 'assets/images/execution/villa.png',)
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorBungalow();},
+                      onTap:(){const StructureBungalow();},
                       child: const ImageCard(
                         title: 'Bungalow',
-                        description: 'Planning and creating the interior layout, decor, and furnishings for a single-story house.',
+                        description: 'Planning and creating the architectural framework and support systems for a single-story house.',
                         imagePath: 'assets/images/execution/bungalow.png',)
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorFarmhouse();},
+                      onTap:(){const StructureFarmhouse();},
                       child: const ImageCard(
                         title: 'Farmhouse',
-                        description: 'Planning and creating the interior layout, decor, and furnishings of a rural residential building.',
+                        description: 'Planning and creating the architectural framework and support systems for a rural residential building typically surrounded by agricultural land.',
                         imagePath: 'assets/images/execution/farmhouse.png',)
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorResidential();},
+                      onTap:(){const StructureResidential();},
                       child: const ImageCard(
                         title: 'Residential Apartment',
-                        description: 'Planning and creating the interior layout, decor, and functionality of a housing unit within a multi-story building.',
+                        description: 'Planning and creating the architectural framework and support systems for a multi-story housing unit.',
                         imagePath: 'assets/images/execution/apartment.png',)
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorCommercial();},
+                      onTap:(){const StructureCommercial();},
                       child: const ImageCard(
                         title: 'Commercial',
-                        description: 'Retail spaces, Office Spaces',
+                        description: 'Planning and creating the architectural framework and support systems for areas used for business activities or providing services.',
                         imagePath: 'assets/images/execution/apartment.png',)
                         
                     ),
                     GestureDetector(
-                      onTap:(){const InteriorIndustrial();},
+                      onTap:(){const StructureIndustrial();},
                       child: const ImageCard(
                         title: 'Industrial',
-                        description: 'Warehouses, Factories, Modern Sheds.',
+                        description: 'Planning and creating the architectural framework and support systems for areas used in manufacturing, production, or storage of goods.',
                         imagePath: 'assets/images/execution/apartment.png',)
                         
                     ),
