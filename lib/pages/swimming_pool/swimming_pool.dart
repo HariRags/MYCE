@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:kriv/pages/swimming_pool/pool_equipment.dart';
+import 'package:kriv/pages/swimming_pool/pool_execution.dart';
+import 'package:kriv/pages/swimming_pool/pool_maintenance.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -29,7 +32,7 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap:(){},
+                      onTap:(){const PoolExecution();},
                       child: const ImageCard(
                         title: 'Execution ',
                         description: 'This involves the physical construction and installation of the pool based on the design plans.',
@@ -37,7 +40,7 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){},
+                      onTap:(){const PoolMaintenance();},
                       child: const ImageCard(
                         title: 'Maintenance',
                         description: 'This involves cleaning, repairing, and ensuring the proper functioning of the pool and its equipment.',
@@ -45,7 +48,7 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){},
+                      onTap:(){const PoolEquipment();},
                       child: const ImageCard(
                         title: 'Equipments',
                         description: 'The devices and machinery used for filtration, circulation, heating, and maintenance of the pool water.',
