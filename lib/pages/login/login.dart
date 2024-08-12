@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:kriv/pages/login/verification.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,6 +10,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _formKey,
                         child: TextFormField(
                           decoration: InputDecoration(
                               hintText: 'Email id or phone number',
@@ -65,6 +66,12 @@ class _LoginPageState extends State<LoginPage> {
                                   left: Responsive.width(1, context),
                                   bottom: Responsive.height(1.2, context)),
                               border: InputBorder.none),
+                               validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'This field cannot be empty';
+              }
+              return null;
+            },
                         ),
                       ),
             ),
@@ -73,7 +80,14 @@ class _LoginPageState extends State<LoginPage> {
                 width: Responsive.width(95, context),
                 height: Responsive.height(6.5, context),
                 child: FilledButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Verification()),
+                );
+              }
+                  },
                   child: Text(
                     'Get otp',
                     style: TextStyle(fontSize: Responsive.height(2.3, context)),

@@ -1,5 +1,6 @@
 import 'dart:ui';
-
+import 'package:kriv/pages/login/info_page.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:kriv/utilities/responsive.dart';
 
@@ -37,43 +38,50 @@ class _VerificationState extends State<Verification> {
             ),
             Container(
               
-            margin: EdgeInsets.only(bottom: Responsive.height(2, context)),
+            margin: EdgeInsets.only(bottom: Responsive.height(3, context)),
               padding: EdgeInsets.only(left:Responsive.width(5, context), right: Responsive.width(15, context)),
               alignment: Alignment.centerLeft,
               child:Text('Please enter the verification code sent to your phone or email', style: TextStyle(color:const Color.fromRGBO(102, 102, 102, 1), fontFamily: 'Poppins',fontWeight:FontWeight.w500, fontSize: Responsive.height(1.7, context)  ),)
              ,
             ),
+            PinCodeTextField(
+              length: 4,
+              appContext: context,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              pinTheme: PinTheme(
+                fieldHeight: Responsive.height(7, context),
+                fieldWidth: Responsive.width(15, context),
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(5),
+                selectedColor: const Color.fromRGBO(107, 67, 151, 1),
+                
+                activeColor: const Color.fromRGBO(107, 67, 151, 1),
+                inactiveColor: const Color.fromRGBO(107, 67, 151, 1),
+                inactiveFillColor:const Color.fromRGBO(107, 67, 151, 1),
+                selectedFillColor: const Color.fromRGBO(107, 67, 151, 1),
+
+                
+            )),
+            SizedBox(height: Responsive.height(1, context),),
             Container(
-              margin: EdgeInsets.only(left: Responsive.width(5, context),right: Responsive.width(5, context), bottom: Responsive.height(3, context)),
-              padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                  height: Responsive.height(5, context),
-                  alignment: Alignment.topLeft,
-                  decoration: BoxDecoration(
-                      border:
-                          Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                      borderRadius: BorderRadius.circular(6)),
-                  child: Form(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              hintText: 'Email id or phone number',
-                              hintStyle: TextStyle(
-                                  color: const Color.fromRGBO(17, 17, 19, 0.6),
-                                  fontSize: Responsive.height(1.8, context),
-                                  fontWeight: FontWeight.w400,
-                                  ),
-                              contentPadding: EdgeInsets.only(
-                                  left: Responsive.width(1, context),
-                                  bottom: Responsive.height(1.2, context)),
-                              border: InputBorder.none),
-                        ),
-                      ),
+              
+            margin: EdgeInsets.only(bottom: Responsive.height(3, context)),
+              padding: EdgeInsets.only(left:Responsive.width(5, context), right: Responsive.width(15, context)),
+              alignment: Alignment.center,
+              child:Text('Didn\'t receive the code? Resend', style: TextStyle(color:const Color.fromRGBO(102, 102, 102, 1), fontFamily: 'Poppins',fontWeight:FontWeight.w500, fontSize: Responsive.height(1.7, context)  ),)
+             ,
             ),
             Container(
               margin: EdgeInsets.only(left: Responsive.width(5, context),right: Responsive.width(5, context)),
                 width: Responsive.width(95, context),
                 height: Responsive.height(6.5, context),
                 child: FilledButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const InfoPage()),
+                    );
+                  },
                   child: Text(
                     'Verify otp',
                     style: TextStyle(fontSize: Responsive.height(2.3, context)),
