@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
@@ -140,7 +141,12 @@ class _InfoPageState extends State<InfoPage> {
                 width: Responsive.width(95, context),
                 height: Responsive.height(6.5, context),
                 child: FilledButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+                  },
                   child: Text(
                     'Done',
                     style: TextStyle(fontSize: Responsive.height(2.3, context)),
