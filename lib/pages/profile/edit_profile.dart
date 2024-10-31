@@ -215,11 +215,11 @@ class EditProfileState extends State<EditProfile> {
                   onPressed: () {},
                   style: ButtonStyle(
                     backgroundColor:
-                        WidgetStateProperty.all<Color>(const Color(0xFF6B4397)),
-                    shape: WidgetStateProperty.all<OutlinedBorder>(
+                        MaterialStateProperty.all<Color>(const Color(0xFF6B4397)),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14))),
-                    fixedSize: WidgetStateProperty.all<Size>(Size(
+                    fixedSize: MaterialStateProperty.all<Size>(Size(
                         Responsive.width(90, context),
                         Responsive.height(7.2, context))),
                   ),

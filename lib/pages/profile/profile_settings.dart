@@ -305,12 +305,12 @@ class ProfileSettingsState extends State<ProfileSettings> {
             TextButton(
               onPressed: () {},
               style: ButtonStyle(
-                shape: WidgetStateProperty.all<OutlinedBorder>(
+                shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                   side: const BorderSide(color: Color(0xFFE30000), width: 2),
                 )),
-                fixedSize: WidgetStateProperty.all<Size>(Size(
+                fixedSize: MaterialStateProperty.all<Size>(Size(
                     Responsive.width(93, context),
                     Responsive.height(7.2, context))),
               ),

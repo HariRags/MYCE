@@ -142,6 +142,7 @@ class _InfoPageState extends State<InfoPage> {
                 height: Responsive.height(6.5, context),
                 child: FilledButton(
                   onPressed: () {
+                    // handle api call for signup
                     Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),

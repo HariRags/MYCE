@@ -13,7 +13,8 @@ import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/swimming_pool/pool_execution.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
 import 'pages/homepage.dart';
-
+import 'package:kriv/utilities/login_post.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -24,14 +25,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MYCE App',
-      theme: ThemeData(
-        fontFamily:'Poppins',
-        
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (context) => AuthBloc(),
+      child: MaterialApp(
+        title: 'MYCE App',
+        theme: ThemeData(
+          fontFamily:'Poppins',
+          
+          primarySwatch: Colors.blue,
+        ),
+        home: const LoginPage(),
       ),
-      home: const LoginPage(),
     );
   }
 }

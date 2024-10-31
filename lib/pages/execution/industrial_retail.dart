@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
-
+import 'package:kriv/utilities/industry_post.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 class IndustrialRetail extends StatefulWidget {
   const IndustrialRetail({Key? key}) : super(key: key);
 
@@ -11,6 +12,54 @@ class IndustrialRetail extends StatefulWidget {
 }
 
 class _IndustrialRetailState extends State<IndustrialRetail> {
+  String auth_token = "";
+  late IndustryBloc _industryBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    // Access industryBloc from the context here
+    final industryBloc = BlocProvider.of<IndustryBloc>(context);
+    auth_token = industryBloc.authToken;
+    _industryBloc = IndustryBloc(auth_token);
+  }
+
+// Provide your auth token here
+  final _formKey = GlobalKey<FormState>();
+  final _locationFormKey = GlobalKey<FormState>();
+  final _planDetailsFormKey = GlobalKey<FormState>();
+  final _floorPlanFormKey = GlobalKey<FormState>();
+
+  String? _location1;
+  String? _location2;
+  String? _planDetails;
+  String? _digitalSurvey;
+  String? _floorPlan;
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+    }
+    if (_locationFormKey.currentState!.validate()) {
+      _locationFormKey.currentState!.save();
+    }
+    if (_planDetailsFormKey.currentState!.validate()) {
+      _planDetailsFormKey.currentState!.save();
+    }
+    if (_floorPlanFormKey.currentState!.validate()) {
+      _floorPlanFormKey.currentState!.save();
+    }
+    print("submitted");
+    final industryData = {
+      'type': "retail space", // Changed 'villa' to something industry-specific
+      'location_line_1': _location1,
+      'location_line_2': _location2,
+      "plan_details": _planDetails,
+      "digital_survey": _digitalSurvey,
+      "floor_plan": _floorPlan,
+    };
+    _industryBloc.add(IndustrySubmitEvent(industryData));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +99,7 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _formKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           hintText: 'House/ Flat/ Block Number',
@@ -62,6 +112,9 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                          onSaved: (value) {
+                          _location1 = value;
+                        }
                     ),
                   )),
               SizedBox(
@@ -76,6 +129,7 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _locationFormKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           hintText: 'Area/ Landmark/ Road',
@@ -88,6 +142,9 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                          onSaved: (value) {
+                          _location2 = value;
+                        }
                     ),
                   )),
               SizedBox(
@@ -112,12 +169,16 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _planDetailsFormKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                          onSaved: (value) {
+                          _planDetails = value;
+                        }
                     ),
                   )),
               SizedBox(
@@ -139,7 +200,9 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                     height: Responsive.height(5.5, context),
                     width: Responsive.width(45, context),
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _digitalSurvey = "True";
+                      },
                       child: Center(
                         child: Text('Yes',
                             style: TextStyle(
@@ -169,7 +232,9 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                     height: Responsive.height(5.5, context),
                     width: Responsive.width(45, context),
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _digitalSurvey = "False";
+                      },
                       child: Center(
                         child: Text('No',
                             style: TextStyle(
@@ -216,6 +281,7 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _floorPlanFormKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           hintText: '.pdf/.jpg/.png',
@@ -228,6 +294,9 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                        //   onSaved: (value) {
+                        //   _floorPlan = value;
+                        // }
                     ),
                   )),
               SizedBox(
@@ -237,7 +306,7 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
                 width: Responsive.width(95, context),
                 height: Responsive.height(6.5, context),
                 child: FilledButton(
-                  onPressed: () {},
+                  onPressed: _submitForm,
                   child: Text(
                     'Done',
                     style: TextStyle(fontSize: Responsive.height(2.3, context)),

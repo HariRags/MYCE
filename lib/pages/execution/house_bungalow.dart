@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
+import 'package:kriv/utilities/house_post.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HouseBungalow extends StatefulWidget {
   const HouseBungalow({Key? key}) : super(key: key);
@@ -11,6 +13,55 @@ class HouseBungalow extends StatefulWidget {
 }
 
 class _HouseBungalowState extends State<HouseBungalow> {
+  String auth_token="";
+  late HouseBloc _houseBloc;
+  @override
+  void initState() {
+    super.initState();
+    // Access houseBloc from the context here
+    final houseBloc = BlocProvider.of<HouseBloc>(context);
+    auth_token = houseBloc.authToken;
+    _houseBloc = HouseBloc(auth_token);
+  }
+ 
+ // Provide your auth token here
+  final _formKey = GlobalKey<FormState>();
+  final _locationFormKey = GlobalKey<FormState>();
+  final _planDetailsFormKey = GlobalKey<FormState>();
+  final _floorPlanFormKey = GlobalKey<FormState>();
+
+  String? _location1;
+  String? _location2;
+  String? _planDetails;
+  String? _digitalSurvey;
+  String? _floorPlan;
+
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+    }
+    if (_locationFormKey.currentState!.validate()) {
+      _locationFormKey.currentState!.save();
+    }
+    if (_planDetailsFormKey.currentState!.validate()) {
+      _planDetailsFormKey.currentState!.save();
+    }
+    if (_floorPlanFormKey.currentState!.validate()) {
+      _floorPlanFormKey.currentState!.save();
+    }
+      print("submitted");
+      final houseData = {
+        'type': "bungalow", 
+        'location_line_1': _location1,
+        'location_line_2' : _location2,
+        "plan_details": _planDetails,
+        "digital_survey": _digitalSurvey,
+        "floor_plan": _floorPlan,
+      };
+      _houseBloc.add(HouseSubmitEvent(houseData));
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +101,7 @@ class _HouseBungalowState extends State<HouseBungalow> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _formKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           hintText: 'House/ Flat/ Block Number',
@@ -62,6 +114,9 @@ class _HouseBungalowState extends State<HouseBungalow> {
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                          onSaved: (value) {
+                              _location1 = value;
+                            }
                     ),
                   )),
               SizedBox(
@@ -76,6 +131,7 @@ class _HouseBungalowState extends State<HouseBungalow> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _locationFormKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           hintText: 'Area/ Landmark/ Road',
@@ -88,6 +144,9 @@ class _HouseBungalowState extends State<HouseBungalow> {
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                          onSaved: (value) {
+                              _location2 = value;
+                            }
                     ),
                   )),
               SizedBox(
@@ -112,12 +171,16 @@ class _HouseBungalowState extends State<HouseBungalow> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _planDetailsFormKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                          onSaved: (value) {
+                              _planDetails = value;
+                            }
                     ),
                   )),
               SizedBox(
@@ -139,7 +202,9 @@ class _HouseBungalowState extends State<HouseBungalow> {
                     height: Responsive.height(5.5, context),
                     width: Responsive.width(45, context),
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                          _digitalSurvey = "True";
+                        },
                       child: Center(
                         child: Text('Yes',
                             style: TextStyle(
@@ -169,7 +234,9 @@ class _HouseBungalowState extends State<HouseBungalow> {
                     height: Responsive.height(5.5, context),
                     width: Responsive.width(45, context),
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                          _digitalSurvey = "False";
+                        },
                       child: Center(
                         child: Text('No',
                             style: TextStyle(
@@ -216,6 +283,7 @@ class _HouseBungalowState extends State<HouseBungalow> {
                           Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                       borderRadius: BorderRadius.circular(6)),
                   child: Form(
+                    key: _floorPlanFormKey,
                     child: TextFormField(
                       decoration: InputDecoration(
                           hintText: '.pdf/.jpg/.png',
@@ -228,6 +296,9 @@ class _HouseBungalowState extends State<HouseBungalow> {
                               left: Responsive.width(1, context),
                               bottom: Responsive.height(1.2, context)),
                           border: InputBorder.none),
+                          // onSaved: (value) {
+                          //     _floorPlan = value;
+                          // }
                     ),
                   )),
               SizedBox(
@@ -237,7 +308,7 @@ class _HouseBungalowState extends State<HouseBungalow> {
                 width: Responsive.width(95, context),
                 height: Responsive.height(6.5, context),
                 child: FilledButton(
-                  onPressed: () {},
+                  onPressed: _submitForm,
                   child: Text(
                     'Done',
                     style: TextStyle(fontSize: Responsive.height(2.3, context)),
