@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/login/info_page.dart';
+import 'package:kriv/utilities/infopage_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:kriv/utilities/responsive.dart';
@@ -9,7 +10,7 @@ import 'package:kriv/utilities/verification_bloc.dart';
 class Verification extends StatefulWidget {
   final BigInt? phoneNumber;
 
-   Verification({Key? key, required this.phoneNumber}) : super(key: key);
+  Verification({Key? key, required this.phoneNumber}) : super(key: key);
   @override
   State<Verification> createState() => _VerificationState();
 }
@@ -17,13 +18,14 @@ class Verification extends StatefulWidget {
 class _VerificationState extends State<Verification> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _otpController = TextEditingController();
+  String? authToken;
   @override
   Widget build(BuildContext context) {
     final phoneNumber = widget.phoneNumber;
-    return BlocProvider(
-      create: (context) => VerificationBloc(),
-      child: Scaffold(
-        body: BlocConsumer<VerificationBloc, VerificationState>(
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => VerificationBloc(),
+        child: BlocConsumer<VerificationBloc, VerificationState>(
           listenWhen: (previous, current) {
             print(
                 'VerificationPage: listenWhen called - Previous: $previous, Current: $current');
@@ -41,10 +43,15 @@ class _VerificationState extends State<Verification> {
               print(
                   'VerificationPage: Verification successful, navigating to home');
               // Store tokens in secure storage here if needed
+              authToken = state.accessToken;
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const InfoPage()),
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                        create: ((context) => SignupBloc(authToken)),
+                        child: InfoPage()
+                        ),
+                  ));
             } else if (state is VerificationError) {
               print('VerificationPage: Showing error snackbar');
               ScaffoldMessenger.of(context).showSnackBar(
@@ -104,7 +111,7 @@ class _VerificationState extends State<Verification> {
                     Form(
                       key: _formKey,
                       child: PinCodeTextField(
-                        controller: _otpController,
+                          controller: _otpController,
                           length: 4,
                           appContext: context,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -113,9 +120,11 @@ class _VerificationState extends State<Verification> {
                             fieldWidth: Responsive.width(15, context),
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(5),
-                            selectedColor: const Color.fromRGBO(107, 67, 151, 1),
+                            selectedColor:
+                                const Color.fromRGBO(107, 67, 151, 1),
                             activeColor: const Color.fromRGBO(107, 67, 151, 1),
-                            inactiveColor: const Color.fromRGBO(107, 67, 151, 1),
+                            inactiveColor:
+                                const Color.fromRGBO(107, 67, 151, 1),
                             inactiveFillColor:
                                 const Color.fromRGBO(107, 67, 151, 1),
                             selectedFillColor:
@@ -152,15 +161,17 @@ class _VerificationState extends State<Verification> {
                       height: Responsive.height(6.5, context),
                       child: FilledButton(
                         onPressed: () {
-                    final otp = _otpController.text.trim();
-                    if (otp.isNotEmpty) {
-                      context.read<VerificationBloc>().add(VerifyOtpEvent(otp,phoneNumber));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Please enter an OTP')),
-                      );
-                    }
-                  },
+                          final otp = _otpController.text.trim();
+                          if (otp.isNotEmpty) {
+                            context
+                                .read<VerificationBloc>()
+                                .add(VerifyOtpEvent(otp, phoneNumber));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Please enter an OTP')),
+                            );
+                          }
+                        },
                         child: Text(
                           'Verify otp',
                           style: TextStyle(
