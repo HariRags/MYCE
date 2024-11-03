@@ -73,7 +73,7 @@ class _InfoPageState extends State<InfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(authToken);
+    // print(authToken);
     return Scaffold(
       body: SafeArea(
         child: BlocProvider(
@@ -96,11 +96,18 @@ class _InfoPageState extends State<InfoPage> {
                 if (state is SignupSuccess) {
                   print(
                       'SignupPage: Signup successful, navigating to next page');
+                  print(authToken);
+                  String? auth_token = authToken;
+                  print(
+                      'SignupPage: Before navigation - authToken: $authToken');
+                  print(
+                      'SignupPage: Before navigation - auth_token: $auth_token');
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            const HomePage()), // Replace with your next page
+                        builder: (context) => const HomePage(),
+                        settings: RouteSettings(arguments: auth_token)),
                   );
                 } else if (state is SignupFailure) {
                   print('SignupPage: Showing error snackbar');

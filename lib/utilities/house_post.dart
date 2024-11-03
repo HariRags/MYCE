@@ -46,15 +46,15 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
           await http.post(Uri.parse('http://10.0.2.2:8000/api/houses/'),
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': authToken,
+                'Authorization': "Bearer "+authToken,
               },
               body: jsonEncode(event.houseData));
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
+        emit(HouseSubmittedState());
         // Request was successful
       } else {
-        print('Request failed with status: ${response.statusCode}.');
-        print('Response body: ${response.body}');
+        emit(HouseErrorState('Error : Failed to sign up'));
       }
     } catch (e) {
       emit(HouseErrorState('Error occurred: $e')); // Emit error state

@@ -21,13 +21,26 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  String? authToken;
   bool repeatTap = false;
   String selectedFolder ='';
-  List<Function> executionNavigation = [() => const House(), () => const Industrial(), () => const Commercial()];
+  // List<Function> executionNavigation = [() =>  House(authToken: authToken), () => const Industrial(), () => const Commercial()];
+  late List<Function> executionNavigation;
   List<Function> productManagementNavigation = [() => const Project(), () => const Services()];
   List<Function> designNavigation = [() => const ArchitectureDesign(), () => const InteriorDesign(), () => const Industrial()];
   List<Function> realEstateNavigation = [() => const BuyLand(), () => const SellLand()];
   List<Function> swimmingPoolNavigation = [() => const SwimmingPool()];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize lists that depend on instance members here
+    executionNavigation = [
+      () => House(authToken: authToken),
+      () => const Industrial(),
+      () => const Commercial(),
+    ];
+  }
     void updateOffset(folderToAnimate)
    {
       if(selectedFolder==folderToAnimate && repeatTap==false)
@@ -59,7 +72,9 @@ class HomePageState extends State<HomePage> {
    }
   @override
   Widget build(BuildContext context) {
-    
+     final args = ModalRoute.of(context)!.settings.arguments as String?;
+    print('HomePage: Retrieved arguments: $args');
+  authToken = args;
      Offset offset = const Offset(0,-0.33);
   final animationDuration = const  Duration(milliseconds: 600);
     const Color customPurple = Color(0xFF6C3CA9);
