@@ -43,7 +43,7 @@ class HomePageState extends State<HomePage> {
     executionNavigation = [
       () => House(authToken: authToken),
       () => Industrial(authToken: authToken),
-      () => const Commercial(),
+      () => Commercial(authToken: authToken),
     ];
     productManagementNavigation = [
     () => const Project(),

@@ -3,20 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kriv/pages/execution/commercial_warehouse.dart';
 import 'package:kriv/pages/execution/commerical_factory.dart';
+import 'package:kriv/utilities/commercial_bloc.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/card.dart';
 
 class Commercial extends StatefulWidget {
-  const Commercial({Key? key}) : super(key: key);
+  final String? authToken;
+  const Commercial({Key? key,required this.authToken}) : super(key: key);
 
   @override
   State<Commercial> createState() => CommercialState();
 }
 
 class CommercialState extends State<Commercial> {
+   String? auth_token;
+  String authToken = "";
+  @override
+  void initState(){
+    super.initState();
+    auth_token = widget.authToken;
+    authToken = auth_token!;
+    authToken =  authToken;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +46,11 @@ class CommercialState extends State<Commercial> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CommercialFactory()),
+                               builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    CommercialBloc(authToken),
+                                child: const CommercialFactory(),
+                              ),),
                         );
                       },
                       child: const ImageCard(
