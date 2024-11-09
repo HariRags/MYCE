@@ -43,7 +43,7 @@ class _VerificationState extends State<Verification> {
               print(
                   'VerificationPage: Verification successful, navigating to home');
               // Store tokens in secure storage here if needed
-              authToken = state.accessToken;
+              authToken = 'Bearer '+ state.accessToken;
               Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -29,7 +29,7 @@ class HouseState extends State<House> {
     super.initState();
     auth_token = widget.authToken;
     authToken = auth_token!;
-    authToken = "Bearer " + authToken;
+    authToken =  authToken;
   }
   
 

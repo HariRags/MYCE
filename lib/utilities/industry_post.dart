@@ -43,18 +43,20 @@ class IndustryBloc extends Bloc<IndustryEvent, IndustryState> {
     try {
       print(authToken);
       final response =
-          await http.post(Uri.parse('http://10.0.2.2:8000/api/industrial_properties/'),
+          await http.post(Uri.parse('http://10.0.2.2:8000/api/industrial-properties/'),
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authToken,
               },
               body: jsonEncode(event.industryData));
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
+        emit(IndustrySubmittedState());
         // Request was successful
       } else {
         print('Request failed with status: ${response.statusCode}.');
         print('Response body: ${response.body}');
+        emit(IndustryErrorState('Error : Failed to sign up'));
       }
     } catch (e) {
       emit(IndustryErrorState('Error occurred: $e')); // Emit error state

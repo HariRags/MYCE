@@ -12,14 +12,24 @@ import 'package:kriv/widgets/navigation.dart';
 import '../../widgets/card.dart';
 
 class Industrial extends StatefulWidget {
-  const Industrial({Key? key}) : super(key: key);
+  final String? authToken;
+  const Industrial({Key? key, required this.authToken}) : super(key: key);
 
   @override
   State <Industrial> createState() =>  IndustrialState();
 }
 
 class  IndustrialState extends State <Industrial> {
-  String authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4OTI4MjQyLCJpYXQiOjE3Mjg4NDE4NDIsImp0aSI6IjlkOThjYThkNWE1MzRiNjdhZTczYTRhNmJjOGQ1ZDJkIiwidXNlcl9pZCI6IjQyNjg5NzBiLWNkMjktNDkxYS1iMzVjLTBlMjdjMTNkNTE3NyJ9.8G74Swg1-Hsyvu4yKFbwSMfQauQpp3JkQEZJZBpQ3HY";
+ String? auth_token;
+  String authToken = "";
+  @override
+  void initState(){
+    super.initState();
+    auth_token = widget.authToken;
+    authToken = auth_token!;
+    authToken =  authToken;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return   Scaffold(

@@ -41,12 +41,14 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
       HouseSubmitEvent event, Emitter<HouseState> emit) async {
     emit(HouseLoadingState());
     try {
+      print('hey3');
       print(authToken);
+      print('hey3');
       final response =
           await http.post(Uri.parse('http://10.0.2.2:8000/api/houses/'),
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': "Bearer "+authToken,
+                'Authorization': authToken,
               },
               body: jsonEncode(event.houseData));
 

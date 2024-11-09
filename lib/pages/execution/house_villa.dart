@@ -97,7 +97,8 @@ class _HouseVillaState extends State<HouseVilla> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(), // Replace with your next page
+            builder: (context) =>  HomePage(),
+            settings: RouteSettings(arguments: auth_token) // Replace with your next page
           ),
         );
       } else if (state is HouseErrorState) {
