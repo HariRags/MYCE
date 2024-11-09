@@ -54,7 +54,7 @@ class CommercialBloc extends Bloc<CommercialEvent, CommercialPropState> {
         },
         body: jsonEncode(event.commercialData),
       );
-
+      print((event.commercialData));
       if (response.statusCode == 201) {
         emit(CommercialSubmittedState());
       } else {

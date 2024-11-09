@@ -51,7 +51,7 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
                 'Authorization': authToken,
               },
               body: jsonEncode(event.houseData));
-
+      print(event.houseData);
       if (response.statusCode == 201) {
         emit(HouseSubmittedState());
         // Request was successful

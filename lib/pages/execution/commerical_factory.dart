@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kriv/pages/execution/commercial.dart';
+// import 'package:kriv/pages/execution/commercial.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/commercial_bloc.dart';
 import 'package:kriv/utilities/responsive.dart';
@@ -43,12 +43,12 @@ class _CommercialFactoryState extends State<CommercialFactory> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
-    // if (_locationFormKey.currentState!.validate()) {
-    //   _locationFormKey.currentState!.save();
-    // }
-    // if (_planDetailsFormKey.currentState!.validate()) {
-    //   _planDetailsFormKey.currentState!.save();
-    // }
+    if (_locationFormKey.currentState!.validate()) {
+      _locationFormKey.currentState!.save();
+    }
+    if (_planDetailsFormKey.currentState!.validate()) {
+      _planDetailsFormKey.currentState!.save();
+    }
     // if (_floorPlanFormKey.currentState!.validate()) {
     //   _floorPlanFormKey.currentState!.save();
     // }
@@ -216,13 +216,16 @@ class _CommercialFactoryState extends State<CommercialFactory> {
                                 Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
-                          
+                          key: _planDetailsFormKey,
                           child: TextFormField(
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(
                                     left: Responsive.width(1, context),
                                     bottom: Responsive.height(1.2, context)),
                                 border: InputBorder.none),
+                                onSaved: (value){
+                                  _planDetails = value;
+                                },
                           ),
                         )),
                     SizedBox(
@@ -339,7 +342,7 @@ class _CommercialFactoryState extends State<CommercialFactory> {
                                     bottom: Responsive.height(1.2, context)),
                                 border: InputBorder.none),
                                 onSaved: (value) {
-                                _planDetails = value;
+                                _floorPlan = value;
                               }
                           ),
                         )),

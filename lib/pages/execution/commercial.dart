@@ -64,7 +64,11 @@ class CommercialState extends State<Commercial> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CommercialWarehouse()),
+                             builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    CommercialBloc(authToken),
+                                child: const CommercialWarehouse(),
+                              ),),
                         );
                       },
                       child: const ImageCard(
