@@ -7,13 +7,23 @@ import 'package:kriv/widgets/navigation.dart';
 import '../../widgets/card.dart';
 
 class Project extends StatefulWidget {
-  const Project({Key? key}) : super(key: key);
+  final String? authToken;
+  const Project({Key? key,required this.authToken}) : super(key: key);
 
   @override
   State <Project> createState() =>  ProjectState();
 }
 
 class  ProjectState extends State <Project> {
+  String? auth_token;
+  String authToken = "";
+  @override
+  void initState(){
+    super.initState();
+    auth_token = widget.authToken;
+    authToken = auth_token!;
+    authToken =  authToken;
+  }
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -26,7 +36,9 @@ class  ProjectState extends State <Project> {
               child: Column(
                 children: [
                   InkWell(
-                    onTap:(){},
+                    onTap:(){
+                      
+                    },
                     child: const ImageCard(
                       title: 'Pre Construction phase',
                       description: 'Initial planning and preparation stage of a construction project before any physical work begins.',

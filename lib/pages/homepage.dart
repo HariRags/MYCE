@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_design.dart';
 import 'package:kriv/pages/architecture_and_design/interior_design.dart';
 import 'package:kriv/pages/execution/commercial.dart';
@@ -9,6 +10,8 @@ import 'package:kriv/pages/project_management/services.dart';
 import 'package:kriv/pages/real_estate/buy_land.dart';
 import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
+import 'package:kriv/utilities/login_post.dart';
+import 'package:kriv/utilities/services_bloc.dart';
 import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
 import 'package:defer_pointer/defer_pointer.dart';
@@ -24,6 +27,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   String? authToken;
+  String auth_token = "";
   bool repeatTap = false;
   String selectedFolder = '';
   // List<Function> executionNavigation = [() =>  House(authToken: authToken), () => const Industrial(), () => const Commercial()];
@@ -46,8 +50,11 @@ class HomePageState extends State<HomePage> {
       () => Commercial(authToken: authToken),
     ];
     productManagementNavigation = [
-    () => const Project(),
-    () => const Services()
+    () => Project(authToken: authToken),
+    () => BlocProvider(
+        create: (context) => ServicesBloc(auth_token),
+        child: Services(authToken: authToken),
+      ),
   ];
   designNavigation = [
     () => const ArchitectureDesign(),
@@ -86,6 +93,7 @@ class HomePageState extends State<HomePage> {
     final args = ModalRoute.of(context)!.settings.arguments as String?;
     print('HomePage: Retrieved arguments: $args');
     authToken = args;
+    auth_token = authToken!;
     Offset offset = const Offset(0, -0.33);
     final animationDuration = const Duration(milliseconds: 600);
     const Color customPurple = Color(0xFF6C3CA9);
@@ -175,7 +183,7 @@ class HomePageState extends State<HomePage> {
               ),
               DeferredPointerHandler(
                 child: Container(
-                    height: Responsive.height(67, context),
+                    height: Responsive.height(10, context),
                     width: Responsive.width(94, context),
                     child: Stack(
                         clipBehavior: Clip.none,

@@ -7,11 +7,11 @@ import 'dart:convert';
 abstract class AuthEvent {}
 
 class VerifyPhoneEvent extends AuthEvent {
-  final BigInt? phoneNumber;
-  VerifyPhoneEvent(this.phoneNumber);
+  final String? email;
+  VerifyPhoneEvent(this.email);
 
   @override
-  String toString() => 'VerifyPhoneEvent(phoneNumber: $phoneNumber)';
+  String toString() => 'VerifyPhoneEvent(phoneNumber: $email)';
 }
 
 // States
@@ -78,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       print('AuthBloc: Starting phone verification process');
       
-      if (event.phoneNumber == null) {
+      if (event.email == null) {
         print('AuthBloc: Phone number is null, emitting error');
         emit(AuthError('Phone number cannot be null'));
         return;
@@ -92,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         Uri.parse('http://10.0.2.2:8000/api/auth/verify_phone/'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          'phone_number': event.phoneNumber.toString(),
+          'email': event.email,
         }),
       );
 

@@ -15,7 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
   late final AuthBloc _authBloc;
-  BigInt? _phoneNumber ;
+  BigInt? _phoneNumber = BigInt.parse("1234567890");
+  String? email;
   @override
   void initState() {
     super.initState();
@@ -162,10 +163,12 @@ class _LoginPageState extends State<LoginPage> {
                     child: FilledButton(
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          final phoneNumber = BigInt.parse(_phoneController.text);
-                          _phoneNumber = BigInt.parse(_phoneController.text);
-                          print(phoneNumber); // Debug print
-                          context.read<AuthBloc>().add(VerifyPhoneEvent(phoneNumber));
+                          
+                          final email = (_phoneController.text);
+                          // _phoneNumber = BigInt.parse(_phoneController.text);
+
+                          // print(phoneNumber); // Debug print
+                          context.read<AuthBloc>().add(VerifyPhoneEvent(email));
             
                         }
                       },
