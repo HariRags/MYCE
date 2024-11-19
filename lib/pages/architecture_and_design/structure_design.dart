@@ -1,28 +1,41 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/architecture_and_design/structure_bungalow.dart';
 import 'package:kriv/pages/architecture_and_design/structure_commercial.dart';
 import 'package:kriv/pages/architecture_and_design/structure_farmhouse.dart';
 import 'package:kriv/pages/architecture_and_design/structure_industrial.dart';
 import 'package:kriv/pages/architecture_and_design/structure_residential.dart';
 import 'package:kriv/pages/architecture_and_design/structure_villa.dart';
+import 'package:kriv/utilities/interior_bloc.dart';
 import 'package:kriv/utilities/responsive.dart';
+import 'package:kriv/utilities/structure_design_bloc.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 
 import '../../widgets/card.dart';
 
-class StrcutureDesign extends StatefulWidget {
-  const StrcutureDesign({Key? key}) : super(key: key);
+class StructureDesign extends StatefulWidget {
+  final String? authToken;
+  const StructureDesign({Key? key,required this.authToken}) : super(key: key);
 
   @override
-  State <StrcutureDesign> createState() =>  StrcutureDesignState();
+  State <StructureDesign> createState() =>  StructureDesignState();
 }
 
-class  StrcutureDesignState extends State <StrcutureDesign> {
+class  StructureDesignState extends State <StructureDesign> {
   @override
   Widget build(BuildContext context) {
+    String? auth_token;
+  String authToken = "";
+  @override
+  void initState(){
+    super.initState();
+    auth_token = widget.authToken;
+    authToken = auth_token!;
+    authToken =  authToken;
+  }
     return   Scaffold(
       body: SafeArea(
         child: Column(
@@ -38,7 +51,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                       onTap:(){Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const StructureVilla()),
+                            builder: (context) => BlocProvider(
+                              create: (context) => StructureBloc(authToken),
+                              child: const StructureVilla()
+                              ),
+                          ),
                         );},
                       child: const ImageCard(
                         title: 'Villa',
@@ -50,7 +67,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                       onTap:(){Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const StructureBungalow()),
+                            builder: (context) => BlocProvider(
+                              create: (context) => StructureBloc(authToken),
+                              child: const StructureBungalow()
+                              ),
+                          ),
                         );},
                       child: const ImageCard(
                         title: 'Bungalow',
@@ -62,7 +83,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                       onTap:(){Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const StructureFarmhouse()),
+                            builder: (context) => BlocProvider(
+                              create: (context) => StructureBloc(authToken),
+                              child: const StructureFarmhouse()
+                              ),
+                          ),
                         );},
                       child: const ImageCard(
                         title: 'Farmhouse',
@@ -74,7 +99,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                       onTap:(){Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const StructureResidential()),
+                            builder: (context) => BlocProvider(
+                              create: (context) => StructureBloc(authToken),
+                              child: const StructureResidential()
+                              ),
+                          ),
                         );},
                       child: const ImageCard(
                         title: 'Residential Apartment',
@@ -85,8 +114,12 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                     GestureDetector(
                       onTap:(){Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const StructureCommercial()),
+                         MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (context) => StructureBloc(authToken),
+                              child: const StructureCommercial()
+                              ),
+                          ),
                         );},
                       child: const ImageCard(
                         title: 'Commercial',
@@ -98,7 +131,11 @@ class  StrcutureDesignState extends State <StrcutureDesign> {
                       onTap:(){Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const StructureIndustrial()),
+                            builder: (context) => BlocProvider(
+                              create: (context) => StructureBloc(authToken),
+                              child: const StructureIndustrial()
+                              ),
+                          ),
                         );},
                       child: const ImageCard(
                         title: 'Industrial',

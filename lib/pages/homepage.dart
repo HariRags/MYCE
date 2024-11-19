@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_design.dart';
 import 'package:kriv/pages/architecture_and_design/interior_design.dart';
+import 'package:kriv/pages/architecture_and_design/structure_design.dart';
 import 'package:kriv/pages/execution/commercial.dart';
 import 'package:kriv/pages/execution/house.dart';
 import 'package:kriv/pages/execution/industrial.dart';
@@ -59,7 +60,7 @@ class HomePageState extends State<HomePage> {
   designNavigation = [
     () => ArchitectureDesign(authToken: authToken,),
     () => InteriorDesign(authToken: authToken),
-    () => Industrial(authToken: authToken,)
+    () => StructureDesign(authToken: authToken,)
   ];
   }
 
