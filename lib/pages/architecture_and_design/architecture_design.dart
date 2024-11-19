@@ -2,12 +2,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_bungalow.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_commercial.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_farmhouse.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_industrial.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_residential.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_villa.dart';
+import 'package:kriv/utilities/architecture_design_bloc.dart';
+import 'package:kriv/utilities/house_post.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -16,7 +19,8 @@ import 'package:kriv/widgets/navigation.dart';
 import '../../widgets/card.dart';
 
 class ArchitectureDesign extends StatefulWidget {
-  const ArchitectureDesign({Key? key}) : super(key: key);
+  final String? authToken;
+  const ArchitectureDesign({Key? key, required this.authToken}) : super(key: key);
 
   @override
   State <ArchitectureDesign> createState() =>  ArchitectureDesignState();
@@ -25,7 +29,17 @@ class ArchitectureDesign extends StatefulWidget {
 class  ArchitectureDesignState extends State <ArchitectureDesign> {
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    String? auth_token;
+  String authToken = "";
+  @override
+  void initState(){
+    super.initState();
+    auth_token = widget.authToken;
+    authToken = auth_token!;
+    authToken =  authToken;
+  }
+  
+    return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
@@ -41,7 +55,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ArchitectureVilla(),
+                            builder: (context) => BlocProvider(
+                              create: (context) => ArchitectureBloc(authToken),
+                              child: const ArchitectureVilla()
+                              ),
                           ),
                         );
                       },
@@ -56,7 +73,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ArchitectureBungalow(),
+                            builder: (context) => BlocProvider(
+                              create: (context) => ArchitectureBloc(authToken),
+                              child: const ArchitectureBungalow()
+                              ),
                           ),
                         );
                       },
@@ -71,7 +91,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ArchitectureFarmhouse(),
+                            builder: (context) => BlocProvider(
+                              create: (context) => ArchitectureBloc(authToken),
+                              child: const ArchitectureFarmhouse()
+                              ),
                           ),
                         );
                       },
@@ -86,7 +109,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ArchitectureResedential(),
+                            builder: (context) => BlocProvider(
+                              create: (context) => ArchitectureBloc(authToken),
+                              child: const ArchitectureResidential()
+                              ),
                           ),
                         );
                       },
@@ -101,7 +127,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ArchitectureCommercial(),
+                            builder: (context) => BlocProvider(
+                              create: (context) => ArchitectureBloc(authToken),
+                              child: const ArchitectureCommercial()
+                              ),
                           ),
                         );
                       },
@@ -116,7 +145,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ArchitectureIndustrial(),
+                            builder: (context) => BlocProvider(
+                              create: (context) => ArchitectureBloc(authToken),
+                              child: const ArchitectureIndustrial()
+                              ),
                           ),
                         );
                       },
