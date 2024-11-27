@@ -2,9 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/real_estate/buy_commercial.dart';
 import 'package:kriv/pages/real_estate/buy_land.dart';
 import 'package:kriv/pages/real_estate/buy_residential.dart';
+import 'package:kriv/utilities/buy_bloc.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -21,6 +23,16 @@ class Buy extends StatefulWidget {
 }
 
 class  BuyState extends State <Buy> {
+    String? auth_token;
+  String authToken = "";
+  @override
+  void initState(){
+    super.initState();
+    auth_token = widget.authToken;
+    authToken = auth_token!;
+    authToken =  authToken;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -35,10 +47,14 @@ class  BuyState extends State <Buy> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BuyLand()),
+                      onTap:(){Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    BuyBloc(authToken),
+                                child:  BuyLand(authToken: authToken,),
+                              ),
+                            ),
                         );},
                       child: const ImageCard(
                         title: 'Land',
@@ -47,10 +63,14 @@ class  BuyState extends State <Buy> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BuyResidential()),
+                      onTap:(){Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    BuyBloc(authToken),
+                                child:  BuyResidential(authToken: authToken,),
+                              ),
+                            ),
                         );},
                       child: const ImageCard(
                         title: 'Residential',
@@ -59,10 +79,14 @@ class  BuyState extends State <Buy> {
                         
                     ),
                     InkWell(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BuyCommercial()),
+                      onTap:(){Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    BuyBloc(authToken),
+                                child:  BuyCommercial(authToken: authToken,),
+                              ),
+                            ),
                         );},
                       child: const ImageCard(
                         title: 'Commercial',
