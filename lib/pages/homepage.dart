@@ -15,6 +15,7 @@ import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
 import 'package:kriv/utilities/login_post.dart';
 import 'package:kriv/utilities/services_bloc.dart';
+import 'package:kriv/utilities/swimming_bloc.dart';
 import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
 import 'package:defer_pointer/defer_pointer.dart';
@@ -38,7 +39,7 @@ class HomePageState extends State<HomePage> {
   late List<Function> productManagementNavigation;
   late List<Function> designNavigation;
   late List<Function> realEstateNavigation;
-  List<Function> swimmingPoolNavigation = [() => const SwimmingPool()];
+  late List<Function> swimmingPoolNavigation;
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class HomePageState extends State<HomePage> {
     () => Buy(authToken: authToken,),
     () => Sell(authToken: authToken,)
   ];
+  swimmingPoolNavigation = [() => SwimmingPool(authToken:authToken)];
   }
 
   void updateOffset(folderToAnimate) {
@@ -393,13 +395,15 @@ class HomePageState extends State<HomePage> {
                               curve: Curves.easeInOut,
                               child: DeferPointer(
                                 child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SwimmingPool()),
-                                    );
+                                  onTap: () {Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    SwimmingBloc(auth_token),
+                                child:  SwimmingPool(authToken: authToken,),
+                              ),
+                            ),
+                        );
                                   },
                                   child: Container(
                                     height: Responsive.height(60, context),

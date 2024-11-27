@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/swimming_pool/pool_equipment.dart';
 import 'package:kriv/pages/swimming_pool/pool_execution.dart';
 import 'package:kriv/pages/swimming_pool/pool_maintenance.dart';
 import 'package:kriv/utilities/responsive.dart';
+import 'package:kriv/utilities/swimming_bloc.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
@@ -11,13 +13,23 @@ import 'package:kriv/widgets/navigation.dart';
 import '../../widgets/card.dart';
 
 class SwimmingPool extends StatefulWidget {
-  const SwimmingPool({Key? key}) : super(key: key);
+  final String? authToken;
+  const SwimmingPool({Key? key,required this.authToken}) : super(key: key);
 
   @override
   State <SwimmingPool> createState() =>  SwimmingPoolState();
 }
 
 class  SwimmingPoolState extends State <SwimmingPool> {
+  String? auth_token;
+  String authToken = "";
+  @override
+  void initState(){
+    super.initState();
+    auth_token = widget.authToken;
+    authToken = auth_token!;
+    authToken =  authToken;
+  }
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -32,10 +44,14 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PoolExecution()),
+                      onTap:(){Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    SwimmingBloc(authToken),
+                                child:  PoolExecution(authToken: authToken),
+                              ),
+                            ),
                         );},
                       child: const ImageCard(
                         title: 'Execution ',
@@ -44,10 +60,14 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PoolMaintenance()),
+                      onTap:(){Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    SwimmingBloc(authToken),
+                                child:  PoolMaintanence(authToken: authToken),
+                              ),
+                            ),
                         );},
                       child: const ImageCard(
                         title: 'Maintenance',
@@ -56,10 +76,14 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PoolEquipment()),
+                      onTap:(){Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    SwimmingBloc(authToken),
+                                child:  PoolEquipment(authToken: authToken),
+                              ),
+                            ),
                         );},
                       child: const ImageCard(
                         title: 'Equipments',
