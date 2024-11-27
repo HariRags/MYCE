@@ -13,7 +13,8 @@ import 'package:kriv/widgets/navigation.dart';
 import '../../widgets/card.dart';
 
 class Buy extends StatefulWidget {
-  const Buy({Key? key}) : super(key: key);
+  final String? authToken;
+  const Buy({Key? key, required this.authToken}) : super(key: key);
 
   @override
   State <Buy> createState() =>  BuyState();

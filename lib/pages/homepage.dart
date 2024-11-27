@@ -8,7 +8,9 @@ import 'package:kriv/pages/execution/house.dart';
 import 'package:kriv/pages/execution/industrial.dart';
 import 'package:kriv/pages/project_management/project.dart';
 import 'package:kriv/pages/project_management/services.dart';
+import 'package:kriv/pages/real_estate/buy.dart';
 import 'package:kriv/pages/real_estate/buy_land.dart';
+import 'package:kriv/pages/real_estate/sell.dart';
 import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
 import 'package:kriv/utilities/login_post.dart';
@@ -35,10 +37,7 @@ class HomePageState extends State<HomePage> {
   late List<Function> executionNavigation;
   late List<Function> productManagementNavigation;
   late List<Function> designNavigation;
-  List<Function> realEstateNavigation = [
-    () => const BuyLand(),
-    () => const SellLand()
-  ];
+  late List<Function> realEstateNavigation;
   List<Function> swimmingPoolNavigation = [() => const SwimmingPool()];
 
   @override
@@ -61,6 +60,10 @@ class HomePageState extends State<HomePage> {
     () => ArchitectureDesign(authToken: authToken,),
     () => InteriorDesign(authToken: authToken),
     () => StructureDesign(authToken: authToken,)
+  ];
+  realEstateNavigation = [
+    () => Buy(authToken: authToken,),
+    () => Sell(authToken: authToken,)
   ];
   }
 
