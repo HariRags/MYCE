@@ -10,7 +10,7 @@ import 'package:kriv/utilities/swimming_bloc.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class SwimmingPool extends StatefulWidget {
   final String? authToken;

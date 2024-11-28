@@ -16,7 +16,7 @@ import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class ArchitectureDesign extends StatefulWidget {
   final String? authToken;
@@ -46,7 +46,7 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
             const MYCEBackButton(),
             const NavigationWidget(navigationItems: ['Architecture & Design', 'Architecture Design']),
             Container(
-              height: Responsive.height(80, context),
+              height: Responsive.height(76, context),
               child: SingleChildScrollView(
                 child: Column(
                   children: [

@@ -12,7 +12,7 @@ import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class Buy extends StatefulWidget {
   final String? authToken;

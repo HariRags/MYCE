@@ -11,7 +11,7 @@ import 'package:kriv/utilities/house_post.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class House extends StatefulWidget {
   final String? authToken;

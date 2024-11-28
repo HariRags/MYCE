@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class Industrial extends StatefulWidget {
   final String? authToken;

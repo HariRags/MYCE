@@ -1,10 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/project_management/executionphase.dart';
+import 'package:kriv/pages/project_management/preconstruction.dart';
+import 'package:kriv/utilities/execution_bloc.dart';
+import 'package:kriv/utilities/house_post.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class Project extends StatefulWidget {
   final String? authToken;
@@ -38,6 +43,16 @@ class  ProjectState extends State <Project> {
                   InkWell(
                     onTap:(){
                       
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    ExecutionBloc(authToken),
+                                child:  PreConstruction(authToken: authToken,),
+                              ),
+                            ),
+                          );
                     },
                     child: const ImageCard(
                       title: 'Pre Construction phase',
@@ -46,7 +61,18 @@ class  ProjectState extends State <Project> {
                       
                   ),
                   InkWell(
-                    onTap:(){},
+                    onTap:(){
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    ExecutionBloc(authToken),
+                                child:  ExecutionPhase(authToken: authToken,),
+                              ),
+                            ),
+                          );
+                    },
                     child: const ImageCard(
                       title: 'Execution phase',
                       description: 'The stage of a project where the plans are put into action and the project is carried out.',

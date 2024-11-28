@@ -5,7 +5,7 @@ import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 import 'package:kriv/utilities/responsive.dart';
 
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class ProfileSettings extends StatefulWidget {
   const ProfileSettings({Key? key}) : super(key: key);

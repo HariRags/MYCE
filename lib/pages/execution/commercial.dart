@@ -8,7 +8,7 @@ import 'package:kriv/utilities/commercial_bloc.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../widgets/card.dart';
+import '../../widgets/imagecard.dart';
 
 class Commercial extends StatefulWidget {
   final String? authToken;
