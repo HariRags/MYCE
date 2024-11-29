@@ -58,7 +58,7 @@ class HomePageState extends State<HomePage> {
       ),
   ];
   designNavigation = [
-    () => ArchitectureDesign(authToken: authToken,),
+    () => ArchitectureDesign(authToken: authToken),
     () => InteriorDesign(authToken: authToken),
     () => StructureDesign(authToken: authToken,)
   ];

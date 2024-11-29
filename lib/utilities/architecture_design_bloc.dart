@@ -40,15 +40,16 @@ class ArchitectureBloc extends Bloc<ArchitectureEvent, ArchitectureState> {
       ArchitectureSubmitEvent event, Emitter<ArchitectureState> emit) async {
     emit(ArchitectureLoadingState());
     try {
+      print(authToken);
       final response = await http.post(
         Uri.parse('http://10.0.2.2:8000/api/architecture-design/'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $authToken',
+          'Authorization': authToken,
         },
         body: jsonEncode(event.architectureData),
       );
-
+      print(event.architectureData);
       if (response.statusCode == 201) {
         emit(ArchitectureSubmittedState());
       } else {

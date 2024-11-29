@@ -30,16 +30,15 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
   @override
   Widget build(BuildContext context) {
     String? auth_token;
-  String authToken = "";
+  String authToken = widget.authToken!;
   @override
   void initState(){
     super.initState();
-    auth_token = widget.authToken;
-    authToken = auth_token!;
-    authToken =  authToken;
+ 
   }
-  
+
     return Scaffold(
+      
       body: SafeArea(
         child: Column(
           children: [
