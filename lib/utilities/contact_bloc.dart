@@ -47,7 +47,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
     emit(ContactLoadingState());
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/contact-us/'),
+        Uri.parse('http://10.0.2.2:8000/api/inquiries/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': authToken,

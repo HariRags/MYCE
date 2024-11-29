@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/contact_bloc.dart';
 import 'package:kriv/utilities/execution_bloc.dart';
@@ -75,7 +76,7 @@ class _ContactUsState extends State<ContactUs> {
       'message': _message,
     };
     print(userData);
-    // _contactBloc.add(ContactSubmitEvent(userData));
+    _contactBloc.add(ContactSubmitEvent(userData));
   }
 
   @override
@@ -106,18 +107,18 @@ class _ContactUsState extends State<ContactUs> {
             print(
                 'HousePage: House submission successful, navigating to next page');
             // Show success message
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('House submitted successfully!'),
-                backgroundColor: Colors.green,
-              ),
-            );
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   const SnackBar(
+            //     content: Text('House submitted successfully!'),
+            //     backgroundColor: Colors.green,
+            //   ),
+            // );
             // Navigate to next page
             Navigator.push(
               context,
               MaterialPageRoute(
                   // push to a contact us
-                  builder: (context) => const HomePage(),
+                  builder: (context) => const Confirmation(),
                   settings: RouteSettings(
                       arguments: auth_token) // Replace with your next page
                   ),
