@@ -44,7 +44,7 @@ class CommercialBloc extends Bloc<CommercialEvent, CommercialPropState> {
     try {
        var request = http.MultipartRequest(
         'POST', 
-        Uri.parse('http://10.0.2.2:8000/api/industrial-properties/')
+        Uri.parse('http://10.0.2.2:8000/api/commercial-properties/')
       );
 
       // Add authorization header
