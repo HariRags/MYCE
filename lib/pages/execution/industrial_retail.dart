@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/responsive.dart';
+import 'package:kriv/widgets/imagepicker.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 import 'package:kriv/utilities/industry_post.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 class IndustrialRetail extends StatefulWidget {
   const IndustrialRetail({Key? key}) : super(key: key);
 
@@ -36,7 +40,24 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
   String? _planDetails;
   String? _digitalSurvey;
   String? _floorPlan;
+  File? _selectedFile;
+Future<void> selectFile() async {
+    // Use the utility function to pick a file
+    final result = await pickFile();
 
+    if (result != null) {
+      setState(() {
+        _selectedFile = result['file'];
+        _floorPlan = result['fileName'];
+      });
+    } else {
+      setState(() {
+        _selectedFile = null;
+        _floorPlan = null;
+        
+      });
+    }
+  }
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -47,9 +68,7 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
     if (_planDetailsFormKey.currentState!.validate()) {
       _planDetailsFormKey.currentState!.save();
     }
-    if (_floorPlanFormKey.currentState!.validate()) {
-      _floorPlanFormKey.currentState!.save();
-    }
+   
     print("submitted");
     final industryData = {
       'type': "retail space", // Changed 'villa' to something industry-specific
@@ -57,7 +76,7 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
       'location_line_2': _location2,
       "plan_details": _planDetails,
       "digital_survey": _digitalSurvey,
-      "floor_plan": _floorPlan,
+      "floor_plan": _selectedFile,
     };
     _industryBloc.add(IndustrySubmitEvent(industryData));
   }
@@ -81,17 +100,17 @@ listenWhen: (previous, current) {
       if (state is IndustrySubmittedState) {
         print('IndustryPage: House submission successful, navigating to next page');
         // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Industry submitted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('Industry submitted successfully!'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
         // Navigate to next page
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(), // Replace with your next page
+            builder: (context) => const Confirmation(), // Replace with your next page
             settings: RouteSettings(arguments: auth_token)
           ),
         );
@@ -315,33 +334,76 @@ listenWhen: (previous, current) {
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
-                    Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(5, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _floorPlanFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                hintText: '.pdf/.jpg/.png',
-                                hintStyle: TextStyle(
-                                    color: const Color.fromRGBO(0, 0, 0, 1),
-                                    fontSize: Responsive.height(1.6, context),
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.italic),
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                              //   onSaved: (value) {
-                              //   _floorPlan = value;
-                              // }
-                          ),
-                        )),
+                    InkWell(
+                      onTap: selectFile,
+                      child: Container(
+                          padding: EdgeInsets.only(left: Responsive.width(3, context),right: Responsive.width(2, context),top: Responsive.width(2, context)),
+                          height: Responsive.height(5, context),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                              borderRadius: BorderRadius.circular(6)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: Responsive.width(75, context),
+                                child: _selectedFile != null
+                                        ? Row(
+                                            children: [
+                                              if (_selectedFile!.path
+                                                  .endsWith('.pdf'))
+                                                Icon(
+                                                  Icons.picture_as_pdf,
+                                                  size: 100,
+                                                  // color: Colors.red,
+                                                )
+                                              else
+                                                Icon(
+                                                 Icons.image,
+                                                
+                                                ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'File Selected',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500),
+                                                    overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          )
+                                        : Text(
+                                  '.pdf/.jpg/.png',
+                                  style: TextStyle(
+                                          color: const Color.fromRGBO(0, 0, 0, 1),
+                                          fontSize: Responsive.height(1.6, context),
+                                          fontWeight: FontWeight.w400,
+                                          fontStyle: FontStyle.italic),
+                                  textAlign: TextAlign.left 
+                                ),
+                              ),
+                              // Text(
+                              //   '.pdf/.jpg/.png',
+                              //   style: TextStyle(
+                              //           color: const Color.fromRGBO(0, 0, 0, 1),
+                              //           fontSize: Responsive.height(1.6, context),
+                              //           fontWeight: FontWeight.w400,
+                              //           fontStyle: FontStyle.italic),
+                              //   textAlign: TextAlign.left 
+                              // ),
+                               Icon(
+                                      Icons.file_upload_outlined, // Use Icons.camera_alt for a camera icon
+                                      // size: Responsive.height(1,context),          // Adjust size as needed
+                                      color: Colors.black, // Customize the color
+                                    )
+                      
+                            ],
+                          )),
+                    ),
+
                     SizedBox(
                       height: Responsive.height(3, context),
                     ),

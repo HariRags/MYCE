@@ -2,17 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'dart:io';
 
 // BLoC Events
 abstract class CommercialEvent {}
 
 class CommercialSubmitEvent extends CommercialEvent {
-  final Map<String, String?> commercialData;
+  final Map<String, Object?> commercialData;
 
   CommercialSubmitEvent(this.commercialData);
 }
@@ -46,21 +42,47 @@ class CommercialBloc extends Bloc<CommercialEvent, CommercialPropState> {
       CommercialSubmitEvent event, Emitter<CommercialPropState> emit) async {
     emit(CommercialLoadingState());
     try {
-      final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/commercial-properties/'),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': authToken,
-        },
-        body: jsonEncode(event.commercialData),
+       var request = http.MultipartRequest(
+        'POST', 
+        Uri.parse('http://10.0.2.2:8000/api/industrial-properties/')
       );
+
+      // Add authorization header
+      request.headers['Authorization'] = authToken;
+
+      // Separate file and non-file fields
+      File? imageFile;
+      Map<String, String> stringFields = {};
+
+      event.commercialData.forEach((key, value) {
+        if (value is File) {
+          imageFile = value;
+        } else {
+          stringFields[key] = value.toString();
+        }
+      });
+
+      // Add string fields
+      request.fields.addAll(stringFields);
+
+      // Add image file if exists
+      if (imageFile != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'floor_plan', // Adjust to match backend expected field name
+          imageFile!.path
+        ));
+      }
+
+      // Send the request
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
       print((event.commercialData));
       if (response.statusCode == 201) {
         emit(CommercialSubmittedState());
       } else {
         print('Request failed with status: ${response.statusCode}.');
         print('Response body: ${response.body}');
-        emit(CommercialErrorState('Error: Failed to submit commercial property data'));
+        emit(CommercialErrorState('Details not filled completely'));
       }
     } catch (e) {
       emit(CommercialErrorState('Error occurred: $e'));
