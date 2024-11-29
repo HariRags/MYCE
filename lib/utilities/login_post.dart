@@ -89,7 +89,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       print('AuthBloc: Making API call');
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/auth/verify_phone/'),
+        Uri.parse('http://10.0.2.2:8000/api/auth/verify_email'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'email': event.email,

@@ -1,11 +1,24 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 class Confirmation extends StatelessWidget {
   const Confirmation({Key? key}) : super(key: key);
-
+ 
   @override
   Widget build(BuildContext context) {
+    final String authToken = ModalRoute.of(context)?.settings.arguments as String;
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(),
+        settings: RouteSettings(arguments: authToken)
+        ),
+      );
+    });
+    
     return Scaffold(
       body: Container(
         color: Colors.white,

@@ -2,12 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 // BLoC Events
 abstract class HouseEvent {}
 
 class HouseSubmitEvent extends HouseEvent {
-  final Map<String, String?> houseData;
+  final Map<String, Object?> houseData;
 
   HouseSubmitEvent(this.houseData);
 }
@@ -32,34 +32,59 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
   final String authToken;
 
   HouseBloc(this.authToken) : super(HouseInitialState()) {
-    // Register the event handler for HouseSubmitEvent
     on<HouseSubmitEvent>(_onHouseSubmitEvent);
   }
 
-  // Event handler for HouseSubmitEvent
   Future<void> _onHouseSubmitEvent(
       HouseSubmitEvent event, Emitter<HouseState> emit) async {
     emit(HouseLoadingState());
     try {
-      print('hey3');
-      print(authToken);
-      print('hey3');
-      final response =
-          await http.post(Uri.parse('http://10.0.2.2:8000/api/houses/'),
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authToken,
-              },
-              body: jsonEncode(event.houseData));
-      print(event.houseData);
+      // Create a multipart request
+      var request = http.MultipartRequest(
+        'POST', 
+        Uri.parse('http://10.0.2.2:8000/api/houses/')
+      );
+
+      // Add authorization header
+      request.headers['Authorization'] = authToken;
+
+      // Separate file and non-file fields
+      File? imageFile;
+      Map<String, String> stringFields = {};
+
+      event.houseData.forEach((key, value) {
+        if (value is File) {
+          imageFile = value;
+        } else {
+          stringFields[key] = value.toString();
+        }
+      });
+
+      // Add string fields
+      request.fields.addAll(stringFields);
+
+      // Add image file if exists
+      if (imageFile != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'floor_plan', // Adjust to match backend expected field name
+          imageFile!.path
+        ));
+      }
+
+      // Send the request
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      // Check the response
       if (response.statusCode == 201) {
         emit(HouseSubmittedState());
-        // Request was successful
       } else {
-        emit(HouseErrorState('Error : Failed to sign up'));
+        emit(HouseErrorState('Enter all the details'));
+        print('Response body: ${response.body}');
       }
     } catch (e) {
-      emit(HouseErrorState('Error occurred: $e')); // Emit error state
+      emit(HouseErrorState('Error occurred: $e'));
+      print('Exception details: $e');
     }
   }
 }
