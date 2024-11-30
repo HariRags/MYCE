@@ -39,14 +39,15 @@ class StructureBloc extends Bloc<StructureEvent, StructureState> {
     emit(StructureLoadingState());
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/structure-design/'),
+        Uri.parse('http://10.0.2.2:8000/api/architecture-design/'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $authToken',
+          'Authorization': authToken,
         },
         body: jsonEncode(event.structureData),
       );
-
+      print(authToken);
+      print(event.structureData);
       if (response.statusCode == 201) {
         emit(StructureSubmittedState());
       } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/interior_bloc.dart';
 import 'package:kriv/utilities/responsive.dart';
@@ -27,13 +28,13 @@ class _InteriorCommercialState extends State<InteriorCommercial> {
   final _formKey = GlobalKey<FormState>();
   final _locationFormKey = GlobalKey<FormState>();
   final _landSizeFormKey = GlobalKey<FormState>();
-  final _floorPlanFormKey = GlobalKey<FormState>();
+  final _requirementsFormKey = GlobalKey<FormState>();
 
   String? _location1;
   String? _location2;
   String? _landSize;
   String? _digitalSurvey;
-  String? _floorPlan;
+  String? _requirements;
 
 
   void _submitForm() {
@@ -46,20 +47,20 @@ class _InteriorCommercialState extends State<InteriorCommercial> {
     if (_landSizeFormKey.currentState!.validate()) {
       _landSizeFormKey.currentState!.save();
     }
-    // if (_floorPlanFormKey.currentState!.validate()) {
-    //   _floorPlanFormKey.currentState!.save();
-    // }
+    if (_requirementsFormKey.currentState!.validate()) {
+      _requirementsFormKey.currentState!.save();
+    }
       print("submitted");
       final houseData = {
-        'type': "commercial", 
+        'requirement_type': "Commercial", 
         'location_line_1': _location1,
         'location_line_2' : _location2,
         "land_size": _landSize,
         "digital_survey": _digitalSurvey,
-        "floor_plan": _floorPlan,
+        "requirements": _requirements,
       };
       print(houseData);
-      // _architectureBloc.add(ArchitectureSubmitEvent(houseData));
+      _interiorBloc.add(InteriorSubmitEvent(houseData));
     
   }
   
@@ -83,17 +84,17 @@ class _InteriorCommercialState extends State<InteriorCommercial> {
       if (state is InteriorSubmittedState) {
         print('HousePage: House submission successful, navigating to next page');
         // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('House submitted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('House submitted successfully!'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
         // Navigate to next page
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  HomePage(),
+            builder: (context) =>  const Confirmation(),
             settings: RouteSettings(arguments: auth_token) // Replace with your next page
           ),
         );
@@ -308,7 +309,7 @@ class _InteriorCommercialState extends State<InteriorCommercial> {
                       height: Responsive.height(2.5, context),
                     ),
                     Text(
-                      'Upload Floor Plan',
+                      'Requirements',
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,
@@ -326,10 +327,10 @@ class _InteriorCommercialState extends State<InteriorCommercial> {
                                 Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
-                          key: _floorPlanFormKey,
+                          key: _requirementsFormKey,
                           child: TextFormField(
                             decoration: InputDecoration(
-                                hintText: '.pdf/.jpg/.png',
+                                // hintText: '.pdf/.jpg/.png',
                                 hintStyle: TextStyle(
                                     color: const Color.fromRGBO(0, 0, 0, 1),
                                     fontSize: Responsive.height(1.6, context),
@@ -340,7 +341,7 @@ class _InteriorCommercialState extends State<InteriorCommercial> {
                                     bottom: Responsive.height(1.2, context)),
                                 border: InputBorder.none),
                                 onChanged: (value) {
-                                  _floorPlan = value;
+                                  _requirements = value;
                                 },
                           ),
                         )),
