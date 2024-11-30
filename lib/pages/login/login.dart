@@ -15,8 +15,32 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
   late final AuthBloc _authBloc;
-  BigInt? _phoneNumber = BigInt.parse("1234567890");
-  String? email;
+  
+  // String? _phoneNumber;
+  // String? _email;
+  
+  bool isEmail(String input) {
+    // Check if it contains exactly one '@' and has a domain
+    if (input.contains('@')&&input.contains('.')) {
+      
+          return true;
+        
+      
+    }
+    return false;
+  }
+
+  bool isPhoneNumber(String input) {
+    // Check if it contains only digits and is exactly 10 characters long
+    if (input.length == 10 && int.tryParse(input) != null) {
+      return true;
+    }
+    return false;
+  }
+  
+  void _submitInput(){
+
+  }
   @override
   void initState() {
     super.initState();
@@ -31,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   }
   @override
   Widget build(BuildContext context) {
+    Map<String, String?> input_data = {'email': null, 'phone_number': null};  
     return Scaffold(
       body: BlocProvider.value(
         value: _authBloc,
@@ -49,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               print('LoginPage: Navigating to Verification page');
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  Verification(phoneNumber: _phoneNumber)),
+                MaterialPageRoute(builder: (context) =>  Verification(input:input_data)),
               );
             } else if (state is AuthError) {
               print('LoginPage: Showing error snackbar');
@@ -144,6 +169,24 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           border: InputBorder.none,
                         ),
+                        onChanged: (value) {
+                    print('hey2');
+                    final input = value;
+                    print(input);
+                    if (isEmail(input)) {
+                      print('emailyes');
+                      print("Sending as email: $input");
+                      input_data['email'] = input;
+                    } else if (isPhoneNumber(input)) {
+                      print('yo');
+                      print("Sending as phone number: $input");
+                      input_data['phone_number'] = input;
+                    }else{
+                      input_data['phone_number'] = null;
+                      input_data['email'] = null;
+                    }
+                  
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'This field cannot be empty';
@@ -162,15 +205,30 @@ class _LoginPageState extends State<LoginPage> {
                     height: Responsive.height(6.5, context),
                     child: FilledButton(
                       onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
+                      
+                  // if (_formKey.currentState!.validate()) {
+                  //   final input = _phoneController.text.trim();
+                  //   print(input);
+                  //   if (isEmail(input)) {
+                  //     print("Sending as email: $input");
+                  //     input_data['email'] = input;
+                  //   } else if (isPhoneNumber(input)) {
+                  //     print('yo');
+                  //     print("Sending as phone number: $input");
+                  //     input_data['phone_number'] = input;
+                  //   }
+                  // }
+                  context.read<AuthBloc>().add(VerifyPhoneEvent(input_data));
+                
+                        // if (_formKey.currentState?.validate() ?? false) {
                           
-                          final email = (_phoneController.text);
-                          // _phoneNumber = BigInt.parse(_phoneController.text);
+                        //   final email = (_phoneController.text);
+                        //   // _phoneNumber = BigInt.parse(_phoneController.text);
 
-                          // print(phoneNumber); // Debug print
-                          context.read<AuthBloc>().add(VerifyPhoneEvent(email));
+                        //   // print(phoneNumber); // Debug print
+                        //   context.read<AuthBloc>().add(VerifyPhoneEvent(email));
             
-                        }
+                        // }
                       },
                       child: Text(
                         'Get otp',

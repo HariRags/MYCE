@@ -7,11 +7,8 @@ import 'dart:convert';
 abstract class AuthEvent {}
 
 class VerifyPhoneEvent extends AuthEvent {
-  final String? email;
-  VerifyPhoneEvent(this.email);
-
-  @override
-  String toString() => 'VerifyPhoneEvent(phoneNumber: $email)';
+  final Map<String,String?> input;
+  VerifyPhoneEvent(this.input);
 }
 
 // States
@@ -78,23 +75,42 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       print('AuthBloc: Starting phone verification process');
       
-      if (event.email == null) {
-        print('AuthBloc: Phone number is null, emitting error');
-        emit(AuthError('Phone number cannot be null'));
-        return;
-      }
+      // if (event.input == null) {
+      //   print('AuthBloc: Phone number is null, emitting error');
+      //   emit(AuthError('Input cannot be null'));
+      //   return;
+      // }
 
       print('AuthBloc: Emitting loading state');
       emit(AuthLoading());
-
+      late final response;
       print('AuthBloc: Making API call');
-      final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/auth/verify_email'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': event.email,
-        }),
-      );
+      print('hey1');
+      print(event.input);
+      if(event.input['email']==null && event.input['phone_number']==null){
+        print('AuthBloc: Phone number is null, emitting error');
+          emit(AuthError('hey cannot be null'));
+          return;
+      }else{
+        if(event.input['email']!=null){
+       response = await http.post(
+          Uri.parse('http://10.0.2.2:8000/api/auth/verify_email'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'email': event.input['email'],
+          }),
+        );
+      }else{
+          response = await http.post(
+          Uri.parse('http://10.0.2.2:8000/api/auth/verify_phone/'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'phone_number': event.input['phone_number'],
+          }),
+        );
+      }
+      }
+       
 
       print('AuthBloc: Received API response - Status: ${response.statusCode}');
       print('AuthBloc: Response body: ${response.body}');

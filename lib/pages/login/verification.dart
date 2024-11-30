@@ -8,9 +8,9 @@ import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/verification_bloc.dart';
 
 class Verification extends StatefulWidget {
-  final BigInt? phoneNumber;
+  final Map<String,String?> input;
 
-  Verification({Key? key, required this.phoneNumber}) : super(key: key);
+  Verification({Key? key, required this.input}) : super(key: key);
   @override
   State<Verification> createState() => _VerificationState();
 }
@@ -21,7 +21,7 @@ class _VerificationState extends State<Verification> {
   String? authToken;
   @override
   Widget build(BuildContext context) {
-    final phoneNumber = widget.phoneNumber;
+    final input = widget.input;
     return Scaffold(
       body: BlocProvider(
         create: (context) => VerificationBloc(),
@@ -135,22 +135,43 @@ class _VerificationState extends State<Verification> {
                       height: Responsive.height(1, context),
                     ),
                     Container(
+                      // color: Colors.amber,
                         margin: EdgeInsets.only(
                             bottom: Responsive.height(3, context)),
                         padding: EdgeInsets.only(
-                            left: Responsive.width(5, context),
-                            right: Responsive.width(15, context)),
-                        alignment: Alignment.center,
-                        child: FilledButton(
-                            child: Text(
-                              'Didn\'t receive the code? Resend',
-                              style: TextStyle(
-                                  color: const Color.fromRGBO(102, 102, 102, 1),
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: Responsive.height(1.7, context)),
+                            left: Responsive.width(18, context),
+                            // right: Responsive.width(15, context)
                             ),
-                            onPressed: () {
+                        alignment: Alignment.center,
+                        child: InkWell(
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  'Didn\'t receive the code?',
+                                  style: TextStyle(
+                                      color: const Color.fromRGBO(102, 102, 102, 1),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: Responsive.height(1.7, context)),
+                                ),
+                            SizedBox(
+                      width: Responsive.width(2.5, context),
+                    ),
+                                 Text(
+                                  'Resend',
+                                  style: TextStyle(
+                                      color: const Color.fromRGBO(107, 67, 151, 1),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: Responsive.height(1.7, context)),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('OTP Sent!'),backgroundColor: Colors.green,),
+                            );
                               // verify_phone api call, if success then navigate to info page
                             })),
                     Container(
@@ -162,10 +183,10 @@ class _VerificationState extends State<Verification> {
                       child: FilledButton(
                         onPressed: () {
                           final otp = _otpController.text.trim();
-                          if (otp.isNotEmpty) {
+                          if (otp.isNotEmpty && otp.length==4) {
                             context
                                 .read<VerificationBloc>()
-                                .add(VerifyOtpEvent(otp, phoneNumber));
+                                .add(VerifyOtpEvent(otp, input));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Please enter an OTP')),

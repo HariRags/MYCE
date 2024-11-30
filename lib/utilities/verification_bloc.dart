@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 abstract class VerificationEvent {}
 
 class VerifyOtpEvent extends VerificationEvent {
-  final BigInt? phoneNumber;
+  final Map<String,String?> input;
   final String otp;
-  VerifyOtpEvent(this.otp, this.phoneNumber);
+  VerifyOtpEvent(this.otp, this.input);
 }
 
 abstract class VerificationState {}
@@ -43,16 +43,32 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
     
     try {
       print('OTP: ${event.otp}');
-      print('Phone Number: ${event.phoneNumber?.toString()}');
+      print('Phone Number: ${event.input}');
+      late final response;
+      if(event.input['email']==null&&event.input['phone_number']==null){
       
-      final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/auth/verify_otp/'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'otp': event.otp,
-          'phone_number': event.phoneNumber?.toString() ?? '',
-        }),
-      );
+      emit(VerificationError('An error occurred during verification. Please try again.'));
+      }else{
+      if (event.input['email'] != null) {
+          response = await http.post(
+            Uri.parse('http://10.0.2.2:8000/api/auth/verify_otp/'),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'otp': event.otp,
+              'email': event.input['email'] ?? '',
+            }),
+          );
+        } else{
+          response = await http.post(
+            Uri.parse('http://10.0.2.2:8000/api/auth/verify_otp/'),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'otp': event.otp,
+              'phone_number': event.input['phone_number'] ?? '',
+            }),
+          );
+        }
+      }
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
