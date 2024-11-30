@@ -43,7 +43,7 @@ class BuyBloc extends Bloc<BuyEvent, BuyState> {
     try {
       print(authToken);
       final response =
-          await http.post(Uri.parse('http://10.0.2.2:8000/api/real-estate-buy/'),
+          await http.post(Uri.parse('http://10.0.2.2:8000/api/buying-property/'),
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authToken,

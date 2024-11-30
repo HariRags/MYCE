@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/swimming_bloc.dart';
@@ -48,7 +49,7 @@ class _PoolMaintanenceState extends State<PoolMaintanence> {
         'pool_size' : _size,
       };
       print(houseData);
-      // _swimmingBloc.add(SwimmingSubmitEvent(houseData));
+      _swimmingBloc.add(SwimmingSubmitEvent(houseData));
     
   }
   @override
@@ -71,17 +72,17 @@ class _PoolMaintanenceState extends State<PoolMaintanence> {
       if (state is SwimmingSubmittedState) {
         print('HousePage: House submission successful, navigating to next page');
         // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('House submitted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('House submitted successfully!'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
         // Navigate to next page
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const Confirmation(),
             settings: RouteSettings(arguments: auth_token) // Replace with your next page
           ),
         );

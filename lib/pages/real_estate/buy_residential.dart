@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/buy_bloc.dart';
 import 'package:kriv/utilities/responsive.dart';
@@ -51,14 +52,15 @@ class _BuyResidentialState extends State<BuyResidential> {
  
       print("submitted");
       final houseData = {
-        'type': "residential", 
+        //FIX ME : check once backend writes property_type
+        'property_type': "Residential", 
         'location_line_1': _location1,
         'location_line_2' : _location2,
-        "size": _size,
+        "land_size": _size,
         "budget": _budget,
       };
       print(houseData);
-      // _buyBloc.add(BuySubmitEvent(houseData));
+      _buyBloc.add(BuySubmitEvent(houseData));
     
   }
   @override
@@ -81,17 +83,17 @@ class _BuyResidentialState extends State<BuyResidential> {
       if (state is BuySubmittedState) {
         print('HousePage: House submission successful, navigating to next page');
         // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('House submitted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('House submitted successfully!'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
         // Navigate to next page
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const Confirmation(),
             settings: RouteSettings(arguments: auth_token) // Replace with your next page
           ),
         );

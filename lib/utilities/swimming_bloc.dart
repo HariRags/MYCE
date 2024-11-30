@@ -43,16 +43,16 @@ class SwimmingBloc extends Bloc<SwimmingEvent, SwimmingState> {
     try {
 
       //TO FIX : on the basis of backend model for swimming pool
-      print(authToken);
+      print("authToken");
       final response =
-          await http.post(Uri.parse('http://10.0.2.2:8000/api/swimming-pool/'),
+          await http.post(Uri.parse('http://10.0.2.2:8000/api/swimming_pool/'),
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authToken,
               },
               body: jsonEncode(event.houseData));
       print(event.houseData);
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         emit(SwimmingSubmittedState());
         // Request was successful
       } else {
