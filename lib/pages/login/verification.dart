@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/login/info_page.dart';
 import 'package:kriv/utilities/infopage_bloc.dart';
+import 'package:kriv/utilities/login_post.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:kriv/utilities/responsive.dart';
@@ -169,6 +170,7 @@ class _VerificationState extends State<Verification> {
                               ],
                             ),
                             onTap: () {
+                              context.read<AuthBloc>().add(VerifyPhoneEvent(input));
                               ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('OTP Sent!'),backgroundColor: Colors.green,),
                             );
