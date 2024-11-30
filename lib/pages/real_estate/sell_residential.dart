@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/sell_bloc.dart';
+import 'package:kriv/widgets/imagepicker.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
-
+import 'dart:io';
 class SellResidential extends StatefulWidget {
   
   const SellResidential({Key? key}) : super(key: key);
@@ -29,16 +31,33 @@ class _SellResidentialState extends State<SellResidential> {
   final _locationFormKey = GlobalKey<FormState>();
   final _sizeFormKey = GlobalKey<FormState>();
   final _ownerFormKey = GlobalKey<FormState>();
-  final _propertyFormKey = GlobalKey<FormState>();
   final _expectedFormKey = GlobalKey<FormState>();
 
   String? _location1;
   String? _location2;
   String? _size;
   String? _ownerDetails;
-  String? _propertyDocs;
+  File? _propertyDocs;
+  String? _propertyDocsName;
   String? _expectedPrice;
 
+  Future<void> selectFile() async {
+    // Use the utility function to pick a file
+    final result = await pickFile();
+
+    if (result != null) {
+      setState(() {
+        _propertyDocs = result['file'];
+        _propertyDocsName = result['fileName'];
+      });
+    } else {
+      setState(() {
+        _propertyDocs = null;
+        _propertyDocsName = null;
+        
+      });
+    }
+  }
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -53,24 +72,22 @@ class _SellResidentialState extends State<SellResidential> {
     if (_ownerFormKey.currentState!.validate()) {
       _ownerFormKey.currentState!.save();
     }
-    if (_propertyFormKey.currentState!.validate()) {
-      _propertyFormKey.currentState!.save();
-    }
     if (_expectedFormKey.currentState!.validate()) {
       _expectedFormKey.currentState!.save();
     }
       print("submitted");
       final houseData = {
-        'type': "residential", 
+        // FIX ME : Check api once backend changes property_type 
+        'property_type': "Residential", 
         'location_line_1': _location1,
         'location_line_2' : _location2,
-        "size": _size,
+        "land_size": _size,
         "owner_details": _ownerDetails,
-        "property_docs": _propertyDocs,
+        "property_documents": _propertyDocs,
         "expected_price":_expectedPrice
       };
       print(houseData);
-      // _sellBloc.add(SellSubmitEvent(houseData));
+      _sellBloc.add(SellSubmitEvent(houseData));
     
   }
   
@@ -94,17 +111,17 @@ class _SellResidentialState extends State<SellResidential> {
       if (state is SellSubmittedState) {
         print('HousePage: House submission successful, navigating to next page');
         // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('House submitted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('House submitted successfully!'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
         // Navigate to next page
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const Confirmation(),
             settings: RouteSettings(arguments: auth_token) // Replace with your next page
           ),
         );
@@ -122,7 +139,7 @@ class _SellResidentialState extends State<SellResidential> {
               return SafeArea(
                   child: Column(children: [
                     const MYCEBackButton(),
-                    const NavigationWidget(navigationItems: ['Real Estate', 'Sell', 'Residential']),
+                    const NavigationWidget(navigationItems: ['Real Estate', 'Sell', 'Residential Apartment']),
                     Container(
                 margin: EdgeInsets.only(
                   left: Responsive.width(3.5, context),
@@ -345,33 +362,75 @@ class _SellResidentialState extends State<SellResidential> {
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
-                    Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(5, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _propertyFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                hintText: 'Sketch Copy (.pdf/.jpg/.png)',
-                                hintStyle: TextStyle(
-                                    color: const Color.fromRGBO(0, 0, 0, 1),
-                                    fontSize: Responsive.height(1.6, context),
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.italic),
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onChanged: (value){
-                                   _propertyDocs= value;
-                                },
-                          ),
-                        )),
+                      InkWell(
+                      onTap: selectFile,
+                      child: Container(
+                          padding: EdgeInsets.only(left: Responsive.width(3, context),right: Responsive.width(2, context),top: Responsive.width(2, context)),
+                          height: Responsive.height(5, context),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                              borderRadius: BorderRadius.circular(6)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: Responsive.width(75, context),
+                                child: _propertyDocs != null
+                                        ? Row(
+                                            children: [
+                                              if (_propertyDocs!.path
+                                                  .endsWith('.pdf'))
+                                                Icon(
+                                                  Icons.picture_as_pdf,
+                                                  size: 100,
+                                                  // color: Colors.red,
+                                                )
+                                              else
+                                                Icon(
+                                                 Icons.image,
+                                                
+                                                ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                'File Selected',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500),
+                                                    overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          )
+                                        : Text(
+                                  'Sketch Copy (.pdf/.jpg/.png)',
+                                  style: TextStyle(
+                                          color: const Color.fromRGBO(0, 0, 0, 1),
+                                          fontSize: Responsive.height(1.6, context),
+                                          fontWeight: FontWeight.w400,
+                                          fontStyle: FontStyle.italic),
+                                  textAlign: TextAlign.left 
+                                ),
+                              ),
+                              // Text(
+                              //   '.pdf/.jpg/.png',
+                              //   style: TextStyle(
+                              //           color: const Color.fromRGBO(0, 0, 0, 1),
+                              //           fontSize: Responsive.height(1.6, context),
+                              //           fontWeight: FontWeight.w400,
+                              //           fontStyle: FontStyle.italic),
+                              //   textAlign: TextAlign.left 
+                              // ),
+                               Icon(
+                                      Icons.file_upload_outlined, // Use Icons.camera_alt for a camera icon
+                                      // size: Responsive.height(1,context),          // Adjust size as needed
+                                      color: Colors.black, // Customize the color
+                                    )
+                      
+                            ],
+                          )),
+                    ),
                     SizedBox(
                       height: Responsive.height(3, context),
                     ),
