@@ -51,6 +51,9 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        if(authToken==''){
+                          
+                        }else{
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -60,6 +63,7 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                               ),
                           ),
                         );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Villa',

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/global.dart';
+import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/imagepicker.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -41,7 +43,7 @@ class _HouseVillaState extends State<HouseVilla> {
   String? _digitalSurvey;
   File? _selectedFile;
   String? _floorPlan;
-
+  String? _location;
   Future<void> selectFile() async {
     // Use the utility function to pick a file
     final result = await pickFile();
@@ -79,6 +81,7 @@ class _HouseVillaState extends State<HouseVilla> {
         "plan_details": _planDetails,
         "digital_survey": _digitalSurvey,
         "floor_plan": _selectedFile,
+        "location":_location
       };
       _houseBloc.add(HouseSubmitEvent(houseData));
     
@@ -86,7 +89,6 @@ class _HouseVillaState extends State<HouseVilla> {
   @override
   Widget build(BuildContext context) {
     print("hi");
-    print(auth_token);
     return Scaffold(
       body: BlocProvider(
         create: (context) => _houseBloc,
@@ -150,10 +152,43 @@ class _HouseVillaState extends State<HouseVilla> {
                           fontWeight: FontWeight.w600,
                           fontSize: Responsive.height(2.5, context)),
                     ),
-                    Text('MSR Nagar, Bengaluru, Karnataka- 560054, India.',
-                        style: TextStyle(
-                            fontSize: Responsive.height(1.5, context),
-                            color: Colors.black)),
+                     
+                    InkWell(
+                      onTap: () async {
+                        final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MapPage(),
+                              ),
+                            );
+                            if (result != null && result is String) {
+                              setState(() {
+                                _location = result;
+                              });
+                            }
+                            print(result);
+              
+                      },
+                      child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: Responsive.height(2, context),
+                                  color: const Color.fromRGBO(107, 67, 151, 1),
+                                ),
+                                Text(
+                                    (_location == null)
+                                        ? 'Select the location'
+                                        : _location!,
+                                    style: TextStyle(
+                                        fontSize:
+                                            Responsive.height(1.5, context),
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                    ),
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),

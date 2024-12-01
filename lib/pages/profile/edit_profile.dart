@@ -5,6 +5,8 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -208,11 +210,29 @@ class EditProfileState extends State<EditProfile> {
                 ],
               ),
             ),
+            SizedBox(
+              height: Responsive.height(3, context),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    globals.name = _controllerName.text.trim();
+                    globals.phoneNumber = _controllerNumber.text.trim();
+                    globals.email = _controllerMail.text.trim();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Profile Updated"),backgroundColor: Colors.green,),
+              );
+                    
+                    Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+            settings: RouteSettings(arguments: globals.accessToken) // Replace with your next page
+          ),
+        );
+                  },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(const Color(0xFF6B4397)),

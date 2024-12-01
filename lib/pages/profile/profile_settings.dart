@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kriv/pages/profile/edit_profile.dart';
+import 'package:kriv/utilities/global.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
@@ -65,8 +67,8 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                 Responsive.width(5, context),
                                 0,
                               ),
-                              child: const Text(
-                                "Rohit Bisht",
+                              child:  Text(
+                                globals.name,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -82,8 +84,8 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                   0,
                                   Responsive.height(0.6, context),
                                 ),
-                                child: const Text(
-                                  'rohitbisht@gmail.com',
+                                child:  Text(
+                                  globals.email,
                                   style: TextStyle(
                                     color: Color(0xFFB3B3B3),
                                     fontSize: 16,
@@ -99,8 +101,8 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                   0,
                                   Responsive.height(0.6, context),
                                 ),
-                                child: const Text(
-                                  '9373092739',
+                                child: Text(
+                                  globals.phoneNumber,
                                   style: TextStyle(
                                     color: Color(0xFFB3B3B3),
                                     fontSize: 16,
@@ -114,7 +116,15 @@ class ProfileSettingsState extends State<ProfileSettings> {
                       ),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const EditProfile(),
+            // settings: RouteSettings(arguments: auth_token) // Replace with your next page
+          ),
+        );
+                            },
                             child: const Text(
                               'Edit',
                               style: TextStyle(

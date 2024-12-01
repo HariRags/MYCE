@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
@@ -169,6 +170,7 @@ class _InfoPageState extends State<InfoPage> {
                                     onChanged: (value) {
                                       print(value);
                                       _name = value;
+                                      globals.name = value;
                                     })),
                             SizedBox(
                               height: Responsive.height(3, context),
@@ -200,7 +202,10 @@ class _InfoPageState extends State<InfoPage> {
                                     validator: (value) => value!.isEmpty
                                         ? 'Please enter your phone number'
                                         : null,
-                                    onChanged: (value) => _phone = value,
+                                    onChanged: (value) {
+                                      _phone = value;
+                                      globals.phoneNumber = value;
+                                      },
                                   ),
                                 )),
                             SizedBox(
@@ -233,7 +238,10 @@ class _InfoPageState extends State<InfoPage> {
                                     validator: (value) => value!.isEmpty
                                         ? 'Please enter your email'
                                         : null,
-                                    onChanged: (value) => _email = value,
+                                    onChanged: (value) {
+                                       _email = value;
+                                       globals.email = value;
+                                       },
                                   ),
                                 )),
                             SizedBox(
@@ -266,7 +274,10 @@ class _InfoPageState extends State<InfoPage> {
                                     validator: (value) => value!.isEmpty
                                         ? 'Please enter your address'
                                         : null,
-                                    onChanged: (value) => _address = value,
+                                    onChanged: (value) { 
+                                      _address = value;
+                                      globals.address = value;
+                                      },
                                   ),
                                 )),
                             SizedBox(

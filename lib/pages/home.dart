@@ -6,7 +6,7 @@ import 'package:kriv/pages/architecture_and_design/structure_design.dart';
 import 'package:kriv/pages/execution/commercial.dart';
 import 'package:kriv/pages/execution/house.dart';
 import 'package:kriv/pages/execution/industrial.dart';
-import 'package:kriv/pages/profile/profile_settings.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/pages/project_management/project.dart';
 import 'package:kriv/pages/project_management/services.dart';
 import 'package:kriv/pages/real_estate/buy.dart';
@@ -14,6 +14,7 @@ import 'package:kriv/pages/real_estate/buy_land.dart';
 import 'package:kriv/pages/real_estate/sell.dart';
 import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/login_post.dart';
 import 'package:kriv/utilities/services_bloc.dart';
 import 'package:kriv/utilities/swimming_bloc.dart';
@@ -21,16 +22,16 @@ import '../utilities/responsive.dart';
 import '../widgets/folders.dart';
 import 'package:defer_pointer/defer_pointer.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({
+class Home extends StatefulWidget {
+  const Home({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HomePage> createState() => HomePageState();
+  State<Home> createState() => HomeState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomeState extends State<Home> {
   String? authToken;
   String auth_token = "";
   bool repeatTap = false;
@@ -97,9 +98,9 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String?;
+    // final args = ModalRoute.of(context)!.settings.arguments as String?;
     // print('HomePage: Retrieved arguments: $args');
-    authToken = args;
+    authToken = globals.accessToken;
     auth_token = authToken!;
     Offset offset = const Offset(0, -0.33);
     final animationDuration = const Duration(milliseconds: 600);
@@ -117,7 +118,7 @@ class HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.fromLTRB(
                     leftSpacing,
-                    Responsive.height(1, context),
+                    Responsive.height(1.8, context),
                     Responsive.width(5.4, context),
                     0),
                 child: Row(
@@ -127,19 +128,18 @@ class HomePageState extends State<HomePage> {
                       child: Image.asset('assets/images/burger_icon.png'),
                       onTap: () {},
                     ),
-                    IconButton(
+                    TextButton(
                       onPressed: () {
                         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProfileSettings(),
-            settings: RouteSettings(arguments: auth_token) // Replace with your next page
-          ),
-        );
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
                       },
-                      icon: Icon(Icons.account_circle_outlined,
-                          color:const Color(0xFF6B4397),
-                          size: Responsive.height(5, context) ),
+                      child: Text('Login/Sign up',
+                          style: TextStyle(
+                              color: customPurple,
+                              fontSize: Responsive.height(2, context),
+                              fontWeight: FontWeight.w500)),
                     )
                   ],
                 ),

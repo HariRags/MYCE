@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/login/info_page.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/infopage_bloc.dart';
 import 'package:kriv/utilities/login_post.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -45,6 +46,8 @@ class _VerificationState extends State<Verification> {
                   'VerificationPage: Verification successful, navigating to home');
               // Store tokens in secure storage here if needed
               authToken = 'Bearer '+ state.accessToken;
+              globals.accessToken = 'Bearer '+state.accessToken;
+              globals.refreshToken =  'Bearer '+state.refreshToken;
               Navigator.push(
                   context,
                   MaterialPageRoute(
