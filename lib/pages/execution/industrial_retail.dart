@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/imagepicker.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -9,6 +10,7 @@ import 'package:kriv/utilities/industry_post.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+
 class IndustrialRetail extends StatefulWidget {
   const IndustrialRetail({Key? key}) : super(key: key);
 
@@ -41,6 +43,7 @@ class _IndustrialRetailState extends State<IndustrialRetail> {
   String? _digitalSurvey;
   String? _floorPlan;
   File? _selectedFile;
+  String? _location;
 Future<void> selectFile() async {
     // Use the utility function to pick a file
     final result = await pickFile();
@@ -68,25 +71,27 @@ Future<void> selectFile() async {
     if (_planDetailsFormKey.currentState!.validate()) {
       _planDetailsFormKey.currentState!.save();
     }
-   
+  
     print("submitted");
     final industryData = {
-      'type': "retail space", // Changed 'villa' to something industry-specific
+      'type': "Retail Space", 
       'location_line_1': _location1,
       'location_line_2': _location2,
       "plan_details": _planDetails,
       "digital_survey": _digitalSurvey,
       "floor_plan": _selectedFile,
+       "location":_location
     };
     _industryBloc.add(IndustrySubmitEvent(industryData));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocProvider(
           create: (context) => _industryBloc,
           child: BlocConsumer<IndustryBloc,IndustryState>(
-listenWhen: (previous, current) {
+              listenWhen: (previous, current) {
       print('IndustryPage: listenWhen called - Previous: $previous, Current: $current');
       return true; // You can add specific conditions here if needed
     },
@@ -128,7 +133,8 @@ listenWhen: (previous, current) {
               return SafeArea(
                   child: Column(children: [
                     const MYCEBackButton(),
-                    const NavigationWidget(navigationItems: ['Execution', 'Industrial', 'Retail Space']),
+                    const NavigationWidget(
+                navigationItems: ['Execution', 'Industrial', 'Retail Space']),
                     Container(
                 margin: EdgeInsets.only(
                   left: Responsive.width(3.5, context),
@@ -145,10 +151,42 @@ listenWhen: (previous, current) {
                           fontWeight: FontWeight.w600,
                           fontSize: Responsive.height(2.5, context)),
                     ),
-                    Text('MSR Nagar, Bengaluru, Karnataka- 560054, India.',
-                        style: TextStyle(
-                            fontSize: Responsive.height(1.5, context),
-                            color: Colors.black)),
+                    InkWell(
+                      onTap: () async {
+                        final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MapPage(),
+                              ),
+                            );
+                            if (result != null && result is String) {
+                              setState(() {
+                                _location = result;
+                              });
+                            }
+                            print(result);
+              
+                      },
+                      child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: Responsive.height(2, context),
+                                  color: const Color.fromRGBO(107, 67, 151, 1),
+                                ),
+                                Text(
+                                    (_location == null)
+                                        ? 'Select the location'
+                                        : _location!,
+                                    style: TextStyle(
+                                        fontSize:
+                                            Responsive.height(1.5, context),
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                    ),
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
@@ -157,27 +195,26 @@ listenWhen: (previous, current) {
                         height: Responsive.height(4.5, context),
                         alignment: Alignment.topLeft,
                         decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                            border: Border.all(
+                                color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
                           key: _formKey,
                           child: TextFormField(
-                            decoration: InputDecoration(
-                                hintText: 'House/ Flat/ Block Number',
-                                hintStyle: TextStyle(
-                                  color: const Color.fromRGBO(132, 132, 132, 1),
-                                  fontSize: Responsive.height(1.6, context),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onSaved: (value) {
+                              decoration: InputDecoration(
+                                  hintText: 'House/ Flat/ Block Number',
+                                  hintStyle: TextStyle(
+                                    color: const Color.fromRGBO(132, 132, 132, 1),
+                                    fontSize: Responsive.height(1.6, context),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  contentPadding: EdgeInsets.only(
+                                      left: Responsive.width(1, context),
+                                      bottom: Responsive.height(1.2, context)),
+                                  border: InputBorder.none),
+                              onSaved: (value) {
                                 _location1 = value;
-                              }
-                          ),
+                              }),
                         )),
                     SizedBox(
                       height: Responsive.height(0.5, context),
@@ -187,27 +224,26 @@ listenWhen: (previous, current) {
                         height: Responsive.height(4.5, context),
                         alignment: Alignment.topLeft,
                         decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                            border: Border.all(
+                                color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
                           key: _locationFormKey,
                           child: TextFormField(
-                            decoration: InputDecoration(
-                                hintText: 'Area/ Landmark/ Road',
-                                hintStyle: TextStyle(
-                                  color: const Color.fromRGBO(132, 132, 132, 1),
-                                  fontSize: Responsive.height(1.6, context),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onSaved: (value) {
+                              decoration: InputDecoration(
+                                  hintText: 'Area/ Landmark/ Road',
+                                  hintStyle: TextStyle(
+                                    color: const Color.fromRGBO(132, 132, 132, 1),
+                                    fontSize: Responsive.height(1.6, context),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  contentPadding: EdgeInsets.only(
+                                      left: Responsive.width(1, context),
+                                      bottom: Responsive.height(1.2, context)),
+                                  border: InputBorder.none),
+                              onSaved: (value) {
                                 _location2 = value;
-                              }
-                          ),
+                              }),
                         )),
                     SizedBox(
                       height: Responsive.height(2.2, context),
@@ -227,21 +263,20 @@ listenWhen: (previous, current) {
                         height: Responsive.height(5, context),
                         alignment: Alignment.topLeft,
                         decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                            border: Border.all(
+                                color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
                           key: _planDetailsFormKey,
                           child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onSaved: (value) {
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      left: Responsive.width(1, context),
+                                      bottom: Responsive.height(1.2, context)),
+                                  border: InputBorder.none),
+                              onSaved: (value) {
                                 _planDetails = value;
-                              }
-                          ),
+                              }),
                         )),
                     SizedBox(
                       height: Responsive.height(2.2, context),
@@ -334,7 +369,7 @@ listenWhen: (previous, current) {
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
-                    InkWell(
+                     InkWell(
                       onTap: selectFile,
                       child: Container(
                           padding: EdgeInsets.only(left: Responsive.width(3, context),right: Responsive.width(2, context),top: Responsive.width(2, context)),
@@ -403,7 +438,6 @@ listenWhen: (previous, current) {
                             ],
                           )),
                     ),
-
                     SizedBox(
                       height: Responsive.height(3, context),
                     ),

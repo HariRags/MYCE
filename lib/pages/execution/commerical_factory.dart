@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kriv/pages/confirmation.dart';
-// import 'package:kriv/pages/execution/commercial.dart';
 import 'package:kriv/pages/homepage.dart';
-import 'package:kriv/utilities/commercial_bloc.dart';
+import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/imagepicker.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
-// import 'package:kriv/utilities/commercial_bloc.dart';
+import 'package:kriv/utilities/commercial_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
@@ -42,7 +41,8 @@ class _CommercialFactoryState extends State<CommercialFactory> {
   String? _planDetails;
   String? _digitalSurvey;
   String? _floorPlan;
-   File? _selectedFile;
+  File? _selectedFile;
+  String? _location;
 Future<void> selectFile() async {
     // Use the utility function to pick a file
     final result = await pickFile();
@@ -60,6 +60,7 @@ Future<void> selectFile() async {
       });
     }
   }
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -79,6 +80,7 @@ Future<void> selectFile() async {
       "plan_details": _planDetails,
       "digital_survey": _digitalSurvey,
       "floor_plan": _selectedFile,
+      "location":_location
     };
     print(industryData);
     _commercialBloc.add(CommercialSubmitEvent(industryData));
@@ -89,8 +91,9 @@ Future<void> selectFile() async {
     return Scaffold(
         body: BlocProvider(
           create: (context) => _commercialBloc,
-          child: BlocConsumer<CommercialBloc, CommercialPropState>(
-  listenWhen: (previous, current) {
+
+          child: BlocConsumer<CommercialBloc,CommercialPropState>(
+            listenWhen: (previous, current) {
     print('CommercialPage: listenWhen called - Previous: $previous, Current: $current');
     return true; // Add specific conditions if needed
   },
@@ -147,10 +150,42 @@ Future<void> selectFile() async {
                           fontWeight: FontWeight.w600,
                           fontSize: Responsive.height(2.5, context)),
                     ),
-                    Text('MSR Nagar, Bengaluru, Karnataka- 560054, India.',
-                        style: TextStyle(
-                            fontSize: Responsive.height(1.5, context),
-                            color: Colors.black)),
+                   InkWell(
+                      onTap: () async {
+                        final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MapPage(),
+                              ),
+                            );
+                            if (result != null && result is String) {
+                              setState(() {
+                                _location = result;
+                              });
+                            }
+                            print(result);
+              
+                      },
+                      child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: Responsive.height(2, context),
+                                  color: const Color.fromRGBO(107, 67, 151, 1),
+                                ),
+                                Text(
+                                    (_location == null)
+                                        ? 'Select the location'
+                                        : _location!,
+                                    style: TextStyle(
+                                        fontSize:
+                                            Responsive.height(1.5, context),
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                    ),
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
@@ -175,9 +210,7 @@ Future<void> selectFile() async {
                                 contentPadding: EdgeInsets.only(
                                     left: Responsive.width(1, context),
                                     bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none
-                                
-                                ),
+                                border: InputBorder.none),
                                 onSaved: (value) {
                                 _location1 = value;
                               },
@@ -212,6 +245,7 @@ Future<void> selectFile() async {
                                 _location2 = value;
                               },
                           ),
+                          
                         )),
                     SizedBox(
                       height: Responsive.height(2.2, context),
@@ -242,9 +276,9 @@ Future<void> selectFile() async {
                                     left: Responsive.width(1, context),
                                     bottom: Responsive.height(1.2, context)),
                                 border: InputBorder.none),
-                                onSaved: (value){
-                                  _planDetails = value;
-                                },
+                                onSaved: (value) {
+                                _planDetails = value;
+                              },
                           ),
                         )),
                     SizedBox(

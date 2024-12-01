@@ -1,15 +1,16 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/global.dart';
+import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/imagepicker.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 import 'package:kriv/utilities/house_post.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_picker/file_picker.dart';
-import 'dart:io';
-
 class HouseFarmhouse extends StatefulWidget {
   const HouseFarmhouse({Key? key}) : super(key: key);
 
@@ -18,7 +19,7 @@ class HouseFarmhouse extends StatefulWidget {
 }
 
 class _HouseFarmhouseState extends State<HouseFarmhouse> {
-   String auth_token="";
+  String auth_token="";
   late HouseBloc _houseBloc;
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _HouseFarmhouseState extends State<HouseFarmhouse> {
     auth_token = houseBloc.authToken;
     _houseBloc = HouseBloc(auth_token);
   }
+  
  
  // Provide your auth token here
   final _formKey = GlobalKey<FormState>();
@@ -39,9 +41,10 @@ class _HouseFarmhouseState extends State<HouseFarmhouse> {
   String? _location2;
   String? _planDetails;
   String? _digitalSurvey;
-  String? _floorPlan;
   File? _selectedFile;
-Future<void> selectFile() async {
+  String? _floorPlan;
+  String? _location;
+  Future<void> selectFile() async {
     // Use the utility function to pick a file
     final result = await pickFile();
 
@@ -78,64 +81,62 @@ Future<void> selectFile() async {
         "plan_details": _planDetails,
         "digital_survey": _digitalSurvey,
         "floor_plan": _selectedFile,
+        "location":_location
       };
       _houseBloc.add(HouseSubmitEvent(houseData));
     
   }
   @override
   Widget build(BuildContext context) {
+    print("hi");
     return Scaffold(
-        body: BlocProvider(
-          create: (context) => _houseBloc,
+      body: BlocProvider(
+        create: (context) => _houseBloc,
           child: BlocConsumer<HouseBloc,HouseState>(
             listenWhen: (previous, current) {
-          print(
-              'HousePage: listenWhen called - Previous: $previous, Current: $current');
-          return true; // You can add specific conditions here if needed
-        },
-        buildWhen: (previous, current) {
-          print(
-              'HousePage: buildWhen called - Previous: $previous, Current: $current');
-          return true; // You can add specific conditions here if needed
-        },
-        listener: (context, state) {
-          print('HousePage: BlocConsumer listener received state: $state');
+      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      return true; // You can add specific conditions here if needed
+    },
+    buildWhen: (previous, current) {
+      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      return true; // You can add specific conditions here if needed
+    },
+    listener: (context, state) {
+      print('HousePage: BlocConsumer listener received state: $state');
 
-          if (state is HouseSubmittedState) {
-            print(
-                'HousePage: House submission successful, navigating to next page');
-            // Show success message
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   const SnackBar(
-            //     content: Text('House submitted successfully!'),
-            //     backgroundColor: Colors.green,
-            //   ),
-            // );
-            // Navigate to next page
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    const Confirmation(), // Replace with your next page
-                    settings: RouteSettings(arguments: auth_token)
-              ),
-            );
-          } else if (state is HouseErrorState) {
-            print('HousePage: Showing error snackbar');
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        },
+      if (state is HouseSubmittedState) {
+        print('HousePage: House submission successful, navigating to next page');
+        // Show success message
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('House submitted successfully!'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
+        // Navigate to next page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>  const Confirmation(),
+            settings: RouteSettings(arguments: auth_token) // Replace with your next page
+          ),
+        );
+      } else if (state is HouseErrorState) {
+        print('HousePage: Showing error snackbar');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    },
             builder: (context,state){
               return SafeArea(
                   child: Column(children: [
-                    const MYCEBackButton(),
-                    const NavigationWidget(navigationItems: ['Execution', 'House', 'Farmhouse']),
-                    Container(
+                      const MYCEBackButton(),
+                      const NavigationWidget(navigationItems: ['Execution', 'House', 'Farmhouse']),
+                      Container(
                 margin: EdgeInsets.only(
                   left: Responsive.width(3.5, context),
                   right: Responsive.width(3.5, context),
@@ -151,10 +152,43 @@ Future<void> selectFile() async {
                           fontWeight: FontWeight.w600,
                           fontSize: Responsive.height(2.5, context)),
                     ),
-                    Text('MSR Nagar, Bengaluru, Karnataka- 560054, India.',
-                        style: TextStyle(
-                            fontSize: Responsive.height(1.5, context),
-                            color: Colors.black)),
+                     
+                    InkWell(
+                      onTap: () async {
+                        final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MapPage(),
+                              ),
+                            );
+                            if (result != null && result is String) {
+                              setState(() {
+                                _location = result;
+                              });
+                            }
+                            print(result);
+              
+                      },
+                      child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: Responsive.height(2, context),
+                                  color: const Color.fromRGBO(107, 67, 151, 1),
+                                ),
+                                Text(
+                                    (_location == null)
+                                        ? 'Select the location'
+                                        : _location!,
+                                    style: TextStyle(
+                                        fontSize:
+                                            Responsive.height(1.5, context),
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                    ),
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
@@ -181,8 +215,8 @@ Future<void> selectFile() async {
                                     bottom: Responsive.height(1.2, context)),
                                 border: InputBorder.none),
                                 onSaved: (value) {
-                                    _location1 = value;
-                                  }
+                                  _location1 = value;
+                                }
                           ),
                         )),
                     SizedBox(
@@ -211,8 +245,8 @@ Future<void> selectFile() async {
                                     bottom: Responsive.height(1.2, context)),
                                 border: InputBorder.none),
                                 onSaved: (value) {
-                                    _location2 = value;
-                                  }
+                                  _location2 = value;
+                                }
                           ),
                         )),
                     SizedBox(
@@ -245,8 +279,8 @@ Future<void> selectFile() async {
                                     bottom: Responsive.height(1.2, context)),
                                 border: InputBorder.none),
                                 onSaved: (value) {
-                                    _planDetails = value;
-                                  }
+                                  _planDetails = value;
+                                }
                           ),
                         )),
                     SizedBox(
@@ -416,7 +450,7 @@ Future<void> selectFile() async {
                       width: Responsive.width(95, context),
                       height: Responsive.height(6.5, context),
                       child: FilledButton(
-                        onPressed: _submitForm,
+                        onPressed:  _submitForm,
                         child: Text(
                           'Done',
                           style: TextStyle(fontSize: Responsive.height(2.3, context)),
@@ -432,9 +466,9 @@ Future<void> selectFile() async {
                     )
                   ],
                 ))
-                  ]));
+                    ]));
   },
-          ),
-        ));
+          )),
+    );
   }
 }

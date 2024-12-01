@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/sell_bloc.dart';
 import 'package:kriv/widgets/imagepicker.dart';
@@ -40,6 +41,7 @@ class _SellCommercialState extends State<SellCommercial> {
   File? _propertyDocs;
   String? _propertyDocsName;
   String? _expectedPrice;
+  String? _location;
 
   Future<void> selectFile() async {
     // Use the utility function to pick a file
@@ -84,7 +86,8 @@ class _SellCommercialState extends State<SellCommercial> {
         "land_size": _size,
         "owner_details": _ownerDetails,
         "property_documents": _propertyDocs,
-        "expected_price":_expectedPrice
+        "expected_price":_expectedPrice,
+        "location":_location
       };
       print(houseData);
       _sellBloc.add(SellSubmitEvent(houseData));
@@ -156,10 +159,42 @@ class _SellCommercialState extends State<SellCommercial> {
                           fontWeight: FontWeight.w600,
                           fontSize: Responsive.height(2.5, context)),
                     ),
-                    Text('MSR Nagar, Bengaluru, Karnataka- 560054, India.',
-                        style: TextStyle(
-                            fontSize: Responsive.height(1.5, context),
-                            color: Colors.black)),
+                    InkWell(
+                      onTap: () async {
+                        final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MapPage(),
+                              ),
+                            );
+                            if (result != null && result is String) {
+                              setState(() {
+                                _location = result;
+                              });
+                            }
+                            print(result);
+              
+                      },
+                      child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: Responsive.height(2, context),
+                                  color: const Color.fromRGBO(107, 67, 151, 1),
+                                ),
+                                Text(
+                                    (_location == null)
+                                        ? 'Select the location'
+                                        : _location!,
+                                    style: TextStyle(
+                                        fontSize:
+                                            Responsive.height(1.5, context),
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                    ),
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
