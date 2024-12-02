@@ -5,6 +5,7 @@ import 'package:kriv/pages/execution/house_apartment.dart';
 import 'package:kriv/pages/execution/house_bungalow.dart';
 import 'package:kriv/pages/execution/house_farmhouse.dart';
 import 'package:kriv/pages/execution/house_villa.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/login_post.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/house_post.dart';
@@ -48,16 +49,19 @@ class HouseState extends State<House> {
                   children: [
                     GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    HouseBloc(authToken),
-                                child: const HouseVilla(),
+                          if (globals.accessToken == '') {
+                            return;
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => HouseBloc(authToken),
+                                  child: const HouseVilla(),
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                         child: const ImageCard(
                           title: 'Villa',
@@ -67,16 +71,19 @@ class HouseState extends State<House> {
                         )),
                     GestureDetector(
                       onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    HouseBloc(authToken),
-                                child: const HouseBungalow(),
+                          if (globals.accessToken == '') {
+                            return;
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => HouseBloc(authToken),
+                                  child: const HouseBungalow(),
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                       
                         child: const ImageCard(
@@ -87,16 +94,19 @@ class HouseState extends State<House> {
                         )),
                     GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    HouseBloc(authToken),
-                                child: const HouseFarmhouse(),
+                          if (globals.accessToken == '') {
+                            return;
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => HouseBloc(authToken),
+                                  child: const HouseVilla(),
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                         child: const ImageCard(
                           title: 'Farmhouse',
@@ -106,16 +116,19 @@ class HouseState extends State<House> {
                         )),
                     GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    HouseBloc(authToken),
-                                child: const HouseApartment(),
+                          if (globals.accessToken == '') {
+                            return;
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => HouseBloc(authToken),
+                                  child: const HouseApartment(),
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                         child: const ImageCard(
                           title: 'Apartment',

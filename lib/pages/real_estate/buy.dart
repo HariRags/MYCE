@@ -7,6 +7,7 @@ import 'package:kriv/pages/real_estate/buy_commercial.dart';
 import 'package:kriv/pages/real_estate/buy_land.dart';
 import 'package:kriv/pages/real_estate/buy_residential.dart';
 import 'package:kriv/utilities/buy_bloc.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -48,15 +49,23 @@ class  BuyState extends State <Buy> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){Navigator.push(context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    BuyBloc(authToken),
-                                child:  BuyLand(authToken: authToken,),
+                      onTap:(){
+                        if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => BuyBloc(authToken),
+                                  child: BuyLand(
+                                    authToken: authToken,
+                                  ),
+                                ),
                               ),
-                            ),
-                        );},
+                            );
+                          }
+                        },
                       child: const ImageCard(
                         title: 'Land',
                         description: 'Ownership of land is transferred from the seller to the buyer in exchange for an agreed-upon price.',
@@ -64,15 +73,22 @@ class  BuyState extends State <Buy> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    BuyBloc(authToken),
-                                child:  BuyResidential(authToken: authToken,),
+                      onTap:(){
+                        if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => BuyBloc(authToken),
+                                  child: BuyResidential(
+                                    authToken: authToken,
+                                  ),
+                                ),
                               ),
-                            ),
-                        );},
+                            );
+                          }},
                       child: const ImageCard(
                         title: 'Residential',
                         description: 'Selling of a residential property by property owner to a buyer, typically facilitated by a real estate agent or broker.',
@@ -80,15 +96,21 @@ class  BuyState extends State <Buy> {
                         
                     ),
                     InkWell(
-                      onTap:(){Navigator.push(context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    BuyBloc(authToken),
-                                child:  BuyCommercial(authToken: authToken,),
+                      onTap:(){if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => BuyBloc(authToken),
+                                  child: BuyCommercial(
+                                    authToken: authToken,
+                                  ),
+                                ),
                               ),
-                            ),
-                        );},
+                            );
+                          }},
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'A property intended for business use is marketed and sold to a buyer for commercial purposes.',

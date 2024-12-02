@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:kriv/pages/execution/commercial_warehouse.dart';
 import 'package:kriv/pages/execution/commerical_factory.dart';
 import 'package:kriv/utilities/commercial_bloc.dart';
+import 'package:kriv/utilities/global.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
@@ -43,15 +44,19 @@ class CommercialState extends State<Commercial> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                               builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    CommercialBloc(authToken),
+                        if (globals.accessToken == '') {
+                          return;
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) => CommercialBloc(authToken),
                                 child: const CommercialFactory(),
-                              ),),
-                        );
+                              ),
+                            ),
+                          );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Factory Structure',
@@ -61,15 +66,19 @@ class CommercialState extends State<Commercial> {
                       )),
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                             builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    CommercialBloc(authToken),
+                        if (globals.accessToken == '') {
+                          return;
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) => CommercialBloc(authToken),
                                 child: const CommercialWarehouse(),
-                              ),),
-                        );
+                              ),
+                            ),
+                          );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Warehouses',

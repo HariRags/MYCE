@@ -10,6 +10,7 @@ import 'package:kriv/pages/architecture_and_design/interior_industrial.dart';
 import 'package:kriv/pages/architecture_and_design/interior_residential.dart';
 import 'package:kriv/pages/architecture_and_design/interior_villa.dart';
 import 'package:kriv/utilities/architecture_design_bloc.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/interior_bloc.dart';
 import 'package:kriv/utilities/responsive.dart';
 
@@ -49,15 +50,21 @@ class  InteriorDesignState extends State <InteriorDesign> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => InteriorBloc(authToken),
-                              child: const InteriorVilla()
+                      onTap:(){
+                        if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        InteriorBloc(authToken),
+                                    child: const InteriorVilla()),
                               ),
-                          ),
-                        );},
+                            );
+                          } 
+                      },
                       child: const ImageCard(
                         title: 'Villa',
                         description: 'Planning and creating the aesthetic and functional layout of the inside spaces of a luxury house.',
@@ -65,15 +72,21 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => InteriorBloc(authToken),
-                              child: const InteriorBungalow()
+                      onTap:(){
+                        if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        InteriorBloc(authToken),
+                                    child: const InteriorBungalow()),
                               ),
-                          ),
-                        );},
+                            );
+                          } 
+                      },
                       child: const ImageCard(
                         title: 'Bungalow',
                         description: 'Planning and creating the interior layout, decor, and furnishings for a single-story house.',
@@ -81,15 +94,19 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => InteriorBloc(authToken),
-                              child: const InteriorFarmhouse()
+                      onTap:(){if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        InteriorBloc(authToken),
+                                    child: const InteriorFarmhouse()),
                               ),
-                          ),
-                        );;},
+                            );
+                          } },
                       child: const ImageCard(
                         title: 'Farmhouse',
                         description: 'Planning and creating the interior layout, decor, and furnishings of a rural residential building.',
@@ -97,15 +114,19 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                         MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => InteriorBloc(authToken),
-                              child: const InteriorResidential()
+                      onTap:(){if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        InteriorBloc(authToken),
+                                    child: const InteriorResidential()),
                               ),
-                          ),
-                        );},
+                            );
+                          } },
                       child: const ImageCard(
                         title: 'Residential Apartment',
                         description: 'Planning and creating the interior layout, decor, and functionality of a housing unit within a multi-story building.',
@@ -113,15 +134,19 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                         MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => InteriorBloc(authToken),
-                              child: const InteriorCommercial()
+                      onTap:(){if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        InteriorBloc(authToken),
+                                    child: const InteriorCommercial()),
                               ),
-                          ),
-                        );},
+                            );
+                          } },
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'Retail spaces, Office Spaces',
@@ -129,15 +154,19 @@ class  InteriorDesignState extends State <InteriorDesign> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => InteriorBloc(authToken),
-                              child: const InteriorIndustrial()
+                      onTap:(){if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                    create: (context) =>
+                                        InteriorBloc(authToken),
+                                    child: const InteriorIndustrial()),
                               ),
-                          ),
-                        );},
+                            );
+                          } },
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Warehouses, Factories, Modern Sheds.',

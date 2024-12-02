@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/project_management/executionphase.dart';
 import 'package:kriv/pages/project_management/preconstruction.dart';
 import 'package:kriv/utilities/execution_bloc.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/house_post.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -42,7 +43,9 @@ class  ProjectState extends State <Project> {
                 children: [
                   InkWell(
                     onTap:(){
-                      
+                      if (globals.accessToken=='') {
+                        return;
+                      }else{
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -53,6 +56,7 @@ class  ProjectState extends State <Project> {
                               ),
                             ),
                           );
+                      }
                     },
                     child: const ImageCard(
                       title: 'Pre Construction phase',
@@ -62,6 +66,9 @@ class  ProjectState extends State <Project> {
                   ),
                   InkWell(
                     onTap:(){
+                      if (globals.accessToken=='') {
+                        return;
+                      }else{
                       Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -72,6 +79,7 @@ class  ProjectState extends State <Project> {
                               ),
                             ),
                           );
+                      }
                     },
                     child: const ImageCard(
                       title: 'Execution phase',

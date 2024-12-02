@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/real_estate/sell_commercial.dart';
 import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/real_estate/sell_residential.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/sell_bloc.dart';
 
@@ -49,6 +50,9 @@ class  SellState extends State <Sell> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        if (globals.accessToken=='') {
+                          return;
+                        }else{
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -59,6 +63,7 @@ class  SellState extends State <Sell> {
                               ),
                             ),
                           );
+                        }
                         },
                       child: const ImageCard(
                         title: 'Land',
@@ -67,7 +72,10 @@ class  SellState extends State <Sell> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
+                      onTap:(){if (globals.accessToken=='') {
+                          return;
+                        }else{
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => BlocProvider(
@@ -76,7 +84,8 @@ class  SellState extends State <Sell> {
                                 child: const SellResidential(),
                               ),
                             ),
-                          );},
+                          );
+                        }},
                       child: const ImageCard(
                         title: 'Residential',
                         description: 'A person or entity purchases a residential property for personal use or investment.',
@@ -84,7 +93,10 @@ class  SellState extends State <Sell> {
                         
                     ),
                     GestureDetector(
-                      onTap:(){Navigator.push(
+                      onTap:(){if (globals.accessToken=='') {
+                          return;
+                        }else{
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => BlocProvider(
@@ -93,7 +105,8 @@ class  SellState extends State <Sell> {
                                 child: const SellCommercial(),
                               ),
                             ),
-                          );},
+                          );
+                        }},
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'A business or investor purchases property for the purpose of generating income or conducting business activities.',

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/swimming_pool/pool_equipment.dart';
 import 'package:kriv/pages/swimming_pool/pool_execution.dart';
 import 'package:kriv/pages/swimming_pool/pool_maintenance.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/swimming_bloc.dart';
 
@@ -45,15 +46,21 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                 child: Column(
                   children: [
                     InkWell(
-                      onTap:(){Navigator.push(context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    SwimmingBloc(authToken),
-                                child:  PoolExecution(authToken: authToken),
+                      onTap:(){
+                        if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => SwimmingBloc(authToken),
+                                  child: PoolExecution(authToken: authToken),
+                                ),
                               ),
-                            ),
-                        );},
+                            );
+                          }
+                        },
                       child: const ImageCard(
                         title: 'Execution ',
                         description: 'This involves the physical construction and installation of the pool based on the design plans.',
@@ -61,15 +68,19 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){Navigator.push(context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    SwimmingBloc(authToken),
-                                child:  PoolMaintanence(authToken: authToken),
+                      onTap:(){if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => SwimmingBloc(authToken),
+                                  child: PoolMaintanence(authToken: authToken),
+                                ),
                               ),
-                            ),
-                        );},
+                            );
+                          }},
                       child: const ImageCard(
                         title: 'Maintenance',
                         description: 'This involves cleaning, repairing, and ensuring the proper functioning of the pool and its equipment.',
@@ -77,15 +88,19 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                         
                     ),
                     InkWell(
-                      onTap:(){Navigator.push(context,
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) =>
-                                    SwimmingBloc(authToken),
-                                child:  PoolEquipment(authToken: authToken),
+                      onTap:(){if (globals.accessToken == '') {
+                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => SwimmingBloc(authToken),
+                                  child: PoolEquipment(authToken: authToken),
+                                ),
                               ),
-                            ),
-                        );},
+                            );
+                          }},
                       child: const ImageCard(
                         title: 'Equipments',
                         description: 'The devices and machinery used for filtration, circulation, heating, and maintenance of the pool water.',

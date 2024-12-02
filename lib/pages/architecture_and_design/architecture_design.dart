@@ -52,17 +52,17 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     GestureDetector(
                       onTap: () {
                         if(authToken==''){
-                          
+                          return;
                         }else{
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => ArchitectureBloc(authToken),
-                              child: const ArchitectureVilla()
-                              ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      ArchitectureBloc(authToken),
+                                  child: const ArchitectureVilla()),
+                            ),
+                          );
                         }
                       },
                       child: const ImageCard(
@@ -73,15 +73,19 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        if(authToken==''){
+                          return;
+                        }else{
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => ArchitectureBloc(authToken),
-                              child: const ArchitectureBungalow()
-                              ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      ArchitectureBloc(authToken),
+                                  child: const ArchitectureBungalow()),
+                            ),
+                          );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Bungalow',
@@ -91,15 +95,19 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        if(authToken==''){
+                          return;
+                        }else{
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => ArchitectureBloc(authToken),
-                              child: const ArchitectureFarmhouse()
-                              ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      ArchitectureBloc(authToken),
+                                  child: const ArchitectureFarmhouse()),
+                            ),
+                          );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Farmhouse',
@@ -109,15 +117,19 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        if(authToken==''){
+                          return;
+                        }else{
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => ArchitectureBloc(authToken),
-                              child: const ArchitectureResidential()
-                              ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      ArchitectureBloc(authToken),
+                                  child: const ArchitectureResidential()),
+                            ),
+                          );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Residential Apartment',
@@ -127,15 +139,19 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        if(authToken==''){
+                          return;
+                        }else{
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => ArchitectureBloc(authToken),
-                              child: const ArchitectureCommercial()
-                              ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      ArchitectureBloc(authToken),
+                                  child: const ArchitectureCommercial()),
+                            ),
+                          );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Commercial',
@@ -145,15 +161,19 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     ),
                     GestureDetector(
                       onTap: () {
+                       if(authToken==''){
+                          return;
+                        }else{
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => ArchitectureBloc(authToken),
-                              child: const ArchitectureIndustrial()
-                              ),
-                          ),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      ArchitectureBloc(authToken),
+                                  child: const ArchitectureIndustrial()),
+                            ),
+                          );
+                        }
                       },
                       child: const ImageCard(
                         title: 'Industrial',

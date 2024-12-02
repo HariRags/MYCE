@@ -54,10 +54,7 @@ class HomeState extends State<Home> {
     ];
     productManagementNavigation = [
     () => Project(authToken: authToken),
-    () => BlocProvider(
-        create: (context) => ServicesBloc(auth_token),
-        child: Services(authToken: authToken),
-      ),
+    () => {}
   ];
   designNavigation = [
     () => ArchitectureDesign(authToken: authToken),
