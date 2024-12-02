@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/profile/edit_profile.dart';
 import 'package:kriv/utilities/global.dart';
 
@@ -118,12 +119,12 @@ class ProfileSettingsState extends State<ProfileSettings> {
                         child: TextButton(
                             onPressed: () {
                               Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const EditProfile(),
-            // settings: RouteSettings(arguments: auth_token) // Replace with your next page
-          ),
-        );
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const EditProfile(),
+                                  // settings: RouteSettings(arguments: auth_token) // Replace with your next page
+                                ),
+                              );
                             },
                             child: const Text(
                               'Edit',
@@ -313,7 +314,23 @@ class ProfileSettingsState extends State<ProfileSettings> {
               height: Responsive.height(4, context),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  globals.accessToken = '';
+                   
+                });
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
+    
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Profile Deleted Successfully'),backgroundColor:Colors.green ,),
+                            );
+
+              },
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(

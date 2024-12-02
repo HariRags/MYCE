@@ -127,31 +127,31 @@ class _InfoPageState extends State<InfoPage> {
                         right: Responsive.width(3.5, context),
                       ),
                       alignment: Alignment.topLeft,
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Add your info',
-                              style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: Responsive.height(2.5, context)),
-                            ),
-                            SizedBox(
-                              height: Responsive.height(2, context),
-                            ),
-                            Container(
-                                padding: EdgeInsets.only(
-                                    left: Responsive.width(2, context)),
-                                height: Responsive.height(5, context),
-                                alignment: Alignment.topLeft,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: const Color.fromRGBO(
-                                            149, 149, 149, 1)),
-                                    borderRadius: BorderRadius.circular(6)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Add your info',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                                fontSize: Responsive.height(2.5, context)),
+                          ),
+                          SizedBox(
+                            height: Responsive.height(2, context),
+                          ),
+                          Container(
+                              padding: EdgeInsets.only(
+                                  left: Responsive.width(2, context)),
+                              height: Responsive.height(5, context),
+                              alignment: Alignment.topLeft,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromRGBO(
+                                          149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Form(
+                                key: _formKey,
                                 child: TextFormField(
                                     decoration: InputDecoration(
                                         hintText: 'Name',
@@ -171,150 +171,150 @@ class _InfoPageState extends State<InfoPage> {
                                       print(value);
                                       _name = value;
                                       globals.name = value;
-                                    })),
-                            SizedBox(
-                              height: Responsive.height(3, context),
-                            ),
-                            Container(
-                                padding: EdgeInsets.only(
-                                    left: Responsive.width(2, context)),
-                                height: Responsive.height(5, context),
-                                alignment: Alignment.topLeft,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: const Color.fromRGBO(
-                                            149, 149, 149, 1)),
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Form(
-                                  key: _phoneFormKey,
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        hintText: 'Phone number',
-                                        hintStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(149, 149, 149, 1),
-                                        ),
-                                        contentPadding: EdgeInsets.only(
-                                            left: Responsive.width(1, context),
-                                            bottom: Responsive.height(
-                                                1.2, context)),
-                                        border: InputBorder.none),
-                                    validator: (value) => value!.isEmpty
-                                        ? 'Please enter your phone number'
-                                        : null,
-                                    onChanged: (value) {
-                                      _phone = value;
-                                      globals.phoneNumber = value;
-                                      },
-                                  ),
-                                )),
-                            SizedBox(
-                              height: Responsive.height(3, context),
-                            ),
-                            Container(
-                                padding: EdgeInsets.only(
-                                    left: Responsive.width(2, context)),
-                                height: Responsive.height(5, context),
-                                alignment: Alignment.topLeft,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: const Color.fromRGBO(
-                                            149, 149, 149, 1)),
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Form(
-                                  key: _emailFormKey,
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        hintText: 'Email id',
-                                        hintStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(149, 149, 149, 1),
-                                        ),
-                                        contentPadding: EdgeInsets.only(
-                                            left: Responsive.width(1, context),
-                                            bottom: Responsive.height(
-                                                1.2, context)),
-                                        border: InputBorder.none),
-                                    validator: (value) => value!.isEmpty
-                                        ? 'Please enter your email'
-                                        : null,
-                                    onChanged: (value) {
-                                       _email = value;
-                                       globals.email = value;
-                                       },
-                                  ),
-                                )),
-                            SizedBox(
-                              height: Responsive.height(3, context),
-                            ),
-                            Container(
-                                padding: EdgeInsets.only(
-                                    left: Responsive.width(2, context)),
-                                height: Responsive.height(5, context),
-                                alignment: Alignment.topLeft,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: const Color.fromRGBO(
-                                            149, 149, 149, 1)),
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Form(
-                                  key: _addressFormKey,
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        hintText: 'Address',
-                                        hintStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(149, 149, 149, 1),
-                                        ),
-                                        contentPadding: EdgeInsets.only(
-                                            left: Responsive.width(1, context),
-                                            bottom: Responsive.height(
-                                                1.2, context)),
-                                        border: InputBorder.none),
-                                    validator: (value) => value!.isEmpty
-                                        ? 'Please enter your address'
-                                        : null,
-                                    onChanged: (value) { 
-                                      _address = value;
-                                      globals.address = value;
-                                      },
-                                  ),
-                                )),
-                            SizedBox(
-                              height: Responsive.height(3, context),
-                            ),
-                            Container(
-                              width: Responsive.width(95, context),
-                              height: Responsive.height(6.5, context),
-                              child: FilledButton(
-                                onPressed: () {
-                                  _submitForm();
-                                  // handle api call for signup
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => const HomePage()),
-                                  // );
-                                },
-                                child: Text(
-                                  'Done',
-                                  style: TextStyle(
-                                      fontSize:
-                                          Responsive.height(2.3, context)),
+                                    }),
+                              )),
+                          SizedBox(
+                            height: Responsive.height(3, context),
+                          ),
+                          Container(
+                              padding: EdgeInsets.only(
+                                  left: Responsive.width(2, context)),
+                              height: Responsive.height(5, context),
+                              alignment: Alignment.topLeft,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromRGBO(
+                                          149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Form(
+                                key: _phoneFormKey,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      hintText: 'Phone number',
+                                      hintStyle: const TextStyle(
+                                        color:
+                                            Color.fromRGBO(149, 149, 149, 1),
+                                      ),
+                                      contentPadding: EdgeInsets.only(
+                                          left: Responsive.width(1, context),
+                                          bottom: Responsive.height(
+                                              1.2, context)),
+                                      border: InputBorder.none),
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Please enter your phone number'
+                                      : null,
+                                  onChanged: (value) {
+                                    _phone = value;
+                                    globals.phoneNumber = value;
+                                    },
                                 ),
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                    const Color.fromRGBO(107, 67, 151, 1),
-                                  ),
-                                  shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(13))),
+                              )),
+                          SizedBox(
+                            height: Responsive.height(3, context),
+                          ),
+                          Container(
+                              padding: EdgeInsets.only(
+                                  left: Responsive.width(2, context)),
+                              height: Responsive.height(5, context),
+                              alignment: Alignment.topLeft,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromRGBO(
+                                          149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Form(
+                                key: _emailFormKey,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      hintText: 'Email id',
+                                      hintStyle: const TextStyle(
+                                        color:
+                                            Color.fromRGBO(149, 149, 149, 1),
+                                      ),
+                                      contentPadding: EdgeInsets.only(
+                                          left: Responsive.width(1, context),
+                                          bottom: Responsive.height(
+                                              1.2, context)),
+                                      border: InputBorder.none),
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Please enter your email'
+                                      : null,
+                                  onChanged: (value) {
+                                     _email = value;
+                                     globals.email = value;
+                                     },
                                 ),
+                              )),
+                          SizedBox(
+                            height: Responsive.height(3, context),
+                          ),
+                          Container(
+                              padding: EdgeInsets.only(
+                                  left: Responsive.width(2, context)),
+                              height: Responsive.height(5, context),
+                              alignment: Alignment.topLeft,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromRGBO(
+                                          149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Form(
+                                key: _addressFormKey,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      hintText: 'Address',
+                                      hintStyle: const TextStyle(
+                                        color:
+                                            Color.fromRGBO(149, 149, 149, 1),
+                                      ),
+                                      contentPadding: EdgeInsets.only(
+                                          left: Responsive.width(1, context),
+                                          bottom: Responsive.height(
+                                              1.2, context)),
+                                      border: InputBorder.none),
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Please enter your address'
+                                      : null,
+                                  onChanged: (value) { 
+                                    _address = value;
+                                    globals.address = value;
+                                    },
+                                ),
+                              )),
+                          SizedBox(
+                            height: Responsive.height(3, context),
+                          ),
+                          Container(
+                            width: Responsive.width(95, context),
+                            height: Responsive.height(6.5, context),
+                            child: FilledButton(
+                              onPressed: () {
+                                _submitForm();
+                                // handle api call for signup
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => const HomePage()),
+                                // );
+                              },
+                              child: Text(
+                                'Done',
+                                style: TextStyle(
+                                    fontSize:
+                                        Responsive.height(2.3, context)),
                               ),
-                            )
-                          ],
-                        ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromRGBO(107, 67, 151, 1),
+                                ),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(13))),
+                              ),
+                            ),
+                          )
+                        ],
                       ))
                 ]));
               },

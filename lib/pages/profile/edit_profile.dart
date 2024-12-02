@@ -26,7 +26,21 @@ class EditProfileState extends State<EditProfile> {
   final picker = ImagePicker();
   File? file;
   XFile? pickedImage;
-
+  bool isEmail(String? email){
+    if (email!.contains('@')&&email!.contains('.')) {
+      
+          return true;
+        
+      
+    }
+    return false;
+  }
+  bool isPhone(String? phone){
+    if (phone!.length == 10 && int.tryParse(phone) != null) {
+      return true;
+    }
+    return false;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -218,20 +232,34 @@ class EditProfileState extends State<EditProfile> {
               children: [
                 TextButton(
                   onPressed: () {
-                    globals.name = _controllerName.text.trim();
-                    globals.phoneNumber = _controllerNumber.text.trim();
-                    globals.email = _controllerMail.text.trim();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Profile Updated"),backgroundColor: Colors.green,),
-              );
-                    
-                    Navigator.push(
+                    if (isEmail(_controllerMail.text.trim()) &&
+                        isPhone(_controllerNumber.text.trim()) &&
+                        _controllerName.text.trim().isNotEmpty) {
+                      globals.name = _controllerName.text.trim();
+                      globals.phoneNumber = _controllerNumber.text.trim();
+                      globals.email = _controllerMail.text.trim();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Profile Updated"),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const HomePage(),
             settings: RouteSettings(arguments: globals.accessToken) // Replace with your next page
           ),
         );
+                    }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Kindly fill the details correctly"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                    
                   },
                   style: ButtonStyle(
                     backgroundColor:

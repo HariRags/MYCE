@@ -39,6 +39,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     emit(SignupLoading());
 
     try {
+      print(event.userProfile);
       String token = (authToken ?? "");
       final response = await http.post(
         Uri.parse('http://10.0.2.2:8000/api/auth/signup/'),
