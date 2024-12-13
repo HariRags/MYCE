@@ -54,7 +54,7 @@ class HomeState extends State<Home> {
     ];
     productManagementNavigation = [
     () => Project(authToken: authToken),
-    () => {}
+    () => Navigator.pop(context)
   ];
   designNavigation = [
     () => ArchitectureDesign(authToken: authToken),
@@ -357,23 +357,21 @@ class HomeState extends State<Home> {
                                   child: GestureDetector(
                                     onTap: () => updateOffset('Real Estate'),
                                     child: Container(
-                                      height: Responsive.height(60, context),
+                                      height: Responsive.height(30, context),
                                       width: Responsive.width(94, context),
                                       child: Folders(
                                         title: 'Real Estate',
                                         titleColor: Colors.white,
                                         color: const Color(0xFF6B4397),
                                         description:
-                                            'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
-                                        numberOfButtons: 5,
+                                            'Property consisting of land and buildings, along with natural resources such as crops, minerals, or water.',
+                                        numberOfButtons: 2,
                                         buttonColor: const Color(0xFF7A4DAC),
                                         buttonTextColor: Colors.white,
                                         buttonText: [
                                           'Buy',
                                           'Sell',
-                                          'Study',
-                                          'Lias',
-                                          'Paperworks'
+                                          
                                         ],
                                         buttonFunctions: realEstateNavigation,
                                       ),
@@ -419,7 +417,7 @@ class HomeState extends State<Home> {
                                         titleColor: Colors.white,
                                         color: Color(0xFF34185A),
                                         description:
-                                            'this is a long description that will be added later this is just to see if text wrapping is working and how this will affect spacing',
+                                            'Planning and constructing a recreational water feature for swimming and other aquatic activities.',
                                         numberOfButtons: 0,
                                         buttonColor: Color(0xFF5E2A8A),
                                         buttonTextColor: Colors.white,
