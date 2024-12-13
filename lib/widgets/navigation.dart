@@ -36,7 +36,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
             item,
             style: TextStyle(
               fontFamily: 'Poppins',
-              fontSize: Responsive.height(2.4, context),
+              fontSize: Responsive.height(2.2, context),
               color: index == widget.navigationItems.length - 1 ? const Color.fromRGBO(70, 70, 70, 1) : const Color.fromRGBO(132, 132, 132, 1),
               fontWeight: index == widget.navigationItems.length - 1 ? FontWeight.w600 : null,
               letterSpacing: -0.2,

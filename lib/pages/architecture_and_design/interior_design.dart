@@ -45,7 +45,7 @@ class  InteriorDesignState extends State <InteriorDesign> {
             const MYCEBackButton(),
             const NavigationWidget(navigationItems: ['Architecture & Design', 'Interior Design']),
             Container(
-              height: Responsive.height(76, context),
+              height: Responsive.height(80, context),
               child: SingleChildScrollView(
                 child: Column(
                   children: [

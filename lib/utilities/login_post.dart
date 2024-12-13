@@ -94,7 +94,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }else{
         if(event.input['email']!=null){
        response = await http.post(
-          Uri.parse('http://10.0.2.2:8000/api/auth/verify_email'),
+          Uri.parse('http://10.0.2.2:8000/api/auth/verify_email/'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'email': event.input['email'],
@@ -115,7 +115,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print('AuthBloc: Received API response - Status: ${response.statusCode}');
       print('AuthBloc: Response body: ${response.body}');
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 ) {
         final responseBody = jsonDecode(response.body);
         if (responseBody.containsKey('success')) {
           final successMessage = responseBody['success'];
@@ -126,8 +126,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           print('AuthBloc: Unexpected response format, emitting error');
           emit(AuthError('Unexpected response format'));
         }
-      } else {
-        print('AuthBloc: Non-200 status code, emitting error');
+      }else if ( response.statusCode == 404) {
+        final responseBody = jsonDecode(response.body);
+        if (responseBody.containsKey('msg')) {
+          final successMessage = responseBody['msg'];
+          print('AuthBloc: API call successful, emitting success state');
+          emit(AuthSuccess(successMessage));
+          print('AuthBloc: Success state emitted');
+        } else {
+          print('AuthBloc: Unexpected response format, emitting error');
+          emit(AuthError('Unexpected response format'));
+        }
+      } 
+      else {
+        print('AuthBloc: Non-200 or Non-404 status code, emitting error');
         emit(AuthError('Server error: ${response.statusCode}'));
       }
     } catch (e, stackTrace) {

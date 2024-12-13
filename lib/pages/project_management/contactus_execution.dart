@@ -38,6 +38,7 @@ class _ContactUsState extends State<ContactUs> {
   String? _phone;
   String? _email;
   String? _message;
+  String? _report;
 
   // @override
   // void initState() {
@@ -74,6 +75,7 @@ class _ContactUsState extends State<ContactUs> {
       'phone_number': _phone,
       'email': _email,
       'message': _message,
+      'report' : _report
     };
     print(userData);
     _contactBloc.add(ContactSubmitEvent(userData));
@@ -81,10 +83,11 @@ class _ContactUsState extends State<ContactUs> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String?;
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
     print('HomePage: Retrieved arguments: $args');
-    String? authToken = args;
+    String? authToken = args['auth_token'];
     auth_token = authToken!;
+    _report = args['report'];
     _contactBloc = ContactBloc(auth_token);
     return Scaffold(
         body: BlocProvider(

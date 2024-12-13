@@ -47,7 +47,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         body: json.encode(event.userProfile),
       );
       print(response.body);
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 ) {
         emit(SignupSuccess());
       } else {
         emit(SignupFailure(error: 'Failed to sign up'));

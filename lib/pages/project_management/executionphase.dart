@@ -39,7 +39,8 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
 
       print("submitted");
       final houseData = {
-        'details':_equipmentList
+        'report':_equipmentList,
+        'auth_token' :auth_token
       };
       print(houseData);
       Navigator.push(
@@ -47,7 +48,7 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
           MaterialPageRoute(
             // push to a contact us
             builder: (context) => ContactUs(authToken: auth_token),
-            settings: RouteSettings(arguments: auth_token) // Replace with your next page
+            settings: RouteSettings(arguments: houseData) // Replace with your next page
           ),
       );
 
@@ -75,12 +76,12 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
       if (state is ExecutionSubmittedState) {
         print('HousePage: House submission successful, navigating to next page');
         // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('House submitted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('House submitted successfully!'),
+        //     backgroundColor: Colors.green,
+        //   ),
+        // );
         // Navigate to next page
         Navigator.push(
           context,

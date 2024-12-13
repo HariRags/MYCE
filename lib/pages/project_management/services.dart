@@ -77,12 +77,12 @@ class _ServicesState extends State<Services> {
             print('ServicesPage: BlocConsumer listener received state: $state');
             if (state is ServicesSubmittedState) {
               print('ServicesPage: Services submission successful, navigating to next page');
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Services submitted successfully!'),
-                  backgroundColor: Colors.green,
-                ),
-              );
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   const SnackBar(
+              //     content: Text('Services submitted successfully!'),
+              //     backgroundColor: Colors.green,
+              //   ),
+              // );
               Navigator.push(
                 context,
                 MaterialPageRoute(

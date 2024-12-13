@@ -159,7 +159,7 @@ class _FolderButtons extends StatelessWidget {
                   buttonText[index],
                   style: TextStyle(
                     color: buttonTextColor,
-                    fontSize: Responsive.height(2.0, context),
+                    fontSize: Responsive.height(1.9, context),
                   ),
                 ),
                 onPressed: () {Navigator.push(

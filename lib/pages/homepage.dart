@@ -132,7 +132,7 @@ class HomePageState extends State<HomePage> {
                         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ProfileSettings(),
+            builder: (context) =>  ProfileSettings(authToken: authToken,),
             settings: RouteSettings(arguments: auth_token) // Replace with your next page
           ),
         );

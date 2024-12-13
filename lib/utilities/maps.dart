@@ -70,9 +70,10 @@ class _MapPageState extends State<MapPage> {
       );
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks.first;
+        print(place);
         setState(() {
           _address =
-              "${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
+              "${place.name}, ${place.subLocality}, ${place.locality}, ${place.postalCode}";
         });
       } else {
         setState(() {

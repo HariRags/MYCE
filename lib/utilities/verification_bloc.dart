@@ -20,8 +20,8 @@ class VerificationSuccess extends VerificationState {
   final String accessToken;
   final String refreshToken;
   final Map<String, dynamic>? userProfile; // Made optional with nullable type
-
-  VerificationSuccess(this.accessToken, this.refreshToken, this.userProfile);
+  final bool registered;
+  VerificationSuccess(this.accessToken, this.refreshToken, this.userProfile, this.registered);
 }
 
 class VerificationError extends VerificationState {
@@ -78,6 +78,7 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
       final accessToken = responseData?['access'] as String?;
       final refreshToken = responseData?['refresh'] as String?;
       final userProfile = responseData?['user_profile'] as Map<String, dynamic>?;
+      final registered = responseData?['registered'] as bool;
 
         if (accessToken == null || refreshToken == null) {
           throw FormatException('Missing access or refresh token in response');
@@ -86,7 +87,8 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
         emit(VerificationSuccess(
           accessToken,
           refreshToken,
-          userProfile, // This can be null now
+          userProfile,
+          registered // This can be null now
         ));
       } else {
         final errorBody = jsonDecode(response.body) as Map<String, dynamic>;

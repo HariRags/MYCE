@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/pages/login/info_page.dart';
 import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/infopage_bloc.dart';
@@ -48,14 +49,30 @@ class _VerificationState extends State<Verification> {
               authToken = 'Bearer '+ state.accessToken;
               globals.accessToken = 'Bearer '+state.accessToken;
               globals.refreshToken =  'Bearer '+state.refreshToken;
-              Navigator.push(
+              bool registered = state.registered;
+              if(registered==true){
+                print(state.userProfile);
+                globals.name = state.userProfile!['first_name'];
+                globals.email = state.userProfile!['email'];
+                globals.phoneNumber = state.userProfile!['phone_number'].toString();
+                
+                 Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                        settings: RouteSettings(arguments: globals.accessToken)),
+                  );
+              }else{
+                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => BlocProvider(
                         create: ((context) => SignupBloc(authToken)),
-                        child: InfoPage()
+                        child: const InfoPage()
                         ),
                   ));
+              }
+              
             } else if (state is VerificationError) {
               print('VerificationPage: Showing error snackbar');
               ScaffoldMessenger.of(context).showSnackBar(
