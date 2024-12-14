@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
       // Create a multipart request
       var request = http.MultipartRequest(
         'POST', 
-        Uri.parse('http://10.0.2.2:8000/api/houses/')
+        Uri.parse(dotenv.env['SERVER_URL']!+'api/houses/')
       );
 
       // Add authorization header

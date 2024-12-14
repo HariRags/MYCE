@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/profile/edit_profile.dart';
 import 'package:kriv/utilities/global.dart';
@@ -23,7 +24,7 @@ class ProfileSettings extends StatefulWidget {
 class ProfileSettingsState extends State<ProfileSettings> {
    
   void deleteProfile()async{
-    final String url = 'http://10.0.2.2:8000/api/auth/delete_user/';
+    final String url = dotenv.env['SERVER_URL']!+'api/auth/delete_user/';
     try {
       final response = await http.delete(
         Uri.parse(url),
@@ -119,7 +120,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                 globals.name,
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -136,7 +137,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                   globals.email,
                                   style: TextStyle(
                                     color: Color(0xFFB3B3B3),
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                     height: 0,
@@ -153,7 +154,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                   globals.phoneNumber,
                                   style: TextStyle(
                                     color: Color(0xFFB3B3B3),
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                     height: 0,

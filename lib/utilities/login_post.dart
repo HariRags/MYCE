@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -89,12 +90,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print(event.input);
       if(event.input['email']==null && event.input['phone_number']==null){
         print('AuthBloc: Phone number is null, emitting error');
-          emit(AuthError('hey cannot be null'));
+          emit(AuthError('Incorrect Format'));
           return;
       }else{
         if(event.input['email']!=null){
+          print('email');
        response = await http.post(
-          Uri.parse('http://10.0.2.2:8000/api/auth/verify_email/'),
+          Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/verify_email/'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'email': event.input['email'],
@@ -102,7 +104,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       }else{
           response = await http.post(
-          Uri.parse('http://10.0.2.2:8000/api/auth/verify_phone/'),
+          Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/verify_phone/'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'phone_number': event.input['phone_number'],

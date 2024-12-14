@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 abstract class VerificationEvent {}
@@ -51,7 +52,7 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
       }else{
       if (event.input['email'] != null) {
           response = await http.post(
-            Uri.parse('http://10.0.2.2:8000/api/auth/verify_otp/'),
+            Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/verify_otp/'),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({
               'otp': event.otp,
@@ -60,7 +61,7 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
           );
         } else{
           response = await http.post(
-            Uri.parse('http://10.0.2.2:8000/api/auth/verify_otp/'),
+            Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/verify_otp/'),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({
               'otp': event.otp,

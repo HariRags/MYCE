@@ -41,6 +41,25 @@ class _InfoPageState extends State<InfoPage> {
     authToken = signupBloc.authToken;
     _signupBloc = SignupBloc(authToken);
   }
+   bool isEmail(String input) {
+    // Check if it contains exactly one '@' and has a domain
+    if (input.contains('@')&&input.contains('.')) {
+      
+          return true;
+        
+      
+    }
+    return false;
+  }
+
+  bool isPhoneNumber(String input) {
+    // Check if it contains only digits and is exactly 10 characters long
+    if (input.length == 10 && int.tryParse(input) != null) {
+      return true;
+    }
+    return false;
+  }
+  
 
   void _submitForm() {
     // Validate and save all forms
@@ -69,7 +88,17 @@ class _InfoPageState extends State<InfoPage> {
       'address': _address,
     };
     print(userData);
-    _signupBloc.add(SubmitSignupEvent(userData));
+    if (isEmail(_email!) && isPhoneNumber(_phone!)) {
+       _signupBloc.add(SubmitSignupEvent(userData));
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Kindly fill the details correctly"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+   
   }
 
   @override

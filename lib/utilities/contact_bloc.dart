@@ -1,12 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:flutter/material.dart';
 
 // BLoC Events
 abstract class ContactEvent {}
@@ -47,7 +42,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
     emit(ContactLoadingState());
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/inquiries/'),
+        Uri.parse(dotenv.env['SERVER_URL']!+'api/inquiries/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': authToken,
@@ -56,11 +51,12 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
       );
       print((event.commercialData));
       if (response.statusCode == 201) {
+        print("yop");
         emit(ContactSubmittedState());
       } else {
         print('Request failed with status: ${response.statusCode}.');
         print('Response body: ${response.body}');
-        emit(ContactErrorState('Error: Failed to submit commercial property data'));
+        emit(ContactErrorState('Error: Failed to submit the data'));
       }
     } catch (e) {
       emit(ContactErrorState('Error occurred: $e'));

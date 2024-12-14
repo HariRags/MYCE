@@ -85,6 +85,7 @@ flutter:
     - assets/images/homepage_folders/SwimmingPool.png
     - assets/images/homepage_folders/DesignAndArchitecture.png
     - assets/images/chat_bubble.png
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

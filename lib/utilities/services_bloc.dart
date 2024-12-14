@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -43,7 +44,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
       print('Sending request with authToken: $authToken');
 
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/api/auth/verify_phone/'),
+        Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/services/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': authToken,

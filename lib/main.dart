@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kriv/pages/architecture_and_design/structure_villa.dart';
 import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/execution/house_villa.dart';
@@ -18,6 +19,7 @@ import 'pages/homepage.dart';
 import 'package:kriv/utilities/login_post.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
+  dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 

@@ -36,8 +36,15 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
     if (_equipmentFormKey.currentState!.validate()) {
       _equipmentFormKey.currentState!.save();
     }
-
-      print("submitted");
+    if(_equipmentList==""||_equipmentList==null){
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Enter the detail"),
+            backgroundColor: Colors.red,
+          ),
+        );
+    }else{
+       print("submitted");
       final houseData = {
         'report':_equipmentList,
         'auth_token' :auth_token
@@ -51,6 +58,8 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
             settings: RouteSettings(arguments: houseData) // Replace with your next page
           ),
       );
+    }
+     
 
       // FIX ME : When backend is done then uncomment the below code and remove th3e upper navigation
       // _executionBloc.add(ExecutionSubmitEvent(houseData));

@@ -102,7 +102,7 @@ class HouseState extends State<House> {
                               MaterialPageRoute(
                                 builder: (context) => BlocProvider(
                                   create: (context) => HouseBloc(authToken),
-                                  child: const HouseVilla(),
+                                  child: const HouseFarmhouse(),
                                 ),
                               ),
                             );

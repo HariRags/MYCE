@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class SellBloc extends Bloc<SellEvent, SellState> {
       print(event.houseData);
       var request = http.MultipartRequest(
         'POST', 
-        Uri.parse('http://10.0.2.2:8000/api/selling-property/')
+        Uri.parse(dotenv.env['SERVER_URL']!+'api/selling-property/')
       );
 
       // Add authorization header

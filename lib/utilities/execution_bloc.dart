@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class ExecutionBloc extends Bloc<ExecutionEvent, ExecutionState> {
       print(authToken);
       print('hey3');
       final response =
-          await http.post(Uri.parse('http://10.0.2.2:8000/api/execution-phase/'),
+          await http.post(Uri.parse(dotenv.env['SERVER_URL']!+'api/execution-phase/'),
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authToken,

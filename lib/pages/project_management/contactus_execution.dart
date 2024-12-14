@@ -49,7 +49,25 @@ class _ContactUsState extends State<ContactUs> {
   //   authToken = signupBloc.authToken;
   //   _signupBloc = SignupBloc(authToken);
   // }
+  bool isEmail(String input) {
+    // Check if it contains exactly one '@' and has a domain
+    if (input.contains('@')&&input.contains('.')) {
+      
+          return true;
+        
+      
+    }
+    return false;
+  }
 
+  bool isPhoneNumber(String input) {
+    // Check if it contains only digits and is exactly 10 characters long
+    if (input.length == 10 && int.tryParse(input) != null) {
+      return true;
+    }
+    return false;
+  }
+  
   void _submitForm() {
     // Validate and save all forms
     print("hi");
@@ -109,14 +127,7 @@ class _ContactUsState extends State<ContactUs> {
           if (state is ContactSubmittedState) {
             print(
                 'HousePage: House submission successful, navigating to next page');
-            // Show success message
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   const SnackBar(
-            //     content: Text('House submitted successfully!'),
-            //     backgroundColor: Colors.green,
-            //   ),
-            // );
-            // Navigate to next page
+            print("hey");
             Navigator.push(
               context,
               MaterialPageRoute(

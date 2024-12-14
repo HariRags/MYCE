@@ -75,7 +75,7 @@ class _HouseApartmentState extends State<HouseApartment> {
 
       print("submitted");
       final houseData = {
-        'type': "villa", 
+        'type': "apartment", 
         'location_line_1': _location1,
         'location_line_2' : _location2,
         "plan_details": _planDetails,
@@ -135,7 +135,7 @@ class _HouseApartmentState extends State<HouseApartment> {
               return SafeArea(
                   child: Column(children: [
                       const MYCEBackButton(),
-                      const NavigationWidget(navigationItems: ['Execution', 'House', 'Villa']),
+                      const NavigationWidget(navigationItems: ['Execution', 'House', 'Apartment']),
                       Container(
                 margin: EdgeInsets.only(
                   left: Responsive.width(3.5, context),

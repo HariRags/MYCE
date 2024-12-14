@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -47,7 +48,7 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
       print(event.userProfile);
       String token = (authToken ?? "");
       final response = await http.put(
-        Uri.parse('http://10.0.2.2:8000/api/auth/user_profile/'),
+        Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/user_profile/'),
         headers: {'Content-Type': 'application/json','Authorization':token},
         body: json.encode(event.userProfile),
       );
