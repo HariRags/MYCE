@@ -37,6 +37,8 @@ class _ArchitectureCommercialState extends State<ArchitectureCommercial> {
   String? _digitalSurvey;
   String? _requirements;
   String? _location;
+    bool _isYesPressed = false;
+  bool _isNoPressed = false;
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -281,7 +283,11 @@ class _ArchitectureCommercialState extends State<ArchitectureCommercial> {
                           width: Responsive.width(45, context),
                           child: OutlinedButton(
                             onPressed: () {
-                              _digitalSurvey = "true";
+                              setState(() {
+                _digitalSurvey = "true";
+                _isYesPressed = true;
+                _isNoPressed = false;
+              });
                             },
                             child: Center(
                               child: Text('Yes',
@@ -289,19 +295,23 @@ class _ArchitectureCommercialState extends State<ArchitectureCommercial> {
                                       fontSize: Responsive.height(2.5, context))),
                             ),
                             style: ButtonStyle(
-                              side: MaterialStateProperty.resolveWith<BorderSide>(
+                              backgroundColor: MaterialStateProperty.resolveWith<Color>(
                                   (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const BorderSide(
-                                      color: Colors
-                                          .purple); // Border color when button is pressed
+                                if (_isYesPressed ) {
+                                  return Colors.purple; // Border color when button is pressed
                                 }
-                                return const BorderSide(
-                                    color: Color.fromRGBO(105, 105, 105,
-                                        1)); // Transparent border when button is not pressed
+                                return Colors.white; // Transparent border when button is not pressed
                               }),
+                              
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
+                                  foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (_isYesPressed) {
+                  return Colors.white; // Text color when button is pressed
+                }
+                return Color(0xFF6B4397); // Text color when button is not pressed
+              }),
                             ),
                           ),
                         ),
@@ -313,7 +323,11 @@ class _ArchitectureCommercialState extends State<ArchitectureCommercial> {
                           width: Responsive.width(45, context),
                           child: OutlinedButton(
                             onPressed: () {
-                              _digitalSurvey = "false";
+                             setState(() {
+                _digitalSurvey = "false";
+                _isYesPressed = false;
+                _isNoPressed = true;
+              });
                             },
                             child: Center(
                               child: Text('No',
@@ -321,19 +335,22 @@ class _ArchitectureCommercialState extends State<ArchitectureCommercial> {
                                       fontSize: Responsive.height(2.5, context))),
                             ),
                             style: ButtonStyle(
-                              side: MaterialStateProperty.resolveWith<BorderSide>(
+                              backgroundColor: MaterialStateProperty.resolveWith<Color>(
                                   (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const BorderSide(
-                                      color: Colors
-                                          .purple); // Border color when button is pressed
+                                 if (_isNoPressed) {
+                                  return Colors.purple; // Border color when button is pressed
                                 }
-                                return const BorderSide(
-                                    color: Color.fromRGBO(105, 105, 105,
-                                        1)); // Transparent border when button is not pressed
+                                return Colors.white; // Transparent border when button is not pressed
                               }),
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
+                                   foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (_isNoPressed) {
+                  return Colors.white; // Text color when button is pressed
+                }
+                return Color(0xFF6B4397); // Text color when button is not pressed
+              }),
                             ),
                           ),
                         ),

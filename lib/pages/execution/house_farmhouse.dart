@@ -36,7 +36,8 @@ class _HouseFarmhouseState extends State<HouseFarmhouse> {
   final _locationFormKey = GlobalKey<FormState>();
   final _planDetailsFormKey = GlobalKey<FormState>();
   final _floorPlanFormKey = GlobalKey<FormState>();
-
+bool _isYesPressed = false;
+  bool _isNoPressed = false;
   String? _location1;
   String? _location2;
   String? _planDetails;
@@ -303,7 +304,11 @@ class _HouseFarmhouseState extends State<HouseFarmhouse> {
                           width: Responsive.width(45, context),
                           child: OutlinedButton(
                             onPressed: () {
-                              _digitalSurvey = "True";
+                              setState(() {
+                _digitalSurvey = "true";
+                _isYesPressed = true;
+                _isNoPressed = false;
+              });
                             },
                             child: Center(
                               child: Text('Yes',
@@ -311,19 +316,23 @@ class _HouseFarmhouseState extends State<HouseFarmhouse> {
                                       fontSize: Responsive.height(2.5, context))),
                             ),
                             style: ButtonStyle(
-                              side: MaterialStateProperty.resolveWith<BorderSide>(
+                              backgroundColor: MaterialStateProperty.resolveWith<Color>(
                                   (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const BorderSide(
-                                      color: Colors
-                                          .purple); // Border color when button is pressed
+                                if (_isYesPressed ) {
+                                  return Colors.purple; // Border color when button is pressed
                                 }
-                                return const BorderSide(
-                                    color: Color.fromRGBO(105, 105, 105,
-                                        1)); // Transparent border when button is not pressed
+                                return Colors.white; // Transparent border when button is not pressed
                               }),
+                              
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
+                                  foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (_isYesPressed) {
+                  return Colors.white; // Text color when button is pressed
+                }
+                return Color(0xFF6B4397); // Text color when button is not pressed
+              }),
                             ),
                           ),
                         ),
@@ -335,7 +344,11 @@ class _HouseFarmhouseState extends State<HouseFarmhouse> {
                           width: Responsive.width(45, context),
                           child: OutlinedButton(
                             onPressed: () {
-                              _digitalSurvey = "False";
+                             setState(() {
+                _digitalSurvey = "false";
+                _isYesPressed = false;
+                _isNoPressed = true;
+              });
                             },
                             child: Center(
                               child: Text('No',
@@ -343,19 +356,22 @@ class _HouseFarmhouseState extends State<HouseFarmhouse> {
                                       fontSize: Responsive.height(2.5, context))),
                             ),
                             style: ButtonStyle(
-                              side: MaterialStateProperty.resolveWith<BorderSide>(
+                              backgroundColor: MaterialStateProperty.resolveWith<Color>(
                                   (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const BorderSide(
-                                      color: Colors
-                                          .purple); // Border color when button is pressed
+                                 if (_isNoPressed) {
+                                  return Colors.purple; // Border color when button is pressed
                                 }
-                                return const BorderSide(
-                                    color: Color.fromRGBO(105, 105, 105,
-                                        1)); // Transparent border when button is not pressed
+                                return Colors.white; // Transparent border when button is not pressed
                               }),
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
+                                   foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (_isNoPressed) {
+                  return Colors.white; // Text color when button is pressed
+                }
+                return Color(0xFF6B4397); // Text color when button is not pressed
+              }),
                             ),
                           ),
                         ),
