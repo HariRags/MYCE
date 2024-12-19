@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Globals {
   static final Globals _instance = Globals._internal();
 
@@ -7,14 +9,59 @@ class Globals {
 
   Globals._internal();
 
-
   String name = '';
   String email = '';
   String phoneNumber = '';
-  String address = '';
   String accessToken = '';
   String refreshToken = '';
-  String location = '';
+
+
+  Future<void> setName(String value) async {
+    name = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('name', name);
+  }
+
+  Future<void> setEmail(String value) async {
+    email = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email);
+  }
+
+  Future<void> setPhoneNumber(String value) async {
+    phoneNumber = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('phoneNumber', phoneNumber);
+  }
+
+
+  Future<void> setAccessToken(String value) async {
+    accessToken = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('accessToken', accessToken);
+  }
+
+  Future<void> setRefreshToken(String value) async {
+    refreshToken = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('refreshToken', refreshToken);
+  }
+
+  Future<void> loadFromSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    name = prefs.getString('name') ?? '';
+    email = prefs.getString('email') ?? '';
+    phoneNumber = prefs.getString('phoneNumber') ?? '';
+ 
+    accessToken = prefs.getString('accessToken') ?? '';
+    refreshToken = prefs.getString('refreshToken') ?? '';
+  
+  }
+
+  Future<void> clearSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }
 
-final globals = Globals(); 
+final globals = Globals();

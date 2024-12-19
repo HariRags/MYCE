@@ -112,9 +112,13 @@ class EditProfileState extends State<EditProfile> {
                   print(
                       'SignupPage: Before navigation - auth_token: $auth_token');
                   print(state.userProfile); 
-                  globals.name = state.userProfile!['full_name'];
-                  globals.email = state.userProfile!['email'];
-                  globals.phoneNumber = state.userProfile!['phone_number'].toString();
+                  // globals.name = state.userProfile!['full_name'];
+                  globals.setName(state.userProfile!['full_name']);
+                  // globals.email = state.userProfile!['email'];
+                  globals.setEmail(state.userProfile!['email']);
+                  // globals.phoneNumber = state.userProfile!['phone_number'].toString();
+                  globals.setPhoneNumber(state.userProfile!['phone_number'].toString());
+                  
                   ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text("Profile Updated"),

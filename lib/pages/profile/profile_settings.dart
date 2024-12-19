@@ -43,6 +43,8 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                 backgroundColor: Colors.green,
                               ),
                             );
+                await globals.clearSharedPreferences();
+
                              Navigator.push(
                 context,
                 MaterialPageRoute(

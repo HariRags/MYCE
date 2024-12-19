@@ -14,6 +14,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
+  bool _isButtonEnabled = true;
+  Map<String, String?> input_data = {'email': null, 'phone_number': null};  
   late final AuthBloc _authBloc;
   
   // String? _phoneNumber;
@@ -37,7 +39,10 @@ class _LoginPageState extends State<LoginPage> {
     }
     return false;
   }
-  
+  bool isValidInput(String? input) {
+    if (input == null || input.isEmpty) return false;
+    return isEmail(input) || isPhoneNumber(input);
+  }
   void _submitInput(){
 
   }
@@ -55,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
   }
   @override
   Widget build(BuildContext context) {
-    Map<String, String?> input_data = {'email': null, 'phone_number': null};  
+    
     return Scaffold(
       body: BlocProvider.value(
         value: _authBloc,
@@ -75,7 +80,12 @@ class _LoginPageState extends State<LoginPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) =>  Verification(input:input_data)),
-              );
+              ).then((_) {
+                // This code runs when returning from the Verification page
+                setState(() {
+                  _isButtonEnabled = true; // Re-enable the button
+                });
+              });
             } else if (state is AuthError) {
               print('LoginPage: Showing error snackbar');
               ScaffoldMessenger.of(context).showSnackBar(
@@ -182,6 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                       print("Sending as phone number: $input");
                       input_data['phone_number'] = input;
                     }else{
+                    
                       input_data['phone_number'] = null;
                       input_data['email'] = null;
                     }
@@ -204,32 +215,30 @@ class _LoginPageState extends State<LoginPage> {
                     width: Responsive.width(95, context),
                     height: Responsive.height(6.5, context),
                     child: FilledButton(
-                      onPressed: () {
-                      
-                  // if (_formKey.currentState!.validate()) {
-                  //   final input = _phoneController.text.trim();
-                  //   print(input);
-                  //   if (isEmail(input)) {
-                  //     print("Sending as email: $input");
-                  //     input_data['email'] = input;
-                  //   } else if (isPhoneNumber(input)) {
-                  //     print('yo');
-                  //     print("Sending as phone number: $input");
-                  //     input_data['phone_number'] = input;
-                  //   }
-                  // }
-                  context.read<AuthBloc>().add(VerifyPhoneEvent(input_data));
-                
-                        // if (_formKey.currentState?.validate() ?? false) {
-                          
-                        //   final email = (_phoneController.text);
-                        //   // _phoneNumber = BigInt.parse(_phoneController.text);
+                      onPressed: _isButtonEnabled
+                          ? () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                if (isValidInput(_phoneController.text)) {
+                                  setState(() {
+                                    _isButtonEnabled =
+                                        false; // Disable the button
+                                  });
 
-                        //   // print(phoneNumber); // Debug print
-                        //   context.read<AuthBloc>().add(VerifyPhoneEvent(email));
-            
-                        // }
-                      },
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(VerifyPhoneEvent(input_data));
+                                }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Enter valid email or phone"),
+            backgroundColor: Colors.red,
+          ),
+        );
+                                }
+                              
+                              }
+                            }
+                          : null, // Disable the button,
                       child: Text(
                         'Get otp',
                         style:
@@ -237,7 +246,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                          const Color.fromRGBO(107, 67, 151, 1),
+                          _isButtonEnabled
+                              ? const Color.fromRGBO(107, 67, 151, 1)
+                              : Colors.grey, // Change color when disabled
                         ),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(

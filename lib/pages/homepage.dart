@@ -14,6 +14,7 @@ import 'package:kriv/pages/real_estate/buy_land.dart';
 import 'package:kriv/pages/real_estate/sell.dart';
 import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/login_post.dart';
 import 'package:kriv/utilities/services_bloc.dart';
 import 'package:kriv/utilities/swimming_bloc.dart';
@@ -97,10 +98,10 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String?;
+    // final args = ModalRoute.of(context)!.settings.arguments as String?;
     // print('HomePage: Retrieved arguments: $args');
-    authToken = args;
-    auth_token = authToken!;
+    authToken = globals.accessToken;
+    auth_token = globals.accessToken;
     Offset offset = const Offset(0, -0.33);
     final animationDuration = const Duration(milliseconds: 600);
     const Color customPurple = Color(0xFF6C3CA9);
