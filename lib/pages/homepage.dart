@@ -124,7 +124,10 @@ class HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      child: Image.asset('assets/images/burger_icon.png'),
+                      child: Container(
+                        width : Responsive.width(18, context),
+                        height: Responsive.height(5, context),
+                        child: Image.asset('assets/images/myce_logo.png')),
                       onTap: () {},
                     ),
                     IconButton(

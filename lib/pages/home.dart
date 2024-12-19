@@ -122,7 +122,10 @@ class HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      child: Image.asset('assets/images/burger_icon.png'),
+                      child: SizedBox(
+                        height: Responsive.height(5, context),
+                        width: Responsive.width(18, context),
+                        child: Image.asset('assets/images/myce_logo.png')),
                       onTap: () {},
                     ),
                     TextButton(
