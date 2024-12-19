@@ -43,8 +43,8 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
     emit(VerificationLoading());
     
     try {
-      print('OTP: ${event.otp}');
-      print('Phone Number: ${event.input}');
+      
+      
       late final response;
       if(event.input['email']==null&&event.input['phone_number']==null){
       
@@ -73,7 +73,7 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
-        print('Response data: $data');
+        
 
       final responseData = data['data'] as Map<String, dynamic>?; // Extract the 'data' map
       final accessToken = responseData?['access'] as String?;
@@ -99,7 +99,7 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
     } on FormatException catch (e) {
       emit(VerificationError('Invalid response format: ${e.message}'));
     } catch (e) {
-      print('Error during verification: $e');
+      
       emit(VerificationError('An error occurred during verification. Please try again.'));
     }
   }

@@ -65,10 +65,10 @@ class EditProfileState extends State<EditProfile> {
   }
   void _submitForm() {
     // Validate and save all forms
-    print("hi");
+    
     
 
-    print("submitted");
+    
 
     final userData = {
       'full_name': _name,
@@ -78,7 +78,7 @@ class EditProfileState extends State<EditProfile> {
       'phone_number': _phone,
       'email': _email,
     };
-    print(userData);
+    
     _updateBloc.add(SubmitUpdateEvent(userData));
   }
 
@@ -89,29 +89,17 @@ class EditProfileState extends State<EditProfile> {
         create: (context) => _updateBloc,
         child: BlocConsumer<UpdateBloc,UpdateState>(
            listenWhen: (previous, current) {
-                print(
-                    'SignupPage: listenWhen called - Previous: $previous, Current: $current');
                 return true; // You can add specific conditions here if needed
               },
               buildWhen: (previous, current) {
-                print(
-                    'SignupPage: buildWhen called - Previous: $previous, Current: $current');
-                return true; // You can add specific conditions here if needed
+               return true; // You can add specific conditions here if needed
               },
               listener: (context, state) {
-                print(
-                    'SignupPage: BlocConsumer listener received state: $state');
-
+                
                 if (state is UpdateSuccess) {
-                  print(
-                      'SignupPage: Signup successful, navigating to next page');
-                  print(authToken);
+               
                   String? auth_token = authToken;
-                  print(
-                      'SignupPage: Before navigation - authToken: $authToken');
-                  print(
-                      'SignupPage: Before navigation - auth_token: $auth_token');
-                  print(state.userProfile); 
+                
                   // globals.name = state.userProfile!['full_name'];
                   globals.setName(state.userProfile!['full_name']);
                   // globals.email = state.userProfile!['email'];
@@ -134,8 +122,7 @@ class EditProfileState extends State<EditProfile> {
               );
 
                 } else if (state is UpdateFailure) {
-                  print('SignupPage: Showing error snackbar');
-                  ScaffoldMessenger.of(context).showSnackBar(
+                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(state.error)),
                   );
                 }

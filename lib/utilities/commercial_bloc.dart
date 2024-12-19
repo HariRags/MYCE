@@ -77,12 +77,12 @@ class CommercialBloc extends Bloc<CommercialEvent, CommercialPropState> {
       // Send the request
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
-      print((event.commercialData));
+      
       if (response.statusCode == 201) {
         emit(CommercialSubmittedState());
       } else {
-        print('Request failed with status: ${response.statusCode}.');
-        print('Response body: ${response.body}');
+        
+        
         emit(CommercialErrorState('Details not filled completely'));
       }
     } catch (e) {

@@ -52,7 +52,7 @@ class _BuyResidentialState extends State<BuyResidential> {
       _budgetFormKey.currentState!.save();
     }
  
-      print("submitted");
+      
       final houseData = {
         //FIX ME : check once backend writes property_type
         'property_type': "Residential", 
@@ -62,7 +62,7 @@ class _BuyResidentialState extends State<BuyResidential> {
         "budget": _budget,
         "location":_location
       };
-      print(houseData);
+      
       _buyBloc.add(BuySubmitEvent(houseData));
     
   }
@@ -73,18 +73,18 @@ class _BuyResidentialState extends State<BuyResidential> {
           create: (context) => _buyBloc,
           child: BlocConsumer<BuyBloc,BuyState>(
  listenWhen: (previous, current) {
-      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('HousePage: BlocConsumer listener received state: $state');
+      
 
       if (state is BuySubmittedState) {
-        print('HousePage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -101,7 +101,7 @@ class _BuyResidentialState extends State<BuyResidential> {
           ),
         );
       } else if (state is BuyErrorState) {
-        print('HousePage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
@@ -144,7 +144,7 @@ class _BuyResidentialState extends State<BuyResidential> {
                                 _location = result;
                               });
                             }
-                            print(result);
+                            
               
                       },
                       child: Container(

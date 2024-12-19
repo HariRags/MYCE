@@ -81,11 +81,11 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
         emit(HouseSubmittedState());
       } else {
         emit(HouseErrorState('Enter all the details'));
-        print('Response body: ${response.body}');
+        
       }
     } catch (e) {
       emit(HouseErrorState('Error occurred: $e'));
-      print('Exception details: $e');
+      
     }
   }
 }

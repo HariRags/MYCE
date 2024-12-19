@@ -41,7 +41,7 @@ class ArchitectureBloc extends Bloc<ArchitectureEvent, ArchitectureState> {
       ArchitectureSubmitEvent event, Emitter<ArchitectureState> emit) async {
     emit(ArchitectureLoadingState());
     try {
-      print(authToken);
+      
       final response = await http.post(
         Uri.parse(dotenv.env['SERVER_URL']!+'api/architecture-design/'),
         headers: {
@@ -50,7 +50,7 @@ class ArchitectureBloc extends Bloc<ArchitectureEvent, ArchitectureState> {
         },
         body: jsonEncode(event.architectureData),
       );
-      print(event.architectureData);
+      
       if (response.statusCode == 201) {
         emit(ArchitectureSubmittedState());
       } else {

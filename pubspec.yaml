@@ -46,6 +46,7 @@ dependencies:
   image_picker: ^1.1.2
   file_picker: ^5.4.2
   flutter_dotenv: ^5.2.1
+  url_launcher: ^6.3.1
   shared_preferences: ^2.2.3
   
 dev_dependencies:
@@ -58,7 +59,28 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-
+  flutter_launcher_icons: "^0.14.2"
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/myce_icon.png"
+  image_path_ios: "assets/images/myce_icon.png"
+  image_path_android: "assets/images/myce_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_foreground: "assets/images/myce_icon.png" # Set the foreground image (same or different from image_path)
+  adaptive_icon_background: "#3D2366"
+  web:
+    generate: true
+    image_path: "assets/images/myce_icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/myce_icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/myce_icon.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -72,6 +94,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/myce_icon.png
     - assets/images/myce_logo.png
     - assets/images/engineer.png
     - assets/images/burger_icon.png

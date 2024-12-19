@@ -44,12 +44,12 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
           ),
         );
     }else{
-       print("submitted");
+       
       final houseData = {
         'report':_equipmentList,
         'auth_token' :auth_token
       };
-      print(houseData);
+      
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -72,18 +72,18 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
           create: (context) => _executionBloc,
           child: BlocConsumer<ExecutionBloc,ExecutionState>(
  listenWhen: (previous, current) {
-      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('HousePage: BlocConsumer listener received state: $state');
+      
 
       if (state is ExecutionSubmittedState) {
-        print('HousePage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -101,7 +101,7 @@ class _ExecutionPhaseState extends State<ExecutionPhase> {
           ),
         );
       } else if (state is ExecutionErrorState) {
-        print('HousePage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),

@@ -42,7 +42,7 @@ class BuyBloc extends Bloc<BuyEvent, BuyState> {
       BuySubmitEvent event, Emitter<BuyState> emit) async {
     emit(BuyLoadingState());
     try {
-      print(authToken);
+      
       final response =
           await http.post(Uri.parse(dotenv.env['SERVER_URL']!+'api/buying-property/'),
               headers: {
@@ -50,7 +50,7 @@ class BuyBloc extends Bloc<BuyEvent, BuyState> {
                 'Authorization': authToken,
               },
               body: jsonEncode(event.houseData));
-      print(event.houseData);
+      
       if (response.statusCode == 201) {
         emit(BuySubmittedState());
         // Request was successful

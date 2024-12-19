@@ -45,18 +45,18 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
     emit(UpdateLoading());
 
     try {
-      print(event.userProfile);
+      
       String token = (authToken ?? "");
       final response = await http.put(
         Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/user_profile/'),
         headers: {'Content-Type': 'application/json','Authorization':token},
         body: json.encode(event.userProfile),
       );
-      print(response.body);
+      
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
         final userProfile = data['user_profile'] as Map<String, dynamic>?;
-        print("hi : $userProfile");
+        
         emit(UpdateSuccess(userProfile!));
       } else {
         emit(UpdateFailure(error: 'Failed to sign up'));

@@ -30,7 +30,8 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
   final _locationFormKey = GlobalKey<FormState>();
   final _landSizeFormKey = GlobalKey<FormState>();
   final _requirementsFormKey = GlobalKey<FormState>();
-
+bool _isYesPressed = false;
+  bool _isNoPressed = false;
   String? _location1;
   String? _location2;
   String? _landSize;
@@ -51,7 +52,7 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
     if (_requirementsFormKey.currentState!.validate()) {
       _requirementsFormKey.currentState!.save();
     }
-      print("submitted");
+      
       final houseData = {
         'requirement_type': "Industrial", 
         'location_line_1': _location1,
@@ -61,7 +62,7 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
         "requirements": _requirements,
         "location":_location
       };
-      print(houseData);
+      
       _interiorBloc.add(InteriorSubmitEvent(houseData));
     
   }
@@ -73,18 +74,18 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
           create: (context) => _interiorBloc,
           child: BlocConsumer<InteriorBloc,InteriorState>(
              listenWhen: (previous, current) {
-      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('HousePage: BlocConsumer listener received state: $state');
+      
 
       if (state is InteriorSubmittedState) {
-        print('HousePage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -101,7 +102,7 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
           ),
         );
       } else if (state is InteriorErrorState) {
-        print('HousePage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
@@ -144,7 +145,7 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
                                 _location = result;
                               });
                             }
-                            print(result);
+                            
               
                       },
                       child: Container(
@@ -281,7 +282,11 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
                           width: Responsive.width(45, context),
                           child: OutlinedButton(
                             onPressed: () {
-                              _digitalSurvey = "true";
+                              setState(() {
+                _digitalSurvey = "true";
+                _isYesPressed = true;
+                _isNoPressed = false;
+              });
                             },
                             child: Center(
                               child: Text('Yes',
@@ -289,19 +294,23 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
                                       fontSize: Responsive.height(2.5, context))),
                             ),
                             style: ButtonStyle(
-                              side: MaterialStateProperty.resolveWith<BorderSide>(
+                              backgroundColor: MaterialStateProperty.resolveWith<Color>(
                                   (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const BorderSide(
-                                      color: Colors
-                                          .purple); // Border color when button is pressed
+                                if (_isYesPressed ) {
+                                  return Colors.purple; // Border color when button is pressed
                                 }
-                                return const BorderSide(
-                                    color: Color.fromRGBO(105, 105, 105,
-                                        1)); // Transparent border when button is not pressed
+                                return Colors.white; // Transparent border when button is not pressed
                               }),
+                              
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
+                                  foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (_isYesPressed) {
+                  return Colors.white; // Text color when button is pressed
+                }
+                return Color(0xFF6B4397); // Text color when button is not pressed
+              }),
                             ),
                           ),
                         ),
@@ -313,7 +322,11 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
                           width: Responsive.width(45, context),
                           child: OutlinedButton(
                             onPressed: () {
-                              _digitalSurvey = "false";
+                             setState(() {
+                _digitalSurvey = "false";
+                _isYesPressed = false;
+                _isNoPressed = true;
+              });
                             },
                             child: Center(
                               child: Text('No',
@@ -321,19 +334,22 @@ class _InteriorIndustrialState extends State<InteriorIndustrial> {
                                       fontSize: Responsive.height(2.5, context))),
                             ),
                             style: ButtonStyle(
-                              side: MaterialStateProperty.resolveWith<BorderSide>(
+                              backgroundColor: MaterialStateProperty.resolveWith<Color>(
                                   (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const BorderSide(
-                                      color: Colors
-                                          .purple); // Border color when button is pressed
+                                 if (_isNoPressed) {
+                                  return Colors.purple; // Border color when button is pressed
                                 }
-                                return const BorderSide(
-                                    color: Color.fromRGBO(105, 105, 105,
-                                        1)); // Transparent border when button is not pressed
+                                return Colors.white; // Transparent border when button is not pressed
                               }),
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
+                                   foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (_isNoPressed) {
+                  return Colors.white; // Text color when button is pressed
+                }
+                return Color(0xFF6B4397); // Text color when button is not pressed
+              }),
                             ),
                           ),
                         ),

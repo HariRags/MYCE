@@ -63,7 +63,7 @@ class _InfoPageState extends State<InfoPage> {
 
   void _submitForm() {
     // Validate and save all forms
-    print("hi");
+    
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
@@ -77,7 +77,7 @@ class _InfoPageState extends State<InfoPage> {
       _addressFormKey.currentState!.save();
     }
 
-    print("submitted");
+    
 
     final userData = {
       'full_name': _name,
@@ -87,7 +87,7 @@ class _InfoPageState extends State<InfoPage> {
       'email': _email,
       'address': _address,
     };
-    print(userData);
+    
     if (isEmail(_email!) && isPhoneNumber(_phone!)) {
        _signupBloc.add(SubmitSignupEvent(userData));
     }else{
@@ -239,7 +239,7 @@ class _InfoPageState extends State<InfoPage> {
                                         : null,
                                     onChanged: (value) {
                                       _phone = value;
-                                      globals.phoneNumber = value;
+                                      // globals.phoneNumber = value;
                                       globals.setPhoneNumber(value.toString());
                                       },
                                   ),

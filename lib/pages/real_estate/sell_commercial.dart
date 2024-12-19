@@ -77,7 +77,7 @@ class _SellCommercialState extends State<SellCommercial> {
     if (_expectedFormKey.currentState!.validate()) {
       _expectedFormKey.currentState!.save();
     }
-      print("submitted");
+      
       final houseData = {
         // FIX ME : Check api once backend changes property_type 
         'property_type': "Commercial", 
@@ -89,7 +89,7 @@ class _SellCommercialState extends State<SellCommercial> {
         "expected_price":_expectedPrice,
         "location":_location
       };
-      print(houseData);
+      
       _sellBloc.add(SellSubmitEvent(houseData));
     
   }
@@ -101,18 +101,18 @@ class _SellCommercialState extends State<SellCommercial> {
           create: (context) => _sellBloc,
           child: BlocConsumer<SellBloc,SellState>(
  listenWhen: (previous, current) {
-      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('HousePage: BlocConsumer listener received state: $state');
+      
 
       if (state is SellSubmittedState) {
-        print('HousePage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -129,7 +129,7 @@ class _SellCommercialState extends State<SellCommercial> {
           ),
         );
       } else if (state is SellErrorState) {
-        print('HousePage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
@@ -172,7 +172,7 @@ class _SellCommercialState extends State<SellCommercial> {
                                 _location = result;
                               });
                             }
-                            print(result);
+                            
               
                       },
                       child: Container(

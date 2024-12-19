@@ -37,7 +37,7 @@ class  SellState extends State <Sell> {
   
   @override
   Widget build(BuildContext context) {
-    print('this $authToken');
+    
     return   Scaffold(
       body: SafeArea(
         child: Column(

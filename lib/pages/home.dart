@@ -96,7 +96,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     // final args = ModalRoute.of(context)!.settings.arguments as String?;
-    // print('HomePage: Retrieved arguments: $args');
+    // 
     authToken = globals.accessToken;
     auth_token = authToken!;
     Offset offset = const Offset(0, -0.33);

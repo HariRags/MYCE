@@ -70,7 +70,7 @@ class _ContactUsState extends State<ContactUs> {
   
   void _submitForm() {
     // Validate and save all forms
-    print("hi");
+    
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
@@ -84,7 +84,7 @@ class _ContactUsState extends State<ContactUs> {
       _messageFormKey.currentState!.save();
     }
 
-    print("submitted");
+    
 
     final userData = {
       'full_name': _name,
@@ -95,14 +95,14 @@ class _ContactUsState extends State<ContactUs> {
       'message': _message,
       'report' : _report
     };
-    print(userData);
+    
     _contactBloc.add(ContactSubmitEvent(userData));
   }
 
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-    print('HomePage: Retrieved arguments: $args');
+    
     String? authToken = args['auth_token'];
     auth_token = authToken!;
     _report = args['report'];
@@ -112,22 +112,14 @@ class _ContactUsState extends State<ContactUs> {
       create: (context) => _contactBloc,
       child: BlocConsumer<ContactBloc, ContactState>(
         listenWhen: (previous, current) {
-          print(
-              'HousePage: listenWhen called - Previous: $previous, Current: $current');
-          return true; // You can add specific conditions here if needed
+         return true; // You can add specific conditions here if needed
         },
         buildWhen: (previous, current) {
-          print(
-              'HousePage: buildWhen called - Previous: $previous, Current: $current');
-          return true; // You can add specific conditions here if needed
+         return true; // You can add specific conditions here if needed
         },
         listener: (context, state) {
-          print('HousePage: BlocConsumer listener received state: $state');
-
+          
           if (state is ContactSubmittedState) {
-            print(
-                'HousePage: House submission successful, navigating to next page');
-            print("hey");
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -138,8 +130,7 @@ class _ContactUsState extends State<ContactUs> {
                   ),
             );
           } else if (state is ContactErrorState) {
-            print('HousePage: Showing error snackbar');
-            ScaffoldMessenger.of(context).showSnackBar(
+           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
                 backgroundColor: Colors.red,
@@ -216,7 +207,7 @@ class _ContactUsState extends State<ContactUs> {
                                   ? 'Please enter your name'
                                   : null,
                               onChanged: (value) {
-                                print(value);
+                                
                                 _name = value;
                               }),
                         )),
