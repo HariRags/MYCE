@@ -103,7 +103,7 @@ class _VerificationState extends State<Verification> {
                     MaterialPageRoute(
                       builder: (context) => BlocProvider(
                           create: ((context) => SignupBloc(authToken)),
-                          child: const InfoPage()
+                          child:  InfoPage(input: input,)
                           ),
                     ),
                     (route) => false,

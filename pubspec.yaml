@@ -103,6 +103,8 @@ flutter:
     - assets/images/execution/apartment.png
     - assets/images/execution/bungalow.png
     - assets/images/execution/farmhouse.png
+    - assets/images/execution/office.png
+    - assets/images/execution/warehouse.png
     - assets/images/homepage_folders/Execution.png
     - assets/images/homepage_folders/ProjectManagement.png
     - assets/images/homepage_folders/RealEstate.png

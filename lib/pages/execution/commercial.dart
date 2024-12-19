@@ -93,7 +93,7 @@ class CommercialState extends State<Commercial> {
                         title: 'Warehouses',
                         description:
                             'Large buildings used for storing goods or merchandise, typically used in logistics and supply chain operations.',
-                        imagePath: 'assets/images/execution/bungalow.png',
+                        imagePath: 'assets/images/execution/warehouse.png',
                       )),
                 ],
               ),

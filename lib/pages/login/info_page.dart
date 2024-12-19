@@ -10,8 +10,9 @@ import 'package:kriv/widgets/navigation.dart';
 import 'package:kriv/utilities/infopage_bloc.dart';
 
 class InfoPage extends StatefulWidget {
+  final Map<String,String?> input;
   const InfoPage({
-    Key? key,
+    Key? key,required this.input
   }) : super(key: key);
 
   @override
@@ -31,7 +32,8 @@ class _InfoPageState extends State<InfoPage> {
   String? _phone;
   String? _email;
   String? _address;
-
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -40,7 +42,25 @@ class _InfoPageState extends State<InfoPage> {
     final signupBloc = BlocProvider.of<SignupBloc>(context);
     authToken = signupBloc.authToken;
     _signupBloc = SignupBloc(authToken);
+    if (widget.input['email'] != null) {
+      _email = widget.input['email'];
+      _emailController.text = widget.input['email']!;
+      globals.setEmail(widget.input['email']!);
+    }
+    if (widget.input['phone'] != null) {
+      _phone = widget.input['phone'];
+      _phoneController.text = widget.input['phone']!;
+      globals.setPhoneNumber(widget.input['phone']!);
+    }
+    
   }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+  
    bool isEmail(String input) {
     // Check if it contains exactly one '@' and has a domain
     if (input.contains('@')&&input.contains('.')) {
@@ -104,6 +124,10 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     // print(authToken);
+    final input  = widget.input;
+    if(input['email']==null){
+      
+    }
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -210,6 +234,40 @@ class _InfoPageState extends State<InfoPage> {
                             SizedBox(
                               height: Responsive.height(3, context),
                             ),
+                            // Container(
+                            //     padding: EdgeInsets.only(
+                            //         left: Responsive.width(2, context)),
+                            //     height: Responsive.height(5, context),
+                            //     alignment: Alignment.topLeft,
+                            //     decoration: BoxDecoration(
+                            //         border: Border.all(
+                            //             color: const Color.fromRGBO(
+                            //                 149, 149, 149, 1)),
+                            //         borderRadius: BorderRadius.circular(6)),
+                            //     child: Form(
+                            //       key: _phoneFormKey,
+                            //       child: TextFormField(
+                            //         decoration: InputDecoration(
+                            //             hintText: 'Phone number',
+                            //             hintStyle: const TextStyle(
+                            //               color:
+                            //                   Color.fromRGBO(149, 149, 149, 1),
+                            //             ),
+                            //             contentPadding: EdgeInsets.only(
+                            //                 left: Responsive.width(1, context),
+                            //                 bottom: Responsive.height(
+                            //                     1.2, context)),
+                            //             border: InputBorder.none),
+                            //         validator: (value) => value!.isEmpty
+                            //             ? 'Please enter your phone number'
+                            //             : null,
+                            //         onChanged: (value) {
+                            //           _phone = value;
+                            //           // globals.phoneNumber = value;
+                            //           globals.setPhoneNumber(value.toString());
+                            //           },
+                            //       ),
+                            //     )),
                             Container(
                                 padding: EdgeInsets.only(
                                     left: Responsive.width(2, context)),
@@ -223,6 +281,8 @@ class _InfoPageState extends State<InfoPage> {
                                 child: Form(
                                   key: _phoneFormKey,
                                   child: TextFormField(
+                                    controller: _phoneController,
+                                    readOnly: widget.input['phone'] != null,
                                     decoration: InputDecoration(
                                         hintText: 'Phone number',
                                         hintStyle: const TextStyle(
@@ -237,16 +297,52 @@ class _InfoPageState extends State<InfoPage> {
                                     validator: (value) => value!.isEmpty
                                         ? 'Please enter your phone number'
                                         : null,
-                                    onChanged: (value) {
-                                      _phone = value;
-                                      // globals.phoneNumber = value;
-                                      globals.setPhoneNumber(value.toString());
-                                      },
+                                    onChanged: widget.input['phone'] == null
+                                        ? (value) {
+                                            _phone = value;
+                                            globals.setPhoneNumber(
+                                                value.toString());
+                                          }
+                                        : null,
                                   ),
                                 )),
                             SizedBox(
                               height: Responsive.height(3, context),
                             ),
+                            // Container(
+                            //     padding: EdgeInsets.only(
+                            //         left: Responsive.width(2, context)),
+                            //     height: Responsive.height(5, context),
+                            //     alignment: Alignment.topLeft,
+                            //     decoration: BoxDecoration(
+                            //         border: Border.all(
+                            //             color: const Color.fromRGBO(
+                            //                 149, 149, 149, 1)),
+                            //         borderRadius: BorderRadius.circular(6)),
+                            //     child: Form(
+                            //       key: _emailFormKey,
+                            //       child: TextFormField(
+                            //         decoration: InputDecoration(
+                            //             hintText: 'Email id',
+                            //             hintStyle: const TextStyle(
+                            //               color:
+                            //                   Color.fromRGBO(149, 149, 149, 1),
+                            //             ),
+                            //             contentPadding: EdgeInsets.only(
+                            //                 left: Responsive.width(1, context),
+                            //                 bottom: Responsive.height(
+                            //                     1.2, context)),
+                            //             border: InputBorder.none),
+                            //         validator: (value) => value!.isEmpty
+                            //             ? 'Please enter your email'
+                            //             : null,
+                            //         onChanged: (value) {
+                            //            _email = value;
+                            //            globals.setEmail(value);
+                            //           //  globals.email = value;
+                            //            },
+                            //       ),
+                            //     )),
                             Container(
                                 padding: EdgeInsets.only(
                                     left: Responsive.width(2, context)),
@@ -260,6 +356,8 @@ class _InfoPageState extends State<InfoPage> {
                                 child: Form(
                                   key: _emailFormKey,
                                   child: TextFormField(
+                                    controller: _emailController,
+                                    readOnly: widget.input['email'] != null,
                                     decoration: InputDecoration(
                                         hintText: 'Email id',
                                         hintStyle: const TextStyle(
@@ -274,11 +372,12 @@ class _InfoPageState extends State<InfoPage> {
                                     validator: (value) => value!.isEmpty
                                         ? 'Please enter your email'
                                         : null,
-                                    onChanged: (value) {
-                                       _email = value;
-                                       globals.setEmail(value);
-                                      //  globals.email = value;
-                                       },
+                                    onChanged: widget.input['email'] == null
+                                        ? (value) {
+                                            _email = value;
+                                            globals.setEmail(value);
+                                          }
+                                        : null,
                                   ),
                                 )),
                             SizedBox(

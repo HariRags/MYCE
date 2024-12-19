@@ -66,7 +66,7 @@ class  IndustrialState extends State <Industrial> {
                     child: const ImageCard(
                       title: 'Office Space',
                       description: 'Areas within a building specifically designed for working, typically equipped with desks, computers, and other work-related amenities.',
-                      imagePath: 'assets/images/execution/villa.png',)
+                      imagePath: 'assets/images/execution/office.png',)
                       
                   ),
                   GestureDetector(
@@ -92,7 +92,7 @@ class  IndustrialState extends State <Industrial> {
                     child: const ImageCard(
                       title: 'Retail Space',
                       description: 'Commercial areas where goods or services are sold directly to consumers.',
-                      imagePath: 'assets/images/execution/bungalow.png',)
+                      imagePath: 'assets/images/execution/office.png',)
                       
                   ),
                   
