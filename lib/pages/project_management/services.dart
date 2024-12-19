@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/services_bloc.dart';
@@ -51,10 +52,10 @@ class _ServicesState extends State<Services> {
     }
       print("submitted");
       final servicesData = {
-        'securities': _security,
+        'security': _security,
         'house_keeping' : _houseKeeping,
-        "property_tax": _propertyTax,
-        "repair": _repair
+        'property_tax': _propertyTax,
+        'electrical_and_repairs': _repair
       };
       _servicesBloc.add(ServicesSubmitEvent(servicesData));
     
@@ -86,7 +87,7 @@ class _ServicesState extends State<Services> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) =>const Confirmation(),
                   settings: RouteSettings(arguments: _servicesBloc.authToken),
                 ),
               );
@@ -135,6 +136,7 @@ class _ServicesState extends State<Services> {
                                 Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
+                          key: _securityKey,
                           child: TextFormField(
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(
@@ -168,6 +170,7 @@ class _ServicesState extends State<Services> {
                                 Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
+                          key: _houseKeepingKey,
                           child: TextFormField(
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(
@@ -202,6 +205,7 @@ class _ServicesState extends State<Services> {
                                 Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
+                          key: _propertyTaxKey,
                           child: TextFormField(
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(
@@ -235,6 +239,7 @@ class _ServicesState extends State<Services> {
                                 Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
                             borderRadius: BorderRadius.circular(6)),
                         child: Form(
+                          key: _repairKey,
                           child: TextFormField(
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(
