@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/pages/real_estate/sell_commercial.dart';
 import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/real_estate/sell_residential.dart';
@@ -51,6 +52,10 @@ class  SellState extends State <Sell> {
                     GestureDetector(
                       onTap: () {
                         if (globals.accessToken=='') {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                           Navigator.push(
@@ -73,6 +78,10 @@ class  SellState extends State <Sell> {
                     ),
                     GestureDetector(
                       onTap:(){if (globals.accessToken=='') {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                           Navigator.push(
@@ -94,6 +103,10 @@ class  SellState extends State <Sell> {
                     ),
                     GestureDetector(
                       onTap:(){if (globals.accessToken=='') {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                           Navigator.push(

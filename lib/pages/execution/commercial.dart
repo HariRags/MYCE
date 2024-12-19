@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kriv/pages/execution/commercial_warehouse.dart';
 import 'package:kriv/pages/execution/commerical_factory.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/utilities/commercial_bloc.dart';
 import 'package:kriv/utilities/global.dart';
 
@@ -45,6 +46,10 @@ class CommercialState extends State<Commercial> {
                   GestureDetector(
                       onTap: () {
                         if (globals.accessToken == '') {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         } else {
                           Navigator.push(
@@ -67,6 +72,10 @@ class CommercialState extends State<Commercial> {
                   GestureDetector(
                       onTap: () {
                         if (globals.accessToken == '') {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         } else {
                           Navigator.push(

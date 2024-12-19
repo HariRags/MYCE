@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/pages/swimming_pool/pool_equipment.dart';
 import 'package:kriv/pages/swimming_pool/pool_execution.dart';
 import 'package:kriv/pages/swimming_pool/pool_maintenance.dart';
@@ -48,6 +49,10 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                     InkWell(
                       onTap:(){
                         if (globals.accessToken == '') {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                             return;
                           } else {
                             Navigator.push(
@@ -69,6 +74,10 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                     ),
                     InkWell(
                       onTap:(){if (globals.accessToken == '') {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                             return;
                           } else {
                             Navigator.push(
@@ -89,6 +98,10 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                     ),
                     InkWell(
                       onTap:(){if (globals.accessToken == '') {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                             return;
                           } else {
                             Navigator.push(

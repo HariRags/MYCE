@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/pages/project_management/executionphase.dart';
 import 'package:kriv/pages/project_management/preconstruction.dart';
 import 'package:kriv/utilities/execution_bloc.dart';
@@ -44,6 +45,10 @@ class  ProjectState extends State <Project> {
                   InkWell(
                     onTap:(){
                       if (globals.accessToken=='') {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                         return;
                       }else{
                           Navigator.push(
@@ -67,6 +72,10 @@ class  ProjectState extends State <Project> {
                   InkWell(
                     onTap:(){
                       if (globals.accessToken=='') {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                         return;
                       }else{
                       Navigator.push(

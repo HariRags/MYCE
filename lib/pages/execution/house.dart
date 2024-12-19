@@ -5,6 +5,7 @@ import 'package:kriv/pages/execution/house_apartment.dart';
 import 'package:kriv/pages/execution/house_bungalow.dart';
 import 'package:kriv/pages/execution/house_farmhouse.dart';
 import 'package:kriv/pages/execution/house_villa.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/login_post.dart';
 import 'package:kriv/utilities/responsive.dart';
@@ -50,6 +51,10 @@ class HouseState extends State<House> {
                     GestureDetector(
                         onTap: () {
                           if (globals.accessToken == '') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                             return;
                           }else{
                             Navigator.push(
@@ -72,6 +77,10 @@ class HouseState extends State<House> {
                     GestureDetector(
                       onTap: () {
                           if (globals.accessToken == '') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                             return;
                           }else{
                             Navigator.push(
@@ -95,6 +104,10 @@ class HouseState extends State<House> {
                     GestureDetector(
                         onTap: () {
                           if (globals.accessToken == '') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                             return;
                           }else{
                             Navigator.push(
@@ -117,6 +130,10 @@ class HouseState extends State<House> {
                     GestureDetector(
                         onTap: () {
                           if (globals.accessToken == '') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                             return;
                           }else{
                             Navigator.push(

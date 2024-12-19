@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kriv/pages/execution/industrial_office_space.dart';
 import 'package:kriv/pages/execution/industrial_retail.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/industry_post.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,10 @@ class  IndustrialState extends State <Industrial> {
                   GestureDetector(
                     onTap: () {
                         if (globals.accessToken == '') {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         } else {
                           Navigator.push(
@@ -67,6 +72,10 @@ class  IndustrialState extends State <Industrial> {
                   GestureDetector(
                     onTap:() {
                           if (globals.accessToken == '') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         } else {
                           Navigator.push(

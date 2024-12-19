@@ -54,7 +54,7 @@ class HomeState extends State<Home> {
     ];
     productManagementNavigation = [
     () => Project(authToken: authToken),
-    () => Navigator.pop(context)
+    () => const LoginPage()
   ];
   designNavigation = [
     () => ArchitectureDesign(authToken: authToken),
@@ -128,8 +128,9 @@ class HomeState extends State<Home> {
                     TextButton(
                       onPressed: () {
                         Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
               );
                       },
                       child: Text('Login/Sign up',
