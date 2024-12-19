@@ -10,6 +10,7 @@ import 'package:kriv/pages/architecture_and_design/architecture_residential.dart
 import 'package:kriv/pages/architecture_and_design/architecture_villa.dart';
 import 'package:kriv/utilities/architecture_design_bloc.dart';
 import 'package:kriv/utilities/house_post.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:kriv/utilities/responsive.dart';
 
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -26,6 +27,22 @@ class PreContactUs extends StatefulWidget {
 }
 
 class PreContactUsState extends State<PreContactUs> {
+  Future<void> _launchCaller() async {
+  const url = "tel:1234567";
+  if (await UrlLauncher.canLaunch(url)) {
+    await UrlLauncher.launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+void _launchMapsUrl(double lat, double lon) async {
+  final url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lon';
+  if (await UrlLauncher.canLaunch(url)) {
+    await UrlLauncher.launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
   @override
   Widget build(BuildContext context) {
     @override
@@ -80,31 +97,52 @@ class PreContactUsState extends State<PreContactUs> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        GestureDetector(
-                          child: const PlainCard(
-                            title: 'E-mail',
-                            description: 'abc@gmail.com',
-                          ),
-                        ),
-                        GestureDetector(
-                          child: const PlainCard(
-                            title: 'Phone',
-                            description: '+91 9999999999',
-                          ),
-                        ),
-                        GestureDetector(
-                          child: const PlainCard(
-                            title: 'Address',
-                            description:
-                                'Sanjay Nagar, Bengaluru, Karnataka-560054.',
-                          ),
-                        ),
-                        GestureDetector(
-                          child: const PlainCard(
-                            title: 'Timing',
-                            description: '9.00 am -5.00 pm',
-                          ),
-                        ),
+                         GestureDetector(
+                          onTap: () => _launchMapsUrl(0, 0),
+          // onTap: () async {
+          //   final Uri emailUri = Uri(
+          //     scheme: 'mailto',
+          //     path: 'abc@gmail.com',
+          //   );
+            // if (await UrlLauncher.canLaunch(emailUri.toString())) {
+            //   await UrlLauncher.launch(emailUri.toString());
+            // } else {
+            //   throw 'Could not launch $emailUri';
+            // }
+          
+          child: const PlainCard(
+            title: 'E-mail',
+            description: 'abc@gmail.com',
+          ),
+        ),
+        GestureDetector(
+          onTap: _launchCaller,
+          
+          child: const PlainCard(
+            title: 'Phone',
+            description: '+91 9999999999',
+          ),
+        ),
+        GestureDetector(
+          onTap: () async {
+            final Uri addressUri = Uri(
+              scheme: 'geo',
+              path: '0,0',
+              queryParameters: {
+                'q': 'Sanjay Nagar, Bengaluru, Karnataka-560054',
+              },
+            );
+            if (await UrlLauncher.canLaunch(addressUri.toString())) {
+              await UrlLauncher.launch(addressUri.toString());
+            } else {
+              throw 'Could not launch $addressUri';
+            }
+          },
+          child: const PlainCard(
+            title: 'Address',
+            description: 'Sanjay Nagar, Bengaluru, Karnataka-560054.',
+          ),
+        ),
                         SizedBox(
                           height: Responsive.height(2.2, context),
                         ),
