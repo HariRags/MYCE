@@ -14,6 +14,7 @@ import 'package:kriv/pages/real_estate/buy_land.dart';
 import 'package:kriv/pages/real_estate/sell_land.dart';
 import 'package:kriv/pages/swimming_pool/pool_execution.dart';
 import 'package:kriv/pages/swimming_pool/swimming_pool.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/maps.dart';
 import 'pages/homepage.dart';
 import 'package:kriv/utilities/login_post.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           
           primarySwatch: Colors.blue,
         ),
-        home: const Home(),
+        home: globals.accessToken.isNotEmpty ? const HomePage() : const Home(),
       ),
     );
   }

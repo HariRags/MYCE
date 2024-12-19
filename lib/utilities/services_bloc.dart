@@ -44,7 +44,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
       print('Sending request with authToken: $authToken');
 
       final response = await http.post(
-        Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/services/'),
+        Uri.parse(dotenv.env['SERVER_URL']!+'api/project-management-service/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': authToken,

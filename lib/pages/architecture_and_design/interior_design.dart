@@ -9,6 +9,7 @@ import 'package:kriv/pages/architecture_and_design/interior_farmhouse.dart';
 import 'package:kriv/pages/architecture_and_design/interior_industrial.dart';
 import 'package:kriv/pages/architecture_and_design/interior_residential.dart';
 import 'package:kriv/pages/architecture_and_design/interior_villa.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/utilities/architecture_design_bloc.dart';
 import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/interior_bloc.dart';
@@ -52,7 +53,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                     GestureDetector(
                       onTap:(){
                         if (globals.accessToken == '') {
-                            return;
+                           Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                          return;
                           } else {
                             Navigator.push(
                               context,
@@ -74,7 +79,11 @@ class  InteriorDesignState extends State <InteriorDesign> {
                     GestureDetector(
                       onTap:(){
                         if (globals.accessToken == '') {
-                            return;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                          return;
                           } else {
                             Navigator.push(
                               context,
@@ -95,7 +104,12 @@ class  InteriorDesignState extends State <InteriorDesign> {
                     ),
                     GestureDetector(
                       onTap:(){if (globals.accessToken == '') {
-                            return;
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                          return;
+                            
                           } else {
                             Navigator.push(
                               context,
@@ -115,7 +129,12 @@ class  InteriorDesignState extends State <InteriorDesign> {
                     ),
                     GestureDetector(
                       onTap:(){if (globals.accessToken == '') {
-                            return;
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                          return;
+                          
                           } else {
                             Navigator.push(
                               context,
@@ -135,7 +154,12 @@ class  InteriorDesignState extends State <InteriorDesign> {
                     ),
                     GestureDetector(
                       onTap:(){if (globals.accessToken == '') {
-                            return;
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                          return;
+                           
                           } else {
                             Navigator.push(
                               context,
@@ -155,7 +179,12 @@ class  InteriorDesignState extends State <InteriorDesign> {
                     ),
                     GestureDetector(
                       onTap:(){if (globals.accessToken == '') {
-                            return;
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                          return;
+                          
                           } else {
                             Navigator.push(
                               context,

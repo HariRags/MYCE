@@ -9,6 +9,7 @@ import 'package:kriv/pages/architecture_and_design/architecture_farmhouse.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_industrial.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_residential.dart';
 import 'package:kriv/pages/architecture_and_design/architecture_villa.dart';
+import 'package:kriv/pages/login/login.dart';
 import 'package:kriv/utilities/architecture_design_bloc.dart';
 import 'package:kriv/utilities/house_post.dart';
 import 'package:kriv/utilities/responsive.dart';
@@ -52,6 +53,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     GestureDetector(
                       onTap: () {
                         if(authToken==''){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                         Navigator.push(
@@ -74,6 +79,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     GestureDetector(
                       onTap: () {
                         if(authToken==''){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                         Navigator.push(
@@ -96,6 +105,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     GestureDetector(
                       onTap: () {
                         if(authToken==''){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                         Navigator.push(
@@ -118,6 +131,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     GestureDetector(
                       onTap: () {
                         if(authToken==''){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                         Navigator.push(
@@ -140,6 +157,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     GestureDetector(
                       onTap: () {
                         if(authToken==''){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                         Navigator.push(
@@ -162,6 +183,10 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                     GestureDetector(
                       onTap: () {
                        if(authToken==''){
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
                           return;
                         }else{
                         Navigator.push(

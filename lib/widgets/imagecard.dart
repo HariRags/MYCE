@@ -73,10 +73,12 @@ class _ImageCardState extends State<ImageCard> {
             ),
           ),
           Container(
-            // height: Responsive.height(12.5, context),
+            height: Responsive.height(12.5, context),
+            width: Responsive.width(20, context),
             child: Image.asset(
               widget.imagePath,
               fit: BoxFit.cover,
+              alignment: Alignment.center,
             ),
           ),
         ],
