@@ -42,13 +42,13 @@ class _PoolExecutionState extends State<PoolExecution> {
       _locationFormKey.currentState!.save();
     }
 
-      print("submitted");
+      
       final houseData = {
         'type': "execution", 
         'location_details': _location,
         'size_availability' : _size,
       };
-      print(houseData);
+      
       _swimmingBloc.add(SwimmingSubmitEvent(houseData));
     
   }
@@ -59,18 +59,18 @@ class _PoolExecutionState extends State<PoolExecution> {
           create: (context) => _swimmingBloc,
           child: BlocConsumer<SwimmingBloc,SwimmingState>(
  listenWhen: (previous, current) {
-      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('HousePage: BlocConsumer listener received state: $state');
+      
 
       if (state is SwimmingSubmittedState) {
-        print('HousePage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -87,7 +87,7 @@ class _PoolExecutionState extends State<PoolExecution> {
           ),
         );
       } else if (state is SwimmingErrorState) {
-        print('HousePage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),

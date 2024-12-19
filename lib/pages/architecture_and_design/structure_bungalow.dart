@@ -53,7 +53,7 @@ bool _isYesPressed = false;
     if (_requirementsFormKey.currentState!.validate()) {
       _requirementsFormKey.currentState!.save();
     }
-      print("submitted");
+      
       final houseData = {
         'requirement_type': "Bungalow", 
         'location_line_1': _location1,
@@ -63,7 +63,7 @@ bool _isYesPressed = false;
         "requirements": _requirements,
         "location":_location
       };
-      print(houseData);
+      
       _structureBloc.add(StructureSubmitEvent(houseData));
     
   }
@@ -75,18 +75,18 @@ bool _isYesPressed = false;
           create: (context) => _structureBloc,
           child: BlocConsumer<StructureBloc,StructureState>(
              listenWhen: (previous, current) {
-      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('HousePage: BlocConsumer listener received state: $state');
+      
 
       if (state is StructureSubmittedState) {
-        print('HousePage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -103,7 +103,7 @@ bool _isYesPressed = false;
           ),
         );
       } else if (state is StructureErrorState) {
-        print('HousePage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
@@ -146,7 +146,7 @@ bool _isYesPressed = false;
                                 _location = result;
                               });
                             }
-                            print(result);
+                            
               
                       },
                       child: Container(

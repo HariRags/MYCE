@@ -52,49 +52,48 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   void onChange(Change<AuthState> change) {
     super.onChange(change);
-    print('AuthBloc: State changed from ${change.currentState} to ${change.nextState}');
+    
   }
 
   // Add event observer
   @override
   void onEvent(AuthEvent event) {
     super.onEvent(event);
-    print('AuthBloc: Received event $event');
+    
   }
 
   // Add transition observer
   @override
   void onTransition(Transition<AuthEvent, AuthState> transition) {
     super.onTransition(transition);
-    print('AuthBloc: Transition - Event: ${transition.event}, '
-        'CurrentState: ${transition.currentState}, '
-        'NextState: ${transition.nextState}');
+    
+       
   }
 
   Future<void> _onVerifyPhone(
       VerifyPhoneEvent event, Emitter<AuthState> emit) async {
     try {
-      print('AuthBloc: Starting phone verification process');
+      
       
       // if (event.input == null) {
-      //   print('AuthBloc: Phone number is null, emitting error');
+      //   
       //   emit(AuthError('Input cannot be null'));
       //   return;
       // }
 
-      print('AuthBloc: Emitting loading state');
+      
       emit(AuthLoading());
       late final response;
-      print('AuthBloc: Making API call');
-      print('hey1');
-      print(event.input);
+      
+      
+      
       if(event.input['email']==null && event.input['phone_number']==null){
-        print('AuthBloc: Phone number is null, emitting error');
+        
           emit(AuthError('Incorrect Format'));
           return;
       }else{
         if(event.input['email']!=null){
-          print('email');
+          
        response = await http.post(
           Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/verify_email/'),
           headers: {'Content-Type': 'application/json'},
@@ -114,39 +113,39 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
        
 
-      print('AuthBloc: Received API response - Status: ${response.statusCode}');
-      print('AuthBloc: Response body: ${response.body}');
+      
+      
 
       if (response.statusCode == 200 ) {
         final responseBody = jsonDecode(response.body);
         if (responseBody.containsKey('success')) {
           final successMessage = responseBody['success'];
-          print('AuthBloc: API call successful, emitting success state');
+          
           emit(AuthSuccess(successMessage));
-          print('AuthBloc: Success state emitted');
+          
         } else {
-          print('AuthBloc: Unexpected response format, emitting error');
+          
           emit(AuthError('Unexpected response format'));
         }
       }else if ( response.statusCode == 404) {
         final responseBody = jsonDecode(response.body);
         if (responseBody.containsKey('msg')) {
           final successMessage = responseBody['msg'];
-          print('AuthBloc: API call successful, emitting success state');
+          
           emit(AuthSuccess(successMessage));
-          print('AuthBloc: Success state emitted');
+          
         } else {
-          print('AuthBloc: Unexpected response format, emitting error');
+          
           emit(AuthError('Unexpected response format'));
         }
       } 
       else {
-        print('AuthBloc: Non-200 or Non-404 status code, emitting error');
+        
         emit(AuthError('Server error: ${response.statusCode}'));
       }
     } catch (e, stackTrace) {
-      print('AuthBloc: Exception occurred: $e');
-      print('AuthBloc: Stack trace: $stackTrace');
+      
+      
       emit(AuthError('Failed to connect to the server: $e'));
     }
   }

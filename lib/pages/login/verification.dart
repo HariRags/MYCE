@@ -30,28 +30,20 @@ class _VerificationState extends State<Verification> {
         create: (context) => VerificationBloc(),
         child: BlocConsumer<VerificationBloc, VerificationState>(
           listenWhen: (previous, current) {
-            print(
-                'VerificationPage: listenWhen called - Previous: $previous, Current: $current');
-            return true; // You can add specific conditions here if needed
+           return true; // You can add specific conditions here if needed
           },
           buildWhen: (previous, current) {
-            print(
-                'VerificationPage: buildWhen called - Previous: $previous, Current: $current');
             return true; // You can add specific conditions here if needed
           },
           listener: (context, state) {
-            print(
-                'VerificationPage: BlocConsumer listener received state: $state');
             if (state is VerificationSuccess) {
-              print(
-                  'VerificationPage: Verification successful, navigating to home');
               // Store tokens in secure storage here if needed
               authToken = 'Bearer '+ state.accessToken;
               globals.accessToken = 'Bearer '+state.accessToken;
               globals.refreshToken =  'Bearer '+state.refreshToken;
               bool registered = state.registered;
               if(registered==true){
-                print(state.userProfile);
+                
                 globals.name = state.userProfile!['first_name'];
                 globals.email = state.userProfile!['email'];
                 globals.phoneNumber = state.userProfile!['phone_number'].toString();
@@ -74,7 +66,7 @@ class _VerificationState extends State<Verification> {
               }
               
             } else if (state is VerificationError) {
-              print('VerificationPage: Showing error snackbar');
+              
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );

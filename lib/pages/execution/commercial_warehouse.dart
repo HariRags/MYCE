@@ -73,7 +73,7 @@ Future<void> selectFile() async {
       _planDetailsFormKey.currentState!.save();
     }
 
-    print("submitted");
+    
     final industryData = {
       'type': "warehouses", 
       'location_line_1': _location1,
@@ -83,7 +83,7 @@ Future<void> selectFile() async {
       "floor_plan": _selectedFile,
       "location":_location
     };
-    print(industryData);
+    
     _commercialBloc.add(CommercialSubmitEvent(industryData));
   }
 
@@ -95,18 +95,18 @@ Future<void> selectFile() async {
 
           child: BlocConsumer<CommercialBloc,CommercialPropState>(
             listenWhen: (previous, current) {
-    print('CommercialPage: listenWhen called - Previous: $previous, Current: $current');
+    
     return true; // Add specific conditions if needed
   },
   buildWhen: (previous, current) {
-    print('CommercialPage: buildWhen called - Previous: $previous, Current: $current');
+    
     return true; // Add specific conditions if needed
   },
   listener: (context, state) {
-    print('CommercialPage: BlocConsumer listener received state: $state');
+    
 
     if (state is CommercialSubmittedState) {
-      print('CommercialPage: Commercial property submission successful, navigating to next page');
+      
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(
       //     content: Text('Commercial property submitted successfully!'),
@@ -121,7 +121,7 @@ Future<void> selectFile() async {
         ),
       );
     } else if (state is CommercialErrorState) {
-      print('CommercialPage: Showing error snackbar');
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(state.message),
@@ -164,7 +164,7 @@ Future<void> selectFile() async {
                                 _location = result;
                               });
                             }
-                            print(result);
+                            
               
                       },
                       child: Container(

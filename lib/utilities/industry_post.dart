@@ -82,8 +82,8 @@ class IndustryBloc extends Bloc<IndustryEvent, IndustryState> {
         emit(IndustrySubmittedState());
         // Request was successful
       } else {
-        print('D');
-        print('Response body: ${response.body}');
+        
+        
         emit(IndustryErrorState('Enter all the details'));
       }
     } catch (e) {

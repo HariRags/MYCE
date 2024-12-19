@@ -42,9 +42,9 @@ class ExecutionBloc extends Bloc<ExecutionEvent, ExecutionState> {
       ExecutionSubmitEvent event, Emitter<ExecutionState> emit) async {
     emit(ExecutionLoadingState());
     try {
-      print('hey3');
-      print(authToken);
-      print('hey3');
+      
+      
+      
       final response =
           await http.post(Uri.parse(dotenv.env['SERVER_URL']!+'api/execution-phase/'),
               headers: {
@@ -52,7 +52,7 @@ class ExecutionBloc extends Bloc<ExecutionEvent, ExecutionState> {
                 'Authorization': authToken,
               },
               body: jsonEncode(event.houseData));
-      print(event.houseData);
+      
       if (response.statusCode == 201) {
         emit(ExecutionSubmittedState());
         // Request was successful

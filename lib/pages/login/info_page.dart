@@ -63,7 +63,7 @@ class _InfoPageState extends State<InfoPage> {
 
   void _submitForm() {
     // Validate and save all forms
-    print("hi");
+    
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
     }
@@ -77,7 +77,7 @@ class _InfoPageState extends State<InfoPage> {
       _addressFormKey.currentState!.save();
     }
 
-    print("submitted");
+    
 
     final userData = {
       'full_name': _name,
@@ -87,7 +87,7 @@ class _InfoPageState extends State<InfoPage> {
       'email': _email,
       'address': _address,
     };
-    print(userData);
+    
     if (isEmail(_email!) && isPhoneNumber(_phone!)) {
        _signupBloc.add(SubmitSignupEvent(userData));
     }else{
@@ -103,36 +103,25 @@ class _InfoPageState extends State<InfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print(authToken);
+    // 
     return Scaffold(
       body: SafeArea(
         child: BlocProvider(
             create: (context) => _signupBloc,
             child: BlocConsumer<SignupBloc, SignupState>(
               listenWhen: (previous, current) {
-                print(
-                    'SignupPage: listenWhen called - Previous: $previous, Current: $current');
+                
                 return true; // You can add specific conditions here if needed
               },
               buildWhen: (previous, current) {
-                print(
-                    'SignupPage: buildWhen called - Previous: $previous, Current: $current');
-                return true; // You can add specific conditions here if needed
+                 return true; // You can add specific conditions here if needed
               },
               listener: (context, state) {
-                print(
-                    'SignupPage: BlocConsumer listener received state: $state');
-
+               
                 if (state is SignupSuccess) {
-                  print(
-                      'SignupPage: Signup successful, navigating to next page');
-                  print(authToken);
+                 
                   String? auth_token = authToken;
-                  print(
-                      'SignupPage: Before navigation - authToken: $authToken');
-                  print(
-                      'SignupPage: Before navigation - auth_token: $auth_token');
-
+                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -140,7 +129,7 @@ class _InfoPageState extends State<InfoPage> {
                         settings: RouteSettings(arguments: auth_token)),
                   );
                 } else if (state is SignupFailure) {
-                  print('SignupPage: Showing error snackbar');
+                  
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(state.error)),
                   );
@@ -197,7 +186,7 @@ class _InfoPageState extends State<InfoPage> {
                                         ? 'Please enter your name'
                                         : null,
                                     onChanged: (value) {
-                                      print(value);
+                                      
                                       _name = value;
                                       globals.name = value;
                                     }),

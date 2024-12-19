@@ -41,7 +41,7 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
       ServicesSubmitEvent event, Emitter<ServicesState> emit) async {
     emit(ServicesLoadingState());
     try {
-      print('Sending request with authToken: $authToken');
+      
 
       final response = await http.post(
         Uri.parse(dotenv.env['SERVER_URL']!+'api/project-management-service/'),
@@ -52,8 +52,8 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
         body: jsonEncode(event.servicesData),
       );
 
-      print('Response Status: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      
+      
 
       if (response.statusCode == 201) {
         emit(ServicesSubmittedState());

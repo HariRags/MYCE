@@ -74,7 +74,7 @@ bool _isYesPressed = false;
       _planDetailsFormKey.currentState!.save();
     }
 
-      print("submitted");
+      
       final houseData = {
         'type': "farmhouse", 
         'location_line_1': _location1,
@@ -89,24 +89,24 @@ bool _isYesPressed = false;
   }
   @override
   Widget build(BuildContext context) {
-    print("hi");
+    
     return Scaffold(
       body: BlocProvider(
         create: (context) => _houseBloc,
           child: BlocConsumer<HouseBloc,HouseState>(
             listenWhen: (previous, current) {
-      print('HousePage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('HousePage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('HousePage: BlocConsumer listener received state: $state');
+      
 
       if (state is HouseSubmittedState) {
-        print('HousePage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -123,7 +123,7 @@ bool _isYesPressed = false;
           ),
         );
       } else if (state is HouseErrorState) {
-        print('HousePage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
@@ -167,7 +167,7 @@ bool _isYesPressed = false;
                                 _location = result;
                               });
                             }
-                            print(result);
+                            
               
                       },
                       child: Container(

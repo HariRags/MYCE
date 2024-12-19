@@ -44,7 +44,7 @@ class SwimmingBloc extends Bloc<SwimmingEvent, SwimmingState> {
     try {
 
       //TO FIX : on the basis of backend model for swimming pool
-      print("authToken");
+      
       final response =
           await http.post(Uri.parse(dotenv.env['SERVER_URL']!+'api/swimming_pool/'),
               headers: {
@@ -52,7 +52,7 @@ class SwimmingBloc extends Bloc<SwimmingEvent, SwimmingState> {
                 'Authorization': authToken,
               },
               body: jsonEncode(event.houseData));
-      print(event.houseData);
+      
       if (response.statusCode == 200) {
         emit(SwimmingSubmittedState());
         // Request was successful

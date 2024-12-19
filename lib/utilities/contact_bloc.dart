@@ -49,13 +49,13 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
         },
         body: jsonEncode(event.commercialData),
       );
-      print((event.commercialData));
+      
       if (response.statusCode == 201) {
-        print("yop");
+        
         emit(ContactSubmittedState());
       } else {
-        print('Request failed with status: ${response.statusCode}.');
-        print('Response body: ${response.body}');
+        
+        
         emit(ContactErrorState('Error: Failed to submit the data'));
       }
     } catch (e) {

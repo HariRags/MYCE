@@ -40,14 +40,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     emit(SignupLoading());
 
     try {
-      print(event.userProfile);
+      
       String token = (authToken ?? "");
       final response = await http.post(
         Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/signup/'),
         headers: {'Content-Type': 'application/json','Authorization':token},
         body: json.encode(event.userProfile),
       );
-      print(response.body);
+      
       if (response.statusCode == 201 ) {
         emit(SignupSuccess());
       } else {

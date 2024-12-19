@@ -61,23 +61,23 @@ class _LoginPageState extends State<LoginPage> {
         value: _authBloc,
         child: BlocConsumer<AuthBloc, AuthState>(
           listenWhen: (previous, current) {
-            print('LoginPage: listenWhen called - Previous: $previous, Current: $current');
+            
             return true; // You can add conditions here if needed
           },
           buildWhen: (previous, current) {
-            print('LoginPage: buildWhen called - Previous: $previous, Current: $current');
+            
             return true; // You can add conditions here if needed
           },
            listener: (context, state) {
-            print('LoginPage: BlocConsumer listener received state: $state');
+            
             if (state is AuthSuccess) {
-              print('LoginPage: Navigating to Verification page');
+              
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) =>  Verification(input:input_data)),
               );
             } else if (state is AuthError) {
-              print('LoginPage: Showing error snackbar');
+              
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
@@ -170,16 +170,16 @@ class _LoginPageState extends State<LoginPage> {
                           border: InputBorder.none,
                         ),
                         onChanged: (value) {
-                    print('hey2');
+                    
                     final input = value;
-                    print(input);
+                    
                     if (isEmail(input)) {
-                      print('emailyes');
-                      print("Sending as email: $input");
+                      
+                      
                       input_data['email'] = input;
                     } else if (isPhoneNumber(input)) {
-                      print('yo');
-                      print("Sending as phone number: $input");
+                      
+                      
                       input_data['phone_number'] = input;
                     }else{
                       input_data['phone_number'] = null;
@@ -208,13 +208,13 @@ class _LoginPageState extends State<LoginPage> {
                       
                   // if (_formKey.currentState!.validate()) {
                   //   final input = _phoneController.text.trim();
-                  //   print(input);
+                  //   
                   //   if (isEmail(input)) {
-                  //     print("Sending as email: $input");
+                  //     
                   //     input_data['email'] = input;
                   //   } else if (isPhoneNumber(input)) {
-                  //     print('yo');
-                  //     print("Sending as phone number: $input");
+                  //     
+                  //     
                   //     input_data['phone_number'] = input;
                   //   }
                   // }
@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                         //   final email = (_phoneController.text);
                         //   // _phoneNumber = BigInt.parse(_phoneController.text);
 
-                        //   // print(phoneNumber); // Debug print
+                        //   // 
                         //   context.read<AuthBloc>().add(VerifyPhoneEvent(email));
             
                         // }

@@ -47,8 +47,8 @@ class StructureBloc extends Bloc<StructureEvent, StructureState> {
         },
         body: jsonEncode(event.structureData),
       );
-      print(authToken);
-      print(event.structureData);
+      
+      
       if (response.statusCode == 201) {
         emit(StructureSubmittedState());
       } else {

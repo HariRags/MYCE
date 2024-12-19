@@ -42,7 +42,7 @@ class SellBloc extends Bloc<SellEvent, SellState> {
       SellSubmitEvent event, Emitter<SellState> emit) async {
     emit(SellLoadingState());
     try {
-      print(event.houseData);
+      
       var request = http.MultipartRequest(
         'POST', 
         Uri.parse(dotenv.env['SERVER_URL']!+'api/selling-property/')

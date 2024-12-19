@@ -73,7 +73,7 @@ Future<void> selectFile() async {
       _planDetailsFormKey.currentState!.save();
     }
   
-    print("submitted");
+    
     final industryData = {
       'type': "Retail Space", 
       'location_line_1': _location1,
@@ -93,18 +93,18 @@ Future<void> selectFile() async {
           create: (context) => _industryBloc,
           child: BlocConsumer<IndustryBloc,IndustryState>(
               listenWhen: (previous, current) {
-      print('IndustryPage: listenWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     buildWhen: (previous, current) {
-      print('IndustryPage: buildWhen called - Previous: $previous, Current: $current');
+      
       return true; // You can add specific conditions here if needed
     },
     listener: (context, state) {
-      print('IndustryPage: BlocConsumer listener received state: $state');
+      
 
       if (state is IndustrySubmittedState) {
-        print('IndustryPage: House submission successful, navigating to next page');
+        
         // Show success message
         // ScaffoldMessenger.of(context).showSnackBar(
         //   const SnackBar(
@@ -121,7 +121,7 @@ Future<void> selectFile() async {
           ),
         );
       } else if (state is IndustryErrorState) {
-        print('IndustryPage: Showing error snackbar');
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
@@ -165,7 +165,7 @@ Future<void> selectFile() async {
                                 _location = result;
                               });
                             }
-                            print(result);
+                            
               
                       },
                       child: Container(

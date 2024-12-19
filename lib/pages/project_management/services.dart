@@ -50,7 +50,7 @@ class _ServicesState extends State<Services> {
     if (_repairKey.currentState!.validate()) {
       _repairKey.currentState!.save();
     }
-      print("submitted");
+      
       final servicesData = {
         'security': _security,
         'house_keeping' : _houseKeeping,
@@ -67,17 +67,17 @@ class _ServicesState extends State<Services> {
           create: (context) => _servicesBloc,
           child: BlocConsumer<ServicesBloc,ServicesState>(
            listenWhen: (previous, current) {
-            print('ServicesPage: listenWhen called - Previous: $previous, Current: $current');
+            
             return true;
           },
           buildWhen: (previous, current) {
-            print('ServicesPage: buildWhen called - Previous: $previous, Current: $current');
+            
             return true;
           },
           listener: (context, state) {
-            print('ServicesPage: BlocConsumer listener received state: $state');
+            
             if (state is ServicesSubmittedState) {
-              print('ServicesPage: Services submission successful, navigating to next page');
+              
               // ScaffoldMessenger.of(context).showSnackBar(
               //   const SnackBar(
               //     content: Text('Services submitted successfully!'),
@@ -92,7 +92,7 @@ class _ServicesState extends State<Services> {
                 ),
               );
             } else if (state is ServicesErrorState) {
-              print('ServicesPage: Showing error snackbar');
+              
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),

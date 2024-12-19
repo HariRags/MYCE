@@ -35,7 +35,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
       );
 
       if (response.statusCode == 204) {
-        print('Resource deleted successfully.');
+        
         globals.accessToken = '';
         ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -57,8 +57,8 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                 backgroundColor: Colors.red,
                               ),
                             );
-        print('Failed to delete resource. Status code: ${response.statusCode}');
-        print('Response: ${response.body}');
+        
+        
       }
     } catch (error) {
       print('Error deleting resource: $error');
@@ -67,7 +67,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
   @override
   Widget build(BuildContext context) {
     String auth_token = widget.authToken!;
-    print(auth_token);
+    
     return Scaffold(
       body: SafeArea(
         child: Column(

@@ -34,7 +34,7 @@ class  SwimmingPoolState extends State <SwimmingPool> {
   }
   @override
   Widget build(BuildContext context) {
-    print(authToken);
+    
     return   Scaffold(
       body: SafeArea(
         child: Column(
