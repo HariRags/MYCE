@@ -1,6 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kriv/pages/architecture_and_design/structure_villa.dart';
 import 'package:kriv/pages/confirmation.dart';
@@ -21,7 +21,12 @@ import 'package:kriv/utilities/login_post.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
