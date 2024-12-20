@@ -261,7 +261,7 @@ Future<void> selectFile() async {
                     ),
                     Container(
                         padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(5, context),
+                        height: Responsive.height(10, context),
                         alignment: Alignment.topLeft,
                         decoration: BoxDecoration(
                             border: Border.all(
@@ -277,7 +277,9 @@ Future<void> selectFile() async {
                                   border: InputBorder.none),
                               onSaved: (value) {
                                 _planDetails = value;
-                              }),
+                              },
+                               maxLines: null,
+                                keyboardType: TextInputType.multiline,),
                         )),
                     SizedBox(
                       height: Responsive.height(2.2, context),
