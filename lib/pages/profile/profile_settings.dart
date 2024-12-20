@@ -92,15 +92,13 @@ class ProfileSettingsState extends State<ProfileSettings> {
                       Container(
                         height: Responsive.height(13, context),
                         width: Responsive.width(20, context),
-                        // color: Colors.red,
-                        // child: Image.asset(
-                        //   widget.imagePath,
-                        //   fit: BoxFit.cover,
-                        // ),
                         padding:
                             EdgeInsets.only(left: Responsive.width(5, context)),
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           radius: 30.0,
+                           backgroundImage: globals.profileImage != null
+                              ? FileImage(globals.profileImage!)
+                              : null,
                         ),
                       ),
                       Container(

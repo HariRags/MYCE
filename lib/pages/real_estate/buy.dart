@@ -74,7 +74,7 @@ class  BuyState extends State <Buy> {
                       child: const ImageCard(
                         title: 'Land',
                         description: 'Ownership of land is transferred from the seller to the buyer in exchange for an agreed-upon price.',
-                        imagePath: 'assets/images/execution/villa.png',)
+                        imagePath: 'assets/images/execution/land.png',)
                         
                     ),
                     GestureDetector(
@@ -101,7 +101,7 @@ class  BuyState extends State <Buy> {
                       child: const ImageCard(
                         title: 'Residential',
                         description: 'Selling of a residential property by property owner to a buyer, typically facilitated by a real estate agent or broker.',
-                        imagePath: 'assets/images/execution/bungalow.png',)
+                        imagePath: 'assets/images/execution/residential.png',)
                         
                     ),
                     InkWell(
@@ -127,7 +127,7 @@ class  BuyState extends State <Buy> {
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'A property intended for business use is marketed and sold to a buyer for commercial purposes.',
-                        imagePath: 'assets/images/execution/farmhouse.png',)
+                        imagePath: 'assets/images/execution/commercial.png',)
                         
                     ),
                     

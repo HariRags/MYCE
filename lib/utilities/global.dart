@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Globals {
@@ -14,7 +16,7 @@ class Globals {
   String phoneNumber = '';
   String accessToken = '';
   String refreshToken = '';
-
+  File? profileImage;
 
   Future<void> setName(String value) async {
     name = value;
@@ -47,6 +49,12 @@ class Globals {
     await prefs.setString('refreshToken', refreshToken);
   }
 
+  Future<void> setProfileImage(File? imageFile) async {
+    profileImage = imageFile!;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('profileImagePath', imageFile.path);
+  }
+
   Future<void> loadFromSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString('name') ?? '';
@@ -55,12 +63,24 @@ class Globals {
  
     accessToken = prefs.getString('accessToken') ?? '';
     refreshToken = prefs.getString('refreshToken') ?? '';
+    final profileImagePath = prefs.getString('profileImagePath');
+    if (profileImagePath != null && profileImagePath.isNotEmpty) {
+      profileImage = File(profileImagePath);
+    } else {
+      profileImage = null;
+    }
   
   }
 
   Future<void> clearSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+    name = '';
+    email = '';
+    phoneNumber = '';
+    accessToken = '';
+    refreshToken = '';
+    profileImage = null;
   }
 }
 

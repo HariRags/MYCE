@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/pages/profile/profile_settings.dart';
@@ -36,9 +38,38 @@ class EditProfileState extends State<EditProfile> {
   final TextEditingController _controllerNumber = TextEditingController();
   final TextEditingController _controllerName = TextEditingController();
 
-  final picker = ImagePicker();
-  File? file;
-  XFile? pickedImage;
+  final ImagePicker _picker = ImagePicker();
+  File? _imageFile;
+  String? _imagePath;
+  String? _base64Image;
+
+
+  Future<void> _pickImage() async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 1800,
+        maxHeight: 1800,
+      );
+      
+      if (pickedFile != null) {
+        final File imageFile = File(pickedFile.path);
+        final List<int> imageBytes = await imageFile.readAsBytes();
+        final String base64Image = base64Encode(imageBytes);
+        
+        setState(() {
+          _imageFile = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error picking image'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
   bool isEmail(String? email){
     if (email!.contains('@')&&email!.contains('.')) {
       
@@ -62,6 +93,12 @@ class EditProfileState extends State<EditProfile> {
     final updateBloc = BlocProvider.of<UpdateBloc>(context);
     authToken = updateBloc.authToken;
     _updateBloc = UpdateBloc(authToken);
+     _controllerName.text = globals.name;
+    _controllerMail.text = globals.email;
+    _controllerNumber.text = globals.phoneNumber;
+    if (globals.profileImage !=null) {
+      _imageFile = globals.profileImage;
+    }
   }
   void _submitForm() {
     // Validate and save all forms
@@ -77,8 +114,8 @@ class EditProfileState extends State<EditProfile> {
       'name': _name,
       'phone_number': _phone,
       'email': _email,
+      'profile_picture':_imageFile
     };
-    
     _updateBloc.add(SubmitUpdateEvent(userData));
   }
 
@@ -97,7 +134,7 @@ class EditProfileState extends State<EditProfile> {
               listener: (context, state) {
                 
                 if (state is UpdateSuccess) {
-               
+                
                   String? auth_token = authToken;
                 
                   // globals.name = state.userProfile!['full_name'];
@@ -107,6 +144,7 @@ class EditProfileState extends State<EditProfile> {
                   // globals.phoneNumber = state.userProfile!['phone_number'].toString();
                   globals.setPhoneNumber(state.userProfile!['phone_number'].toString());
                   
+                 
                   ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text("Profile Updated"),
@@ -153,32 +191,28 @@ class EditProfileState extends State<EditProfile> {
                     height: Responsive.height(4, context),
                   ),
                   Center(
-                    child: Stack(children: <Widget>[
-                      const CircleAvatar(
-                        radius: 60.0,
-                      ),
-                      Positioned(
-                        top: 0.0,
-                        right: -13,
-                        child: InkWell(
-                          onTap: () async {
-                            pickedImage =
-                                await picker.pickImage(source: ImageSource.gallery);
-                            setState(() {
-                              file = File(pickedImage!.path);
-                            });
-                          },
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.mode_edit_outline_outlined,
-                              size: 30,
-                            ),
-                            color: const Color(0xFF6B4397),
+                    child: Stack(
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: 60.0,
+                             backgroundImage: _imageFile != null
+                              ? FileImage(_imageFile!)
+                              : null,
                           ),
-                        ),
+                          Positioned(
+                            top: 0,
+                            right: -13,
+                            child: IconButton(
+                              onPressed: _pickImage,
+                              icon: const Icon(
+                                Icons.mode_edit_outline_outlined,
+                                size: 30,
+                                color: Color(0xFF6B4397),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ]),
                   ),
                   Container(
                     height: Responsive.height(10.5, context),

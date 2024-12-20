@@ -155,6 +155,9 @@ class _FolderButtons extends StatelessWidget {
             ),
             child: Center(
               child: TextButton(
+                style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                ),
                 child: Text(
                   buttonText[index],
                   style: TextStyle(

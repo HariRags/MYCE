@@ -174,7 +174,7 @@ class  InteriorDesignState extends State <InteriorDesign> {
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'Retail spaces, Office Spaces',
-                        imagePath: 'assets/images/execution/apartment.png',)
+                        imagePath: 'assets/images/execution/commercial.png',)
                         
                     ),
                     GestureDetector(
@@ -199,7 +199,7 @@ class  InteriorDesignState extends State <InteriorDesign> {
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Warehouses, Factories, Modern Sheds.',
-                        imagePath: 'assets/images/execution/apartment.png',)
+                        imagePath: 'assets/images/execution/industrial.png',)
                         
                     ),
                     

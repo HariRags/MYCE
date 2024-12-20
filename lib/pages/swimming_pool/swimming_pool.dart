@@ -69,7 +69,7 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                       child: const ImageCard(
                         title: 'Execution ',
                         description: 'This involves the physical construction and installation of the pool based on the design plans.',
-                        imagePath: 'assets/images/execution/villa.png',)
+                        imagePath: 'assets/images/execution/swimming_pool.png',)
                         
                     ),
                     InkWell(
@@ -93,7 +93,7 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                       child: const ImageCard(
                         title: 'Maintenance',
                         description: 'This involves cleaning, repairing, and ensuring the proper functioning of the pool and its equipment.',
-                        imagePath: 'assets/images/execution/bungalow.png',)
+                        imagePath: 'assets/images/execution/pool_maintenance.png',)
                         
                     ),
                     InkWell(
@@ -117,7 +117,7 @@ class  SwimmingPoolState extends State <SwimmingPool> {
                       child: const ImageCard(
                         title: 'Equipments',
                         description: 'The devices and machinery used for filtration, circulation, heating, and maintenance of the pool water.',
-                        imagePath: 'assets/images/execution/farmhouse.png',)
+                        imagePath: 'assets/images/execution/pool_equipments.png',)
                         
                     ),
                     

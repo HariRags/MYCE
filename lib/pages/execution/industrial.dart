@@ -92,7 +92,7 @@ class  IndustrialState extends State <Industrial> {
                     child: const ImageCard(
                       title: 'Retail Space',
                       description: 'Commercial areas where goods or services are sold directly to consumers.',
-                      imagePath: 'assets/images/execution/office.png',)
+                      imagePath: 'assets/images/execution/retail.png',)
                       
                   ),
                   

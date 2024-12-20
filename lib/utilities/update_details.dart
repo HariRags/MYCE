@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:kriv/utilities/global.dart';
+
 
 abstract class UpdateEvent {}
 
 class SubmitUpdateEvent extends UpdateEvent {
-  final Map<String, String?> userProfile;
+  final Map<String, Object?> userProfile;
   SubmitUpdateEvent(this.userProfile);
 }
 
@@ -45,13 +49,42 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
     emit(UpdateLoading());
 
     try {
-      
-      String token = (authToken ?? "");
-      final response = await http.put(
-        Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/user_profile/'),
-        headers: {'Content-Type': 'application/json','Authorization':token},
-        body: json.encode(event.userProfile),
+      var request = http.MultipartRequest(
+        'PUT', 
+        Uri.parse(dotenv.env['SERVER_URL']!+'api/auth/user_profile/')
       );
+
+      // Add authorization header
+      request.headers['Authorization'] = authToken!;
+
+      // Separate file and non-file fields
+      File? imageFile;
+      Map<String, String> stringFields = {};
+
+      event.userProfile.forEach((key, value) {
+        if (value is File) {
+          imageFile = value;
+          globals.setProfileImage(imageFile);
+        } else {
+          stringFields[key] = value.toString();
+        }
+      });
+
+      // Add string fields
+      request.fields.addAll(stringFields);
+
+      // Add image file if exists
+      if (imageFile != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'profile_picture', // Adjust to match backend expected field name
+          imageFile!.path
+        ));
+      }
+
+      // Send the request
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
@@ -59,9 +92,11 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
         
         emit(UpdateSuccess(userProfile!));
       } else {
+        globals.setProfileImage(null);
         emit(UpdateFailure(error: 'Failed to sign up'));
       }
     } catch (e) {
+      globals.setProfileImage(null);
       emit(UpdateFailure(error: e.toString()));
     }
   }

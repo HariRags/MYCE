@@ -73,7 +73,7 @@ class  SellState extends State <Sell> {
                       child: const ImageCard(
                         title: 'Land',
                         description: 'A person or entity purchases a piece of land, usually for development, investment, or personal use.',
-                        imagePath: 'assets/images/execution/villa.png',)
+                        imagePath: 'assets/images/execution/land.png',)
                         
                     ),
                     GestureDetector(
@@ -98,7 +98,7 @@ class  SellState extends State <Sell> {
                       child: const ImageCard(
                         title: 'Residential',
                         description: 'A person or entity purchases a residential property for personal use or investment.',
-                        imagePath: 'assets/images/execution/bungalow.png',)
+                        imagePath: 'assets/images/execution/residential.png',)
                         
                     ),
                     GestureDetector(
@@ -123,7 +123,7 @@ class  SellState extends State <Sell> {
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'A business or investor purchases property for the purpose of generating income or conducting business activities.',
-                        imagePath: 'assets/images/execution/farmhouse.png',)
+                        imagePath: 'assets/images/execution/commercial.png',)
                         
                     ),
                     

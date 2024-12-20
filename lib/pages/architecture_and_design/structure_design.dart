@@ -167,7 +167,7 @@ class  StructureDesignState extends State <StructureDesign> {
                       child: const ImageCard(
                         title: 'Commercial',
                         description: 'Planning and creating the architectural framework and support systems for areas used for business activities or providing services.',
-                        imagePath: 'assets/images/execution/apartment.png',)
+                        imagePath: 'assets/images/execution/commercial.png',)
                         
                     ),
                     GestureDetector(
@@ -191,7 +191,7 @@ class  StructureDesignState extends State <StructureDesign> {
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Planning and creating the architectural framework and support systems for areas used in manufacturing, production, or storage of goods.',
-                        imagePath: 'assets/images/execution/apartment.png',)
+                        imagePath: 'assets/images/execution/industrial.png',)
                         
                     ),
                     
