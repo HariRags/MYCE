@@ -67,7 +67,7 @@ class CommercialState extends State<Commercial> {
                         title: 'Factory Structure',
                         description:
                             'The overall layout and organization of a manufacturing facility, including buildings, equipment, and workflow.',
-                        imagePath: 'assets/images/execution/factory.png',
+                        imagePath: 'assets/images/execution/factory_structure.png',
                       )),
                   GestureDetector(
                       onTap: () {

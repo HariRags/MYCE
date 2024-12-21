@@ -98,17 +98,19 @@ void _launchMapsUrl(double lat, double lon) async {
                     child: Column(
                       children: [
                          GestureDetector(
-                          onTap: () => _launchMapsUrl(0, 0),
-          // onTap: () async {
-          //   final Uri emailUri = Uri(
-          //     scheme: 'mailto',
-          //     path: 'abc@gmail.com',
-          //   );
-            // if (await UrlLauncher.canLaunch(emailUri.toString())) {
-            //   await UrlLauncher.launch(emailUri.toString());
-            // } else {
-            //   throw 'Could not launch $emailUri';
-            // }
+
+                          onTap: () async {
+                            final Uri emailUri = Uri(
+                              scheme: 'mailto',
+                              path: 'abc@gmail.com',
+                            );
+                            if (await UrlLauncher.canLaunch(
+                                emailUri.toString())) {
+                              await UrlLauncher.launch(emailUri.toString());
+                            } else {
+                              throw 'Could not launch $emailUri';
+                            }
+                          },
           
           child: const PlainCard(
             title: 'E-mail',

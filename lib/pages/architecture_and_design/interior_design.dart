@@ -199,7 +199,7 @@ class  InteriorDesignState extends State <InteriorDesign> {
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Warehouses, Factories, Modern Sheds.',
-                        imagePath: 'assets/images/execution/industrial.png',)
+                        imagePath: 'assets/images/execution/industry.png',)
                         
                     ),
                     

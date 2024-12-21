@@ -191,7 +191,7 @@ class  StructureDesignState extends State <StructureDesign> {
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Planning and creating the architectural framework and support systems for areas used in manufacturing, production, or storage of goods.',
-                        imagePath: 'assets/images/execution/industrial.png',)
+                        imagePath: 'assets/images/execution/industry.png',)
                         
                     ),
                     

@@ -66,7 +66,7 @@ class  ProjectState extends State <Project> {
                     child: const ImageCard(
                       title: 'Pre Construction phase',
                       description: 'Initial planning and preparation stage of a construction project before any physical work begins.',
-                      imagePath: 'assets/images/execution/pre_construction.png',)
+                      imagePath: 'assets/images/execution/pre_construction_phase.png',)
                       
                   ),
                   InkWell(
@@ -93,7 +93,7 @@ class  ProjectState extends State <Project> {
                     child: const ImageCard(
                       title: 'Execution phase',
                       description: 'The stage of a project where the plans are put into action and the project is carried out.',
-                      imagePath: 'assets/images/execution/execution.png',)
+                      imagePath: 'assets/images/execution/execution_phase.png',)
                       
                   ),
                   

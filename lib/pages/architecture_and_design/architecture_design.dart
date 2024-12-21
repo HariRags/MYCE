@@ -203,7 +203,7 @@ class  ArchitectureDesignState extends State <ArchitectureDesign> {
                       child: const ImageCard(
                         title: 'Industrial',
                         description: 'Planning and creating the layout, appearance, and functionality of areas used for manufacturing, production, or storage of goods.',
-                        imagePath: 'assets/images/execution/industrial.png',
+                        imagePath: 'assets/images/execution/industry.png',
                       ),
                     ),
                   ],

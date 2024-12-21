@@ -109,6 +109,13 @@ flutter:
     - assets/images/execution/pool_maintenance.png
     - assets/images/execution/land.png
     - assets/images/execution/swimming_pool.png
+    - assets/images/execution/factory_structure.png
+    - assets/images/execution/execution_phase.png
+    - assets/images/execution/industry.png
+    - assets/images/execution/pre_construction_phase.png
+    - assets/images/execution/retail.png
+    - assets/images/execution/residential.png
+    - assets/images/execution/commercial.png
     - assets/images/homepage_folders/Execution.png
     - assets/images/homepage_folders/ProjectManagement.png
     - assets/images/homepage_folders/RealEstate.png
