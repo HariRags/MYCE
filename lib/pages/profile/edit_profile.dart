@@ -117,6 +117,25 @@ class EditProfileState extends State<EditProfile> {
       'email': _email,
       'profile_picture':_imageFile
     };
+      String? errorMessage;
+    for (var entry in userData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
     _updateBloc.add(SubmitUpdateEvent(userData));
   }
 

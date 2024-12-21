@@ -107,7 +107,26 @@ class _InfoPageState extends State<InfoPage> {
       'email': _email,
       'address': _address,
     };
-    
+    String? errorMessage;
+    for (var entry in userData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
+
     if (isEmail(_email!) && isPhoneNumber(_phone!)) {
        _signupBloc.add(SubmitSignupEvent(userData));
     }else{

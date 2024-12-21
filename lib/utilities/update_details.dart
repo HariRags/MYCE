@@ -64,7 +64,10 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
       event.userProfile.forEach((key, value) {
         if (value is File) {
           imageFile = value;
-          globals.setProfileImage(imageFile);
+          if(imageFile!=null){
+            globals.setProfileImage(imageFile);
+          }
+          
         } else {
           stringFields[key] = value.toString();
         }
@@ -84,7 +87,7 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
       // Send the request
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
-
+      print(response.body);
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
