@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:kriv/utilities/global.dart';
+
 // BLoC Events
 abstract class ContactEvent {}
 
@@ -23,8 +25,8 @@ class ContactSubmittedState extends ContactState {}
 
 class ContactErrorState extends ContactState {
   final String message;
-
-  ContactErrorState(this.message);
+  final bool isSessionExpired;
+  ContactErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // BLoC Class
@@ -49,14 +51,18 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
         },
         body: jsonEncode(event.commercialData),
       );
+      print(response.body);
       
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201||response.statusCode == 200) {
         
         emit(ContactSubmittedState());
       } else {
-        
-        
-        emit(ContactErrorState('Error: Failed to submit the data'));
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(ContactErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(ContactErrorState('Error occurred: $e'));

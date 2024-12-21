@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:kriv/utilities/global.dart';
+
 // Architecture BLoC Events
 abstract class ArchitectureEvent {}
 
@@ -23,8 +25,8 @@ class ArchitectureSubmittedState extends ArchitectureState {}
 
 class ArchitectureErrorState extends ArchitectureState {
   final String message;
-
-  ArchitectureErrorState(this.message);
+  final bool isSessionExpired;
+  ArchitectureErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // Architecture BLoC Class
@@ -51,10 +53,15 @@ class ArchitectureBloc extends Bloc<ArchitectureEvent, ArchitectureState> {
         body: jsonEncode(event.architectureData),
       );
       
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         emit(ArchitectureSubmittedState());
       } else {
-        emit(ArchitectureErrorState('Error: Failed to submit data'));
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(ArchitectureErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(ArchitectureErrorState('Error occurred: $e'));

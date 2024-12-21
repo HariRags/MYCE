@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/services_bloc.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -57,6 +59,25 @@ class _ServicesState extends State<Services> {
         'property_tax': _propertyTax,
         'electrical_and_repairs': _repair
       };
+         String? errorMessage;
+    for (var entry in servicesData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
       _servicesBloc.add(ServicesSubmitEvent(servicesData));
     
   }
@@ -93,12 +114,30 @@ class _ServicesState extends State<Services> {
               );
             } else if (state is ServicesErrorState) {
               
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.red,
-                ),
-              );
+             if(state.isSessionExpired){
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+              settings: RouteSettings(arguments: globals.accessToken)
+            ),
+            (route) => false, // This will remove all previous routes
+          );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+        }
+        
             }
           },
 

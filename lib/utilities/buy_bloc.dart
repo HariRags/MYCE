@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:kriv/utilities/global.dart';
 
 // BLoC Events
 abstract class BuyEvent {}
@@ -24,8 +25,8 @@ class BuySubmittedState extends BuyState {}
 
 class BuyErrorState extends BuyState {
   final String message;
-
-  BuyErrorState(this.message);
+  final bool isSessionExpired;
+  BuyErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // BLoC Class
@@ -55,7 +56,12 @@ class BuyBloc extends Bloc<BuyEvent, BuyState> {
         emit(BuySubmittedState());
         // Request was successful
       } else {
-        emit(BuyErrorState('Error : Failed to sign up'));
+       globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(BuyErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(BuyErrorState('Error occurred: $e')); // Emit error state

@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:io';
+
+import 'package:kriv/utilities/global.dart';
 // BLoC Events
 abstract class IndustryEvent {}
 
@@ -24,8 +26,8 @@ class IndustrySubmittedState extends IndustryState {}
 
 class IndustryErrorState extends IndustryState {
   final String message;
-
-  IndustryErrorState(this.message);
+  final bool isSessionExpired;
+  IndustryErrorState(this.message,{this.isSessionExpired = false});
 }
 
 // BLoC Class
@@ -78,13 +80,16 @@ class IndustryBloc extends Bloc<IndustryEvent, IndustryState> {
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 ||response.statusCode == 200 ) {
         emit(IndustrySubmittedState());
         // Request was successful
       } else {
-        
-        
-        emit(IndustryErrorState('Enter all the details'));
+         globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(IndustryErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(IndustryErrorState('Error occurred: $e')); // Emit error state

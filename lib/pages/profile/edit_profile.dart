@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/pages/profile/profile_settings.dart';
 import 'package:kriv/utilities/global.dart';
@@ -160,9 +161,28 @@ class EditProfileState extends State<EditProfile> {
               );
 
                 } else if (state is UpdateFailure) {
-                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.error)),
-                  );
+                   if (state.isSessionExpired) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.error),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Home(),
+                      settings: RouteSettings(arguments: globals.accessToken)),
+                  (route) => false, // This will remove all previous routes
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Enter all deatils"),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
                 }
               },
 

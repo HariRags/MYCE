@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/architecture_design_bloc.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -62,6 +64,36 @@ bool _isYesPressed = false;
         "floor_plan": _requirements,
         "location":_location
       };
+         String? errorMessage;
+    for (var entry in houseData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+    final landSizeValue = _landSize != null ? int.tryParse(_landSize!) : null;
+
+    if (landSizeValue == null || landSizeValue <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter a valid positive number for land size'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
       
       _architectureBloc.add(ArchitectureSubmitEvent(houseData));
     
@@ -103,12 +135,29 @@ bool _isYesPressed = false;
         );
       } else if (state is ArchitectureErrorState) {
         
-        ScaffoldMessenger.of(context).showSnackBar(
+        if(state.isSessionExpired){
+          ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
             backgroundColor: Colors.red,
           ),
         );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+              settings: RouteSettings(arguments: globals.accessToken)
+            ),
+            (route) => false, // This will remove all previous routes
+          );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+        }
       }
     },
             builder: (context, state){

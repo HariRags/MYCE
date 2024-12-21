@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:kriv/utilities/global.dart';
+
 // BLoC Events
 abstract class CommercialEvent {}
 
@@ -25,8 +27,8 @@ class CommercialSubmittedState extends CommercialPropState {}
 
 class CommercialErrorState extends CommercialPropState {
   final String message;
-
-  CommercialErrorState(this.message);
+  final bool isSessionExpired;
+  CommercialErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // BLoC Class
@@ -81,9 +83,12 @@ class CommercialBloc extends Bloc<CommercialEvent, CommercialPropState> {
       if (response.statusCode == 201) {
         emit(CommercialSubmittedState());
       } else {
-        
-        
-        emit(CommercialErrorState('Details not filled completely'));
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(CommercialErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(CommercialErrorState('Error occurred: $e'));

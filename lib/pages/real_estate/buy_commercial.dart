@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/buy_bloc.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -61,7 +63,46 @@ class _BuyCommercialState extends State<BuyCommercial> {
         "budget": _budget,
         "location":_location
       };
-      
+         String? errorMessage;
+    for (var entry in houseData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+final landSizeValue = _size != null ? int.tryParse(_size!) : null;
+
+    if (landSizeValue == null || landSizeValue <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter a valid positive number for size'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    final budget = _budget != null ? int.tryParse(_budget!) : null;
+
+    if (budget == null || budget <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter a valid positive number for budget'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
       _buyBloc.add(BuySubmitEvent(houseData));
     
   }
@@ -101,12 +142,29 @@ class _BuyCommercialState extends State<BuyCommercial> {
         );
       } else if (state is BuyErrorState) {
         
-        ScaffoldMessenger.of(context).showSnackBar(
+        if(state.isSessionExpired){
+          ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
             backgroundColor: Colors.red,
           ),
         );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+              settings: RouteSettings(arguments: globals.accessToken)
+            ),
+            (route) => false, // This will remove all previous routes
+          );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+        }
       }
     },
             builder: (context,state){

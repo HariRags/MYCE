@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:kriv/utilities/global.dart';
+
 // Structure BLoC Events
 abstract class StructureEvent {}
 
@@ -23,8 +25,8 @@ class StructureSubmittedState extends StructureState {}
 
 class StructureErrorState extends StructureState {
   final String message;
-
-  StructureErrorState(this.message);
+  final bool isSessionExpired;
+  StructureErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // Structure BLoC Class
@@ -52,8 +54,12 @@ class StructureBloc extends Bloc<StructureEvent, StructureState> {
       if (response.statusCode == 201) {
         emit(StructureSubmittedState());
       } else {
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
         emit(StructureErrorState(
-            'Error: Failed to submit structure design data.'));
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(StructureErrorState('Error occurred: $e'));

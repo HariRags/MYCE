@@ -57,7 +57,7 @@ class ExecutionBloc extends Bloc<ExecutionEvent, ExecutionState> {
         emit(ExecutionSubmittedState());
         // Request was successful
       } else {
-        emit(ExecutionErrorState('Error : Failed to sign up'));
+        emit(ExecutionErrorState('Error: Failed to submit the data'));
       }
     } catch (e) {
       emit(ExecutionErrorState('Error occurred: $e')); // Emit error state

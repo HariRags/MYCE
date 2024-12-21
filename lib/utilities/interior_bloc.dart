@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:kriv/utilities/global.dart';
+
 // Interior BLoC Events
 abstract class InteriorEvent {}
 
@@ -23,8 +25,8 @@ class InteriorSubmittedState extends InteriorState {}
 
 class InteriorErrorState extends InteriorState {
   final String message;
-
-  InteriorErrorState(this.message);
+  final bool isSessionExpired;
+  InteriorErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // Interior BLoC Class
@@ -51,7 +53,12 @@ class InteriorBloc extends Bloc<InteriorEvent, InteriorState> {
       if (response.statusCode == 201) {
         emit(InteriorSubmittedState());
       } else {
-        emit(InteriorErrorState('Error: Failed to submit data.'));
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(InteriorErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(InteriorErrorState('Error occurred: $e'));

@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 });
               });
             } else if (state is AuthError) {
-              
+              _isButtonEnabled = true;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );

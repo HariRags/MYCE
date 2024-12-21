@@ -1,9 +1,13 @@
+// import 'dart:js_interop';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:io';
+
+import 'package:kriv/utilities/global.dart';
 // BLoC Events
 abstract class SellEvent {}
 
@@ -24,8 +28,8 @@ class SellSubmittedState extends SellState {}
 
 class SellErrorState extends SellState {
   final String message;
-
-  SellErrorState(this.message);
+  final bool isSessionExpired;
+  SellErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // BLoC Class
@@ -78,11 +82,16 @@ class SellBloc extends Bloc<SellEvent, SellState> {
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201||response.statusCode == 200) {
         emit(SellSubmittedState());
         // Request was successful
       } else {
-        emit(SellErrorState('Error : Failed to sign up'));
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(SellErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(SellErrorState('Error occurred: $e')); // Emit error state

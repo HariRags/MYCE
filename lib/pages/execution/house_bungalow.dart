@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/maps.dart';
@@ -84,6 +85,25 @@ bool _isYesPressed = false;
         "floor_plan": _selectedFile,
         "location":_location
       };
+         String? errorMessage;
+    for (var entry in houseData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
       _houseBloc.add(HouseSubmitEvent(houseData));
     
   }
@@ -123,13 +143,30 @@ bool _isYesPressed = false;
           ),
         );
       } else if (state is HouseErrorState) {
-        
-        ScaffoldMessenger.of(context).showSnackBar(
+        if(state.isSessionExpired){
+          ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(state.message),
             backgroundColor: Colors.red,
           ),
         );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+              settings: RouteSettings(arguments: globals.accessToken)
+            ),
+            (route) => false, // This will remove all previous routes
+          );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+        }
+        
       }
     },
             builder: (context,state){

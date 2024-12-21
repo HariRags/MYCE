@@ -3,7 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:kriv/pages/home.dart';
 import 'dart:io';
+
+import 'package:kriv/utilities/global.dart';
 // BLoC Events
 abstract class HouseEvent {}
 
@@ -24,8 +27,8 @@ class HouseSubmittedState extends HouseState {}
 
 class HouseErrorState extends HouseState {
   final String message;
-
-  HouseErrorState(this.message);
+  final bool isSessionExpired;
+  HouseErrorState(this.message,{this.isSessionExpired = false});
 }
 
 // BLoC Class
@@ -75,12 +78,18 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
       // Send the request
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
-
+      print(response.body);
+      print(response.statusCode);
       // Check the response
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         emit(HouseSubmittedState());
       } else {
-        emit(HouseErrorState('Enter all the details'));
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(HouseErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
         
       }
     } catch (e) {

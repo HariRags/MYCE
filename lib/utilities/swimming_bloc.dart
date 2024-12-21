@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:kriv/utilities/global.dart';
 
 // BLoC Events
 abstract class SwimmingEvent {}
@@ -24,8 +25,8 @@ class SwimmingSubmittedState extends SwimmingState {}
 
 class SwimmingErrorState extends SwimmingState {
   final String message;
-
-  SwimmingErrorState(this.message);
+  final bool isSessionExpired;
+  SwimmingErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // BLoC Class
@@ -57,7 +58,12 @@ class SwimmingBloc extends Bloc<SwimmingEvent, SwimmingState> {
         emit(SwimmingSubmittedState());
         // Request was successful
       } else {
-        emit(SwimmingErrorState('Error : Failed to sign up'));
+       globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(SwimmingErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(SwimmingErrorState('Error occurred: $e')); // Emit error state

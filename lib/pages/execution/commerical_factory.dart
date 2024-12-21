@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kriv/pages/confirmation.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/widgets/imagepicker.dart';
@@ -83,6 +85,25 @@ Future<void> selectFile() async {
       "floor_plan": _selectedFile,
       "location":_location
     };
+       String? errorMessage;
+    for (var entry in industryData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
     
     _commercialBloc.add(CommercialSubmitEvent(industryData));
   }
@@ -121,13 +142,29 @@ Future<void> selectFile() async {
         ),
       );
     } else if (state is CommercialErrorState) {
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(state.message),
-          backgroundColor: Colors.red,
-        ),
-      );
+       if(state.isSessionExpired){
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Home(),
+              settings: RouteSettings(arguments: globals.accessToken)
+            ),
+            (route) => false, // This will remove all previous routes
+          );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ),
+        );
+        }
     }
   },
             builder: (context,state){

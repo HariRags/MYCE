@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:kriv/utilities/global.dart';
+
 // BLoC Events
 abstract class ServicesEvent {}
 
@@ -23,8 +25,8 @@ class ServicesSubmittedState extends ServicesState {}
 
 class ServicesErrorState extends ServicesState {
   final String message;
-
-  ServicesErrorState(this.message);
+  final bool isSessionExpired;
+  ServicesErrorState(this.message,{this.isSessionExpired=false});
 }
 
 // BLoC Class
@@ -55,10 +57,15 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
       
       
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         emit(ServicesSubmittedState());
       } else {
-        emit(ServicesErrorState('Error: Failed to submit services data.'));
+        globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(ServicesErrorState(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       emit(ServicesErrorState('Error occurred: $e'));

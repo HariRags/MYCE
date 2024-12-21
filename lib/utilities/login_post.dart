@@ -136,7 +136,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           
         } else {
           
-          emit(AuthError('Unexpected response format'));
+          emit(AuthError('Error: Failed to login/signup'));
         }
       } 
       else {

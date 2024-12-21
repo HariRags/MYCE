@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
+import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/contact_bloc.dart';
 import 'package:kriv/utilities/execution_bloc.dart';
+import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/swimming_bloc.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -67,6 +69,17 @@ class _ContactUsState extends State<ContactUs> {
     }
     return false;
   }
+  bool isValidPhone(String input) {
+  // Check if the input is exactly 10 characters and consists of only digits
+  final RegExp phoneNumberRegex = RegExp(r'^\d{10}$');
+  return phoneNumberRegex.hasMatch(input);
+}
+bool isValidEmail(String email) {
+  final RegExp emailRegex = RegExp(
+    r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
+  );
+  return emailRegex.hasMatch(email);
+}
   
   void _submitForm() {
     // Validate and save all forms
@@ -83,9 +96,27 @@ class _ContactUsState extends State<ContactUs> {
     if (_messageFormKey.currentState!.validate()) {
       _messageFormKey.currentState!.save();
     }
-
+     
     
+    if (_phone != null && !isValidPhone(_phone!)) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text('Phone number must be 10 digits'),
+      backgroundColor: Colors.red,
+    ),
+  );
+  return;
+}
 
+if (_email != null && !isValidEmail(_email!)) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text('Please enter a valid email'),
+      backgroundColor: Colors.red,
+    ),
+  );
+  return;
+}
     final userData = {
       'full_name': _name,
       'first_name': _name,
@@ -95,7 +126,25 @@ class _ContactUsState extends State<ContactUs> {
       'message': _message,
       'report' : _report
     };
-    
+       String? errorMessage;
+    for (var entry in userData.entries) {
+      if (entry.value == null || entry.value.toString().trim().isEmpty) {
+        errorMessage =
+            'Enter all the details';
+        break;
+      }
+    }
+
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+         
+        ),
+      );
+      return;
+    }
     _contactBloc.add(ContactSubmitEvent(userData));
   }
 
@@ -130,12 +179,29 @@ class _ContactUsState extends State<ContactUs> {
                   ),
             );
           } else if (state is ContactErrorState) {
-           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
-              ),
-            );
+           if (state.isSessionExpired) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const Home(),
+                    settings: RouteSettings(arguments: globals.accessToken)),
+                (route) => false, // This will remove all previous routes
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+        
           }
         },
         builder: (context, state) {

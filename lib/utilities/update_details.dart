@@ -30,8 +30,8 @@ class UpdateSuccess extends UpdateState {
 
 class UpdateFailure extends UpdateState {
   final String error;
-
-  UpdateFailure({required this.error});
+  final bool isSessionExpired;
+  UpdateFailure(this.error,{this.isSessionExpired=false});
 }
 
 
@@ -47,7 +47,7 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
     Emitter<UpdateState> emit,
   ) async {
     emit(UpdateLoading());
-
+  print(authToken);
     try {
       var request = http.MultipartRequest(
         'PUT', 
@@ -92,12 +92,16 @@ class UpdateBloc extends Bloc<UpdateEvent, UpdateState> {
         
         emit(UpdateSuccess(userProfile!));
       } else {
-        globals.setProfileImage(null);
-        emit(UpdateFailure(error: 'Failed to sign up'));
+         globals.accessToken = '';
+        await globals.clearSharedPreferences();
+        emit(UpdateFailure(
+          'Session expired: Kindly login again',
+           isSessionExpired: true
+        ));
       }
     } catch (e) {
       globals.setProfileImage(null);
-      emit(UpdateFailure(error: e.toString()));
+      emit(UpdateFailure("error: "+ e.toString()));
     }
   }
 }
