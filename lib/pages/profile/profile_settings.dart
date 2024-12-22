@@ -45,12 +45,13 @@ class ProfileSettingsState extends State<ProfileSettings> {
                             );
                 await globals.clearSharedPreferences();
 
-                             Navigator.push(
+                             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const Home(),
                   settings: RouteSettings(arguments: globals.accessToken) // Replace with your next page
                 ),
+                (route) => false
               );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
