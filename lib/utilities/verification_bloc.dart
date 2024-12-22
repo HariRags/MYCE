@@ -97,7 +97,7 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
         emit(VerificationError(errorMessage.toString()));
       }
     } on FormatException catch (e) {
-      emit(VerificationError('Invalid response format: ${e.message}'));
+      emit(VerificationError('Incorrect OTP'));
     } catch (e) {
       
       emit(VerificationError('An error occurred during verification. Please try again.'));
