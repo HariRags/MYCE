@@ -171,12 +171,13 @@ class EditProfileState extends State<EditProfile> {
                                 backgroundColor: Colors.green,
                               ),
                             );
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const HomePage(),
                   settings: RouteSettings(arguments: globals.accessToken) // Replace with your next page
                 ),
+                 (route) => false,
               );
 
                 } else if (state is UpdateFailure) {
