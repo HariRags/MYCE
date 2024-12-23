@@ -17,7 +17,10 @@ class SignupInitial extends SignupState {}
 
 class SignupLoading extends SignupState {}
 
-class SignupSuccess extends SignupState {}
+class SignupSuccess extends SignupState {
+  final Map<String, dynamic>? userProfile;
+  SignupSuccess(this.userProfile);
+}
 
 class SignupFailure extends SignupState {
   final String error;
@@ -48,8 +51,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         body: json.encode(event.userProfile),
       );
       
+      
       if (response.statusCode == 201 ) {
-        emit(SignupSuccess());
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+     
+      final userProfile = data?['user_profile'] as Map<String, dynamic>?;
+      print(data);
+      print(userProfile);
+        emit(SignupSuccess(userProfile));
       } else {
         emit(SignupFailure(error: 'Failed to sign up'));
       }

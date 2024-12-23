@@ -175,8 +175,22 @@ class _InfoPageState extends State<InfoPage> {
                       'SignupPage: Before navigation - authToken: $authToken');
                   print(
                       'SignupPage: Before navigation - auth_token: $auth_token');
+                  print(state.userProfile);
+                  
                   globals.setAccessToken(globals.accessToken);
                   globals.setRefreshToken(globals.refreshToken);
+                  _name = state.userProfile!['first_name'];
+                  globals.setName(_name!);
+                  _phone = state.userProfile!['phone_number'].toString();
+                  globals.setPhoneNumber(_phone!);
+                  _email = state.userProfile!['email'];
+                  globals.setEmail(_email!);
+                  if(state.userProfile!['profile_picture']!=null){
+                    globals.setProfileImage(state.userProfile!['profile_picture']);
+
+                  }
+                  
+
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -244,7 +258,7 @@ class _InfoPageState extends State<InfoPage> {
                                     onChanged: (value) {
                                       print(value);
                                       _name = value;
-                                      globals.setName(value);
+                                      // globals.setName(value);
                                       // globals.name = value;
                                     }),
                               )),
@@ -317,8 +331,8 @@ class _InfoPageState extends State<InfoPage> {
                                   onChanged: widget.input['phone'] == null
                                       ? (value) {
                                           _phone = value;
-                                          globals.setPhoneNumber(
-                                              value.toString());
+                                        //   globals.setPhoneNumber(
+                                        //       value.toString());
                                         }
                                       : null,
                                 ),
@@ -392,7 +406,7 @@ class _InfoPageState extends State<InfoPage> {
                                   onChanged: widget.input['email'] == null
                                       ? (value) {
                                           _email = value;
-                                          globals.setEmail(value);
+                                          // globals.setEmail(value);
                                         }
                                       : null,
                                 ),

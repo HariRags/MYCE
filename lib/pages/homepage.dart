@@ -131,20 +131,32 @@ class HomePageState extends State<HomePage> {
                         child: Image.asset('assets/images/myce_logo.png')),
                       onTap: () {},
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  ProfileSettings(authToken: authToken,),
-            settings: RouteSettings(arguments: auth_token) // Replace with your next page
-          ),
-        );
-                      },
-                      icon: Icon(Icons.account_circle_outlined,
-                          color:const Color(0xFF6B4397),
-                          size: Responsive.height(5, context) ),
-                    )
+        
+        IconButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileSettings(authToken: authToken),
+        settings: RouteSettings(arguments: auth_token)
+      ),
+    );
+  },
+  icon: globals.profileImage != null
+    ? ClipOval(
+        child: Image.file(
+          globals.profileImage!,
+          width: Responsive.height(5, context),
+          height: Responsive.height(5, context),
+          fit: BoxFit.cover,
+        ),
+      )
+    : Icon(
+        Icons.account_circle_outlined,
+        color: const Color(0xFF6B4397),
+        size: Responsive.height(5, context)
+      ),
+)
                   ],
                 ),
               ),

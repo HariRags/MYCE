@@ -87,7 +87,10 @@ class _VerificationState extends State<Verification> {
                 globals.setEmail(state.userProfile!['email']);
                 // globals.phoneNumber = state.userProfile!['phone_number'].toString();
                 globals.setPhoneNumber(state.userProfile!['phone_number'].toString());
-    
+                if(state.userProfile!['profile_picture']!=null){
+                  globals.setProfileImage(state.userProfile!['profile_picture']);
+
+                }
                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
