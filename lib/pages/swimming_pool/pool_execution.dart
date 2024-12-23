@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/home.dart';
@@ -20,6 +22,8 @@ class PoolExecution extends StatefulWidget {
 class _PoolExecutionState extends State<PoolExecution> {
   String auth_token="";
   late SwimmingBloc _swimmingBloc;
+  final FocusNode _locationFocus = FocusNode();
+  final FocusNode _sizeFocus = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -28,7 +32,13 @@ class _PoolExecutionState extends State<PoolExecution> {
     auth_token = swimmingBloc.authToken;
     _swimmingBloc = SwimmingBloc(auth_token);
   }
-
+  @override
+  void dispose() {
+    // Dispose focus nodes
+    _locationFocus.dispose();
+    _sizeFocus.dispose();
+    super.dispose();
+  }
   final _locationFormKey = GlobalKey<FormState>();
   final _sizeFormKey = GlobalKey<FormState>();
   
@@ -158,27 +168,35 @@ class _PoolExecutionState extends State<PoolExecution> {
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
-                    Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(18, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _locationFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onChanged: (value) {
-                                  _location = value;
-                                } ,
-                          ),
-                        )),
+                    GestureDetector(
+                      onTap: (){
+                        FocusScope.of(context).requestFocus(_locationFocus);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(left: Responsive.width(2, context)),
+                          height: Responsive.height(18, context),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                              borderRadius: BorderRadius.circular(6)),
+                          child: Form(
+                            key: _locationFormKey,
+                            child: TextFormField(
+                              focusNode: _locationFocus,
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      left: Responsive.width(1, context),
+                                      bottom: Responsive.height(1.2, context)),
+                                  border: InputBorder.none),
+                                  onChanged: (value) {
+                                    _location = value;
+                                  } ,
+                                   maxLines: null,
+                                  keyboardType: TextInputType.multiline,
+                            ),
+                          )),
+                    ),
                     SizedBox(
                       height: Responsive.height(2.2, context),
                     ),
@@ -192,27 +210,33 @@ class _PoolExecutionState extends State<PoolExecution> {
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
-                    Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(18, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _sizeFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onChanged: (value) {
-                                  _size = value;
-                                } ,
-                          ),
-                        )),
+                    GestureDetector(
+                      onTap: (){
+                        FocusScope.of(context).requestFocus(_sizeFocus);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(left: Responsive.width(2, context)),
+                          height: Responsive.height(18, context),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                              borderRadius: BorderRadius.circular(6)),
+                          child: Form(
+                            key: _sizeFormKey,
+                            child: TextFormField(
+                              focusNode: _sizeFocus,
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      left: Responsive.width(1, context),
+                                      bottom: Responsive.height(1.2, context)),
+                                  border: InputBorder.none),
+                                  onChanged: (value) {
+                                    _size = value;
+                                  } ,
+                            ),
+                          )),
+                    ),
                     SizedBox(
                       height: Responsive.height(2.2, context),
                     ),

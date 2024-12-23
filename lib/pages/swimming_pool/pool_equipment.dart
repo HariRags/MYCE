@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/home.dart';
@@ -20,6 +21,8 @@ class PoolEquipment extends StatefulWidget {
 class _PoolEquipmentState extends State<PoolEquipment> {
   String auth_token="";
   late SwimmingBloc _swimmingBloc;
+  final FocusNode _locationFocus = FocusNode();
+  final FocusNode _sizeFocus = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -27,6 +30,13 @@ class _PoolEquipmentState extends State<PoolEquipment> {
     final swimmingBloc = BlocProvider.of<SwimmingBloc>(context);
     auth_token = swimmingBloc.authToken;
     _swimmingBloc = SwimmingBloc(auth_token);
+  }
+  @override
+  void dispose() {
+    // Dispose focus nodes
+    _locationFocus.dispose();
+    _sizeFocus.dispose();
+    super.dispose();
   }
 
   final _equipmentFormKey = GlobalKey<FormState>();
@@ -151,27 +161,33 @@ class _PoolEquipmentState extends State<PoolEquipment> {
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
-                    Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(18, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _equipmentFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onChanged: (value) {
-                                  _equipmentList = value;
-                                } ,
-                          ),
-                        )),
+                    GestureDetector(
+                      onTap: (){
+                        FocusScope.of(context).requestFocus(_locationFocus);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(left: Responsive.width(2, context)),
+                          height: Responsive.height(18, context),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                              borderRadius: BorderRadius.circular(6)),
+                          child: Form(
+                            key: _equipmentFormKey,
+                            child: TextFormField(
+                              focusNode: _locationFocus,
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(
+                                      left: Responsive.width(1, context),
+                                      bottom: Responsive.height(1.2, context)),
+                                  border: InputBorder.none),
+                                  onChanged: (value) {
+                                    _equipmentList = value;
+                                  } ,
+                            ),
+                          )),
+                    ),
                    
                     SizedBox(
                       height: Responsive.height(2.2, context),
