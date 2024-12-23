@@ -27,6 +27,12 @@ class _VerificationState extends State<Verification> {
   bool _canVerify = true;
   int _timeLeft = 30;
 
+  @override
+  void initState() {
+    super.initState();
+    startResendTimer(); // Start timer when page loads
+  }
+
   void startResendTimer() {
     setState(() {
       _canResend = false;
