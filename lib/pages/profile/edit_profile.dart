@@ -97,9 +97,10 @@ class EditProfileState extends State<EditProfile> {
      _controllerName.text = globals.name;
     _controllerMail.text = globals.email;
     _controllerNumber.text = globals.phoneNumber;
-    if (globals.profileImage !=null) {
-      _imageFile = globals.profileImage;
-    }
+    _imageFile = globals.profileImage;
+    // if (globals.profileImage !=null) {
+    //   _imageFile = globals.profileImage;
+    // }
   }
   void _submitForm() {
     // Validate and save all forms
@@ -117,25 +118,17 @@ class EditProfileState extends State<EditProfile> {
       'email': _email,
       'profile_picture':_imageFile
     };
-      String? errorMessage;
-    for (var entry in userData.entries) {
-      if (entry.value == null || entry.value.toString().trim().isEmpty) {
-        errorMessage =
-            'Enter all the details';
-        break;
-      }
-    }
-
-    if (errorMessage != null) {
+    if(_imageFile==null){
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(errorMessage),
+          content: Text("Select an image"),
           backgroundColor: Colors.red,
          
         ),
       );
       return;
     }
+    
     _updateBloc.add(SubmitUpdateEvent(userData));
   }
 
@@ -398,6 +391,14 @@ class EditProfileState extends State<EditProfile> {
                             _name = _controllerName.text.trim();
                             _phone = _controllerNumber.text.trim();
                             _email = _controllerMail.text.trim();
+                            if(_name==null ||_email==null||_phone==null){
+                              ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Enter all the details"),
+          backgroundColor: Colors.red,
+         
+        ));
+                            }
                             _submitForm();
                             
                           }else{
