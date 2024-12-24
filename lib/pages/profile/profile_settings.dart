@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kriv/pages/home.dart';
+import 'package:kriv/pages/profile/contactus.dart';
 import 'package:kriv/pages/profile/edit_profile.dart';
 import 'package:kriv/utilities/global.dart';
 import 'package:kriv/utilities/update_details.dart';
@@ -434,23 +435,26 @@ class ProfileSettingsState extends State<ProfileSettings> {
                   ),
                   SizedBox(
                     width: Responsive.width(100, context),
-                    height: Responsive.height(30, context),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Card(
-                        margin: EdgeInsets.only(
-                            left: Responsive.width(4, context),
-                            right: Responsive.width(4, context),
-                            bottom: Responsive.height(2, context)),
-                        elevation: 6,
-                        surfaceTintColor: Colors.white,
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(height: Responsive.height(4, context)),
-                            GestureDetector(
-                              onTap: _showPrivacyPolicyDialog,
+                    height: Responsive.height(22.5, context),
+                    child: Card(
+                      margin: EdgeInsets.only(
+                          left: Responsive.width(4, context),
+                          right: Responsive.width(4, context),
+                          bottom: Responsive.height(2, context)),
+                      elevation: 6,
+                      surfaceTintColor: Colors.white,
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: Responsive.height(4, context)),
+                          InkWell(
+                            onTap: _showPrivacyPolicyDialog,
+                            splashColor: Colors.transparent, // Disable splash color
+                    highlightColor: Colors.transparent, 
+                            child: Container(
+                              // height:Responsive.height(5, context),
+                              // width: Responsive.width(100, context),
                               child: Row(
                                 children: [
                                   SizedBox(width: Responsive.width(8, context),),
@@ -477,7 +481,9 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                       )
                                     ],
                                   ),
-                                  SizedBox(width: Responsive.width(35, context),),
+                                  GestureDetector(
+                                    onTap:_showPrivacyPolicyDialog ,
+                                    child: SizedBox(width: Responsive.width(35, context),)),
                                   const Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.black,
@@ -485,19 +491,32 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                 ],
                               ),
                             ),
-                            Divider(
-                              indent: Responsive.width(8, context),
-                              endIndent: Responsive.width(8, context),
-                              height: Responsive.height(4, context),
-                            ),
-                            Row(
+                          ),
+                          Divider(
+                            indent: Responsive.width(8, context),
+                            endIndent: Responsive.width(8, context),
+                            height: Responsive.height(4, context),
+                          ),
+                          InkWell(
+                            onTap: () {
+                                        Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ContactUs(), // Navigate to Contact Us page
+                    ),
+                                        );
+                                      },
+
+                            splashColor: Colors.transparent, // Disable splash color
+                    highlightColor: Colors.transparent, 
+                            child: Row(
                               children: [
                                 SizedBox(width: Responsive.width(8, context),),
-                                const Column(
+                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Privacy Policy',
+                                      'Contact Us',
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -508,7 +527,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                     Text(
                                       'Important for both of us',
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: Colors.black.withOpacity(0),
                                         fontSize: 12,
                                         fontFamily: 'Poppins',
                                         fontWeight: FontWeight.w400,
@@ -523,18 +542,44 @@ class ProfileSettingsState extends State<ProfileSettings> {
                                 )
                               ],
                             ),
-                            Divider(
-                              indent: Responsive.width(8, context),
-                              endIndent: Responsive.width(8, context),
-                              height: Responsive.height(4, context),
-                            ),
-                          ],
-                        ),
+                          ),
+                          Divider(
+                            indent: Responsive.width(8, context),
+                            endIndent: Responsive.width(8, context),
+                            height: Responsive.height(4, context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // SizedBox(
+                  //   height: Responsive.height(1, context),
+                  // ),
+                  TextButton(
+                    onPressed: _showDeleteConfirmationDialog,
+                     
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Color(0xFFE30000), width: 2),
+                      )),
+                      fixedSize: MaterialStateProperty.all<Size>(Size(
+                          Responsive.width(93, context),
+                          Responsive.height(7.2, context))),
+                    ),
+                    child: const Text(
+                      "Log Out",
+                      style: TextStyle(
+                        color: Color(0xFFE30000),
+                        fontSize: 20,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: Responsive.height(4, context),
+                    height: Responsive.height(2, context),
                   ),
                   TextButton(
                     onPressed: _showDeleteConfirmationDialog,
