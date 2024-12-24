@@ -11,7 +11,6 @@ import 'package:kriv/widgets/myce_backbutton.dart';
 import 'package:kriv/widgets/navigation.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:http/http.dart' as http;
-import '../../widgets/imagecard.dart';
 
 class ProfileSettings extends StatefulWidget {
   final String? authToken;
@@ -22,7 +21,177 @@ class ProfileSettings extends StatefulWidget {
 }
 
 class ProfileSettingsState extends State<ProfileSettings> {
-   
+     void _showPrivacyPolicyDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(16),
+            height: Responsive.height(80, context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Privacy Policy',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text:
+                                'Welcome to MYCE, a platform dedicated to providing engineering consulting services, enabling users to buy, sell, and rent properties and other real estate assets. This Privacy Policy explains how MYCE ("we," "us," or "our") collects, uses, discloses, and protects your personal information.\n\n',
+                          ),
+                          TextSpan(
+                            text: '1. Information We Collect\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: 'We may collect the following types of information:\n\n',
+                          ),
+                          TextSpan(
+                            text: 'a. Personal Information\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: '• Name, email address, phone number, and mailing address.\n',
+                          ),
+                          TextSpan(
+                            text: '• Identification documents for verification purposes (if applicable).\n\n',
+                          ),
+                          TextSpan(
+                            text: '2. How We Use Your Information\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: '• To verify user identity and prevent fraud.\n',
+                          ),
+                          TextSpan(
+                            text: '• To comply with legal obligations.\n\n',
+                          ),
+                          TextSpan(
+                            text: '3. Sharing Your Information\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: '• With Service Providers: To assist in providing services such as payment processing, customer support, and analytics.\n',
+                          ),
+                          TextSpan(
+                            text: '• With Other Users: When engaging in transactions, certain information (e.g., your name and contact details) may be shared with other parties involved.\n',
+                          ),
+                          TextSpan(
+                            text: '• For Legal Reasons: To comply with legal obligations, respond to lawful requests, or protect our rights and safety.\n',
+                          ),
+                          TextSpan(
+                            text: '• With Your Consent: When you explicitly agree to share your information.\n\n',
+                          ),
+                          TextSpan(
+                            text: '4. Data Protection\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: 'a. Security Measures\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: 'We implement robust security measures to protect your personal information, including encryption, secure servers, and access controls.\n\n',
+                          ),
+                          TextSpan(
+                            text: 'b. Data Retention\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: 'We retain your information only for as long as necessary to fulfill the purposes outlined in this policy or as required by law.\n\n',
+                          ),
+                          TextSpan(
+                            text: 'c. Your Rights\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: '• Access, correct, or delete your personal information.\n',
+                          ),
+                          TextSpan(
+                            text: '• Object to or restrict certain data processing activities.\n',
+                          ),
+                          TextSpan(
+                            text: '• Withdraw your consent for data processing where applicable.\n\n',
+                          ),
+                          TextSpan(
+                            text: 'To exercise these rights, contact us at “email”.\n\n',
+                          ),
+                          TextSpan(
+                            text: 'Changes to This Privacy Policy\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: 'We may update this Privacy Policy from time to time. Changes will be effective upon posting. We encourage you to review this policy periodically to stay informed.\n\n',
+                          ),
+                          TextSpan(
+                            text: 'Contact Us\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: 'If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:\n',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Close'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+     void _showDeleteConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Are you sure?'),
+          content: const Text('Do you really want to delete your account? Your data will be erased and this action is irreversible'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                deleteProfile();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   void deleteProfile()async{
     final String url = dotenv.env['SERVER_URL']!+'api/auth/delete_user/';
     try {
@@ -280,38 +449,41 @@ class ProfileSettingsState extends State<ProfileSettings> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(height: Responsive.height(4, context)),
-                            Row(
-                              children: [
-                                SizedBox(width: Responsive.width(8, context),),
-                                const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Privacy Policy',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w600,
+                            GestureDetector(
+                              onTap: _showPrivacyPolicyDialog,
+                              child: Row(
+                                children: [
+                                  SizedBox(width: Responsive.width(8, context),),
+                                  const Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Privacy Policy',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Important for both of us',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(width: Responsive.width(35, context),),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.black,
-                                )
-                              ],
+                                      Text(
+                                        'Important for both of us',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(width: Responsive.width(35, context),),
+                                  const Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Colors.black,
+                                  )
+                                ],
+                              ),
                             ),
                             Divider(
                               indent: Responsive.width(8, context),
@@ -365,7 +537,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
                     height: Responsive.height(4, context),
                   ),
                   TextButton(
-                    onPressed: deleteProfile,
+                    onPressed: _showDeleteConfirmationDialog,
                      
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<OutlinedBorder>(
