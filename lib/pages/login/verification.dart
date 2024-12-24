@@ -82,20 +82,19 @@ class _VerificationState extends State<Verification> {
               bool registered = state.registered;
               // After receiving the access token on login
               
-    
+              print("hi");
               if(registered==true){
                 globals.setAccessToken('Bearer '+state.accessToken);
                 globals.setRefreshToken('Bearer '+state.refreshToken);
                 print(state.userProfile);
                 // globals.name = state.userProfile!['first_name'];
-                globals.setName(state.userProfile!['first_name']);
+                globals.setName(state.userProfile!['full_name']);
                 // globals.email = state.userProfile!['email'];
                 globals.setEmail(state.userProfile!['email']);
                 // globals.phoneNumber = state.userProfile!['phone_number'].toString();
                 globals.setPhoneNumber(state.userProfile!['phone_number'].toString());
                 if(state.userProfile!['profile_picture']!=null){
-                  globals.setProfileImage(state.userProfile!['profile_picture']);
-
+                  await globals.downloadAndSaveProfileImage(state.userProfile!['profile_picture']);
                 }
                  Navigator.pushAndRemoveUntil(
                     context,

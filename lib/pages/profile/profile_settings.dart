@@ -193,6 +193,47 @@ class ProfileSettingsState extends State<ProfileSettings> {
       },
     );
   }
+  void _showLogoutConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Are you sure?'),
+          content: const Text('Do you really want to logout your account?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () async{
+                globals.accessToken = '';
+        ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Profile Logged Out!"),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                await globals.clearSharedPreferences();
+
+                             Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Home(),
+                  settings: RouteSettings(arguments: globals.accessToken) // Replace with your next page
+                ),
+                (route) => false
+              );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   void deleteProfile()async{
     final String url = dotenv.env['SERVER_URL']!+'api/auth/delete_user/';
     try {
@@ -556,7 +597,7 @@ class ProfileSettingsState extends State<ProfileSettings> {
                   //   height: Responsive.height(1, context),
                   // ),
                   TextButton(
-                    onPressed: _showDeleteConfirmationDialog,
+                    onPressed: _showLogoutConfirmationDialog,
                      
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<OutlinedBorder>(

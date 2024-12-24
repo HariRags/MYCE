@@ -1,7 +1,9 @@
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 class Globals {
   static final Globals _instance = Globals._internal();
 
@@ -81,6 +83,28 @@ class Globals {
     accessToken = '';
     refreshToken = '';
     profileImage = null;
+  }
+  Future<void> downloadAndSaveProfileImage(String backendImagePath) async {
+    final cleanPath = backendImagePath.startsWith('/') ? backendImagePath.substring(1) : backendImagePath;
+    final imageUrl = dotenv.env['SERVER_URL']! + cleanPath;
+    print("hey");
+    print(imageUrl);
+    
+    try {
+      final response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode == 200) {
+        final documentsDir = await getApplicationDocumentsDirectory();
+        final fileName = path.basename(cleanPath);
+        final localPath = path.join(documentsDir.path, fileName);
+        
+        final imageFile = File(localPath);
+        await imageFile.writeAsBytes(response.bodyBytes);
+        
+        await setProfileImage(imageFile);
+      }
+    } catch (e) {
+      print('Error downloading profile image: $e');
+    }
   }
 }
 
