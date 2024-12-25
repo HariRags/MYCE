@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:kriv/utilities/responsive.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -23,12 +25,7 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Location"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context, _currentLocation != null ? _address : null);
-          },
-        ),
+         automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -81,6 +78,17 @@ class _MapPageState extends State<MapPage> {
               textAlign: TextAlign.center,
             ),
           ),
+          InkWell(
+            onTap: () {
+                  Navigator.pop(
+                      context, _currentLocation != null ? _address : null);
+                },
+            child: Container(
+              color:const Color.fromRGBO(107, 67, 151, 1),
+              width: Responsive.width(100, context),
+                padding:const EdgeInsets.all(16.0) ,
+                child: Center(child:  Text("Confirm",style: TextStyle(fontSize:Responsive.height(2.1, context) , fontWeight: FontWeight.w600,fontFamily: 'Poppins',color: Colors.white),))),
+          )
         ],
       ),
     );
