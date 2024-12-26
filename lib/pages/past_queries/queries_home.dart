@@ -31,7 +31,7 @@ class _QueriesHomeState extends State<QueriesHome> {
                       right: Responsive.width(3.5, context),
                     ),
                     child: Text(
-                      'Past Queries',
+                      'Past Enquiries',
                       style: TextStyle(
                           fontFamily: 'Fraunces',
                           fontWeight: FontWeight.w600,
