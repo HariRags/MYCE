@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kriv/pages/home.dart';
+import 'package:kriv/pages/past_queries/queries_home.dart';
 import 'package:kriv/pages/profile/contactus.dart';
 import 'package:kriv/pages/profile/edit_profile.dart';
 import 'package:kriv/utilities/global.dart';
@@ -405,10 +406,17 @@ class ProfileSettingsState extends State<ProfileSettings> {
                   Row(
                     children: [
                       SizedBox(
-                        width: Responsive.width(50, context),
+                        width: Responsive.width(100, context),
                         height: Responsive.height(20, context),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>  QueriesHome(),
+                                        )
+                                    );
+                          },
                           child: Card(
                             margin: EdgeInsets.only(
                                 left: Responsive.width(4, context),
@@ -438,40 +446,9 @@ class ProfileSettingsState extends State<ProfileSettings> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: Responsive.width(50, context),
-                        height: Responsive.height(20, context),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Card(
-                            margin: EdgeInsets.only(
-                                left: Responsive.width(4, context),
-                                right: Responsive.width(4, context),
-                                bottom: Responsive.height(2, context)),
-                            elevation: 6,
-                            surfaceTintColor: Colors.white,
-                            color: Colors.white,
-                            child: Column(
-                              children: [
-                                SizedBox(height: Responsive.height(5, context)),
-                                Icon(Icons.location_on_outlined,
-                                    size: Responsive.height(5, context),
-                                    color: Color.fromARGB(255, 133, 90, 180)),
-                                SizedBox(height: Responsive.height(1, context)),
-                                const Text(
-                                  'Address',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
+                      
+                        
+                      
                     ],
                   ),
                   SizedBox(
