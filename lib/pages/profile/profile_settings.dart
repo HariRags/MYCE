@@ -265,14 +265,26 @@ class ProfileSettingsState extends State<ProfileSettings> {
                 ),
                 (route) => false
               );
-      } else {
+      } else if(response.statusCode == 401){
+
+        await globals.clearSharedPreferences();
         ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Some error occurred"),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-        
+          SnackBar(
+            content: Text("Session expired! Kingly login again."),
+            backgroundColor: Colors.red,
+          ),
+        );
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const Home(),
+                settings: RouteSettings(
+                    arguments:
+                        globals.accessToken) // Replace with your next page
+                ),
+            (route) => false);
+      
         
       }
     } catch (error) {
