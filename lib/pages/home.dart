@@ -186,7 +186,7 @@ class HomeState extends State<Home> {
                     Responsive.width(10, context),
                     0),
                 child: const Text(
-                  'All-in-one civil services app that streamlines real estate, design, project management, consultancy and flawless execution',
+                  'All-in-one civil engineering services app that streamlines real estate, design, project management, consultancy and flawless execution',
                   softWrap: true,
                   style:
                       TextStyle(color: customGrey, fontWeight: FontWeight.w500),

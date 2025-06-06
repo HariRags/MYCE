@@ -4,6 +4,7 @@ import 'package:kriv/pages/confirmation.dart';
 import 'package:kriv/pages/home.dart';
 import 'package:kriv/pages/homepage.dart';
 import 'package:kriv/utilities/global.dart';
+import 'package:kriv/utilities/maps.dart';
 import 'package:kriv/utilities/responsive.dart';
 import 'package:kriv/utilities/services_bloc.dart';
 import 'package:kriv/widgets/myce_backbutton.dart';
@@ -37,6 +38,7 @@ class _ServicesState extends State<Services> {
   String? _houseKeeping;
   String? _propertyTax;
   String? _repair;
+  String? _location;
 
 
   void _submitForm() {
@@ -57,7 +59,8 @@ class _ServicesState extends State<Services> {
         'security': _security,
         'house_keeping' : _houseKeeping,
         'property_tax': _propertyTax,
-        'electrical_and_repairs': _repair
+        'electrical_and_repairs': _repair,
+        "location":_location
       };
          String? errorMessage;
     for (var entry in servicesData.entries) {
@@ -155,7 +158,52 @@ class _ServicesState extends State<Services> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    
+                    Text(
+                      'Location',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          fontSize: Responsive.height(2.5, context)),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MapPage(),
+                              ),
+                            );
+                            if (result != null && result is String) {
+                              setState(() {
+                                _location = result;
+                              });
+                            }
+                            
+              
+                      },
+                      child: Container(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: Responsive.height(3, context),
+                                  color: const Color.fromRGBO(107, 67, 151, 1),
+                                ),
+                                Text(
+                                    (_location == null)
+                                        ? 'Select the location'
+                                        : _location!,
+                                    style: TextStyle(
+                                        fontSize:
+                                            Responsive.height(2, context),
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                    ),
+                    SizedBox(
+                      height: Responsive.height(1, context),
+                    ),
                     Text(
                       'Security',
                       style: TextStyle(
