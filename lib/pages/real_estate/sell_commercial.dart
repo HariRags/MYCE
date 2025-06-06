@@ -42,7 +42,9 @@ class _SellCommercialState extends State<SellCommercial> {
   String? _ownerDetails;
   File? _propertyDocs;
   String? _propertyDocsName;
-  String? _expectedPrice;
+  String _expectedPrice = '50';
+  String _selectedUnit = 'sq. ft.'; // Define this in your state
+  final List<String> _units = ['sq. ft.', 'gunta', 'acre'];
   String? _location;
 
   Future<void> selectFile() async {
@@ -55,6 +57,9 @@ class _SellCommercialState extends State<SellCommercial> {
         _propertyDocsName = result['fileName'];
       });
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please select file under 20MB")),
+      );
       setState(() {
         _propertyDocs = null;
         _propertyDocsName = null;
@@ -86,6 +91,7 @@ class _SellCommercialState extends State<SellCommercial> {
         'location_line_1': _location1,
         'location_line_2' : _location2,
         "land_size": _size,
+        "land_size_unit": _selectedUnit,
         "owner_details": _ownerDetails,
         "property_documents": _propertyDocs,
         "expected_price":_expectedPrice,
@@ -238,7 +244,7 @@ final landSizeValue = _size != null ? int.tryParse(_size!) : null;
                               children: [
                                 Icon(
                                   Icons.location_on_outlined,
-                                  size: Responsive.height(2, context),
+                                  size: Responsive.height(3, context),
                                   color: const Color.fromRGBO(107, 67, 151, 1),
                                 ),
                                 Text(
@@ -247,7 +253,7 @@ final landSizeValue = _size != null ? int.tryParse(_size!) : null;
                                         : _location!,
                                     style: TextStyle(
                                         fontSize:
-                                            Responsive.height(1.5, context),
+                                            Responsive.height(2, context),
                                         color: Colors.black)),
                               ],
                             ),
@@ -314,7 +320,7 @@ final landSizeValue = _size != null ? int.tryParse(_size!) : null;
                           ),
                         )),
                     SizedBox(
-                      height: Responsive.height(2.2, context),
+                      height: Responsive.height(2, context),
                     ),
                     Text(
                       'Size',
@@ -327,28 +333,65 @@ final landSizeValue = _size != null ? int.tryParse(_size!) : null;
                       height: Responsive.height(1, context),
                     ),
                     Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(5, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _sizeFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onChanged: (value) {
-                                  _size = value;
-                                },
-                          ),
-                        )),
+                      child: Row(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(left: Responsive.width(2, context)),
+                              height: Responsive.height(5, context),
+                              width: Responsive.width(66, context),
+                              alignment: Alignment.topLeft,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Form(
+                                key: _sizeFormKey,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.only(
+                                          left: Responsive.width(1, context),
+                                          bottom: Responsive.height(1.2, context)),
+                                      border: InputBorder.none),
+                                      onChanged: (value) {
+                                        _size = value;
+                                      },
+                                ),
+                              )),
+                              SizedBox(width: Responsive.width(2, context)),
+
+    // Unit dropdown
+                              Container(
+                                height: Responsive.height(5, context),
+                                width: Responsive.width(25, context),
+                                padding: EdgeInsets.symmetric(horizontal: Responsive.width(3, context)),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6),
+                                  // color: Colors.white,
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: _selectedUnit,
+                                    isExpanded: true,
+                                    items: _units.map((String unit) {
+                                      return DropdownMenuItem<String>(
+                                        value: unit,
+                                        child: Text(unit),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedUnit = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                        ],
+                      ),
+                    ),
                     SizedBox(
-                      height: Responsive.height(2.2, context),
+                      height: Responsive.height(2, context),
                     ),
                     Text(
                       'Owner Details',
@@ -443,7 +486,7 @@ final landSizeValue = _size != null ? int.tryParse(_size!) : null;
                     //   ],
                     // ),
                     SizedBox(
-                      height: Responsive.height(2.5, context),
+                      height: Responsive.height(2, context),
                     ),
                     Text(
                       'Property Documents',
@@ -532,32 +575,79 @@ final landSizeValue = _size != null ? int.tryParse(_size!) : null;
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,
-                          fontSize: Responsive.height(2.5, context)),
+                          fontSize: Responsive.height(2, context)),
                     ),
                     SizedBox(
                       height: Responsive.height(1, context),
                     ),
-                    Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(5, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _expectedFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onChanged: (value){
-                                  _expectedPrice = value;
-                                },
+                    // Container(
+                    //     padding: EdgeInsets.only(left: Responsive.width(2, context)),
+                    //     height: Responsive.height(5, context),
+                    //     alignment: Alignment.topLeft,
+                    //     decoration: BoxDecoration(
+                    //         border:
+                    //             Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                    //         borderRadius: BorderRadius.circular(6)),
+                    //     child: Form(
+                    //       key: _expectedFormKey,
+                    //       child: TextFormField(
+                    //         decoration: InputDecoration(
+                    //             contentPadding: EdgeInsets.only(
+                    //                 left: Responsive.width(1, context),
+                    //                 bottom: Responsive.height(1.2, context)),
+                    //             border: InputBorder.none),
+                    //             onChanged: (value){
+                    //               _expectedPrice = value;
+                    //             },
+                    //       ),
+                    //     )),
+                    Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('30 L', style: TextStyle(fontSize: 14)),
+                              Text(
+                                '${_expectedPrice} L',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              Text('1 cr', style: TextStyle(fontSize: 14)),
+                            ],
                           ),
-                        )),
+                        ),
+
+                        // Slider
+                        Slider(
+                          value: double.tryParse(_expectedPrice) ?? 50.0, // Start from 50
+                          min: 30,
+                          max: 100,
+                          divisions: 70,
+                          activeColor: Colors.purple,
+                          inactiveColor: Colors.grey[400],
+                          onChanged: (value) {
+                            setState(() {
+                              _expectedPrice = value.round().toString();
+                            });
+                          },
+                        ),
+                        Center(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'Rs. $_expectedPrice L',
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+
                         SizedBox(
                       height: Responsive.height(2.2, context),
                     ),
