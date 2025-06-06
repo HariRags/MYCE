@@ -13,6 +13,14 @@ Future<Map<String, dynamic>?> pickFile() async {
   );
 
   if (result != null && result.files.single.path != null) {
+    final file = File(result.files.single.path!);
+    final int fileSize = await file.length(); // in bytes
+
+    if (fileSize > 20 * 1024 * 1024) {
+      // File is larger than 20MB
+      return null;
+    }
+
     return {
       'file': File(result.files.single.path!), 
       'fileName': result.files.single.name,    

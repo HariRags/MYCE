@@ -35,13 +35,13 @@ class _HouseApartmentState extends State<HouseApartment> {
  // Provide your auth token here
   final _formKey = GlobalKey<FormState>();
   final _locationFormKey = GlobalKey<FormState>();
-  final _planDetailsFormKey = GlobalKey<FormState>();
+  // final _planDetailsFormKey = GlobalKey<FormState>();
   final _floorPlanFormKey = GlobalKey<FormState>();
 bool _isYesPressed = false;
   bool _isNoPressed = false;
   String? _location1;
   String? _location2;
-  String? _planDetails;
+  // String? _planDetails;
   String? _digitalSurvey;
   File? _selectedFile;
   String? _floorPlan;
@@ -56,6 +56,9 @@ bool _isYesPressed = false;
         _floorPlan = result['fileName'];
       });
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please select file under 20MB")),
+      );
       setState(() {
         _selectedFile = null;
         _floorPlan = null;
@@ -71,16 +74,16 @@ bool _isYesPressed = false;
     if (_locationFormKey.currentState!.validate()) {
       _locationFormKey.currentState!.save();
     }
-    if (_planDetailsFormKey.currentState!.validate()) {
-      _planDetailsFormKey.currentState!.save();
-    }
+    // if (_planDetailsFormKey.currentState!.validate()) {
+    //   _planDetailsFormKey.currentState!.save();
+    // }
 
       
       final houseData = {
         'type': "apartment", 
         'location_line_1': _location1,
         'location_line_2' : _location2,
-        "plan_details": _planDetails,
+        // "plan_details": _planDetails,
         "digital_survey": _digitalSurvey,
         "floor_plan": _selectedFile,
         "location":_location
@@ -213,7 +216,7 @@ bool _isYesPressed = false;
                               children: [
                                 Icon(
                                   Icons.location_on_outlined,
-                                  size: Responsive.height(2, context),
+                                  size: Responsive.height(3, context),
                                   color: const Color.fromRGBO(107, 67, 151, 1),
                                 ),
                                 Text(
@@ -222,7 +225,7 @@ bool _isYesPressed = false;
                                         : _location!,
                                     style: TextStyle(
                                         fontSize:
-                                            Responsive.height(1.5, context),
+                                            Responsive.height(2, context),
                                         color: Colors.black)),
                               ],
                             ),
@@ -291,42 +294,42 @@ bool _isYesPressed = false;
                     SizedBox(
                       height: Responsive.height(2.2, context),
                     ),
-                    Text(
-                      'Plan Details',
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          fontSize: Responsive.height(2.5, context)),
-                    ),
-                    SizedBox(
-                      height: Responsive.height(1, context),
-                    ),
-                    Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(10, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _planDetailsFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onSaved: (value) {
-                                  _planDetails = value;
-                                },
-                                 maxLines: null,
-                                keyboardType: TextInputType.multiline,
-                          ),
-                        )),
-                    SizedBox(
-                      height: Responsive.height(2.2, context),
-                    ),
+                    // Text(
+                    //   'Plan Details',
+                    //   style: TextStyle(
+                    //       fontFamily: 'Poppins',
+                    //       fontWeight: FontWeight.w600,
+                    //       fontSize: Responsive.height(2.5, context)),
+                    // ),
+                    // SizedBox(
+                    //   height: Responsive.height(1, context),
+                    // ),
+                    // Container(
+                    //     padding: EdgeInsets.only(left: Responsive.width(2, context)),
+                    //     height: Responsive.height(10, context),
+                    //     alignment: Alignment.topLeft,
+                    //     decoration: BoxDecoration(
+                    //         border:
+                    //             Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                    //         borderRadius: BorderRadius.circular(6)),
+                    //     child: Form(
+                    //       key: _planDetailsFormKey,
+                    //       child: TextFormField(
+                    //         decoration: InputDecoration(
+                    //             contentPadding: EdgeInsets.only(
+                    //                 left: Responsive.width(1, context),
+                    //                 bottom: Responsive.height(1.2, context)),
+                    //             border: InputBorder.none),
+                    //             onSaved: (value) {
+                    //               _planDetails = value;
+                    //             },
+                    //              maxLines: null,
+                    //             keyboardType: TextInputType.multiline,
+                    //       ),
+                    //     )),
+                    // SizedBox(
+                    //   height: Responsive.height(2.2, context),
+                    // ),
                     Text(
                       'Digital Survey',
                       style: TextStyle(
