@@ -37,6 +37,8 @@ bool _isYesPressed = false;
   String? _location1;
   String? _location2;
   String? _landSize;
+    String _selectedUnit = 'sq. ft.'; // Define this in your state
+  final List<String> _units = ['sq. ft.', 'gunta', 'acre'];
   String? _digitalSurvey;
   String? _requirements;
   String? _location;
@@ -61,6 +63,7 @@ bool _isYesPressed = false;
         'location_line_1': _location1,
         'location_line_2' : _location2,
         "land_size": _landSize,
+        "land_size_unit": _selectedUnit,
         "digital_survey": _digitalSurvey,
         "requirements": _requirements,
         "location":_location
@@ -200,7 +203,7 @@ final landSizeValue = _landSize != null ? int.tryParse(_landSize!) : null;
                               children: [
                                 Icon(
                                   Icons.location_on_outlined,
-                                  size: Responsive.height(2, context),
+                                  size: Responsive.height(3, context),
                                   color: const Color.fromRGBO(107, 67, 151, 1),
                                 ),
                                 Text(
@@ -209,7 +212,7 @@ final landSizeValue = _landSize != null ? int.tryParse(_landSize!) : null;
                                         : _location!,
                                     style: TextStyle(
                                         fontSize:
-                                            Responsive.height(1.5, context),
+                                            Responsive.height(2, context),
                                         color: Colors.black)),
                               ],
                             ),
@@ -289,26 +292,63 @@ final landSizeValue = _landSize != null ? int.tryParse(_landSize!) : null;
                       height: Responsive.height(1, context),
                     ),
                     Container(
-                        padding: EdgeInsets.only(left: Responsive.width(2, context)),
-                        height: Responsive.height(5, context),
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
-                            borderRadius: BorderRadius.circular(6)),
-                        child: Form(
-                          key: _landSizeFormKey,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(
-                                    left: Responsive.width(1, context),
-                                    bottom: Responsive.height(1.2, context)),
-                                border: InputBorder.none),
-                                onChanged: (value) {
-                                  _landSize = value;
-                                },
-                          ),
-                        )),
+                      child: Row(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(left: Responsive.width(2, context)),
+                              height: Responsive.height(5, context),
+                              width: Responsive.width(66, context),
+                              alignment: Alignment.topLeft,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Form(
+                                key: _landSizeFormKey,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.only(
+                                          left: Responsive.width(1, context),
+                                          bottom: Responsive.height(1.2, context)),
+                                      border: InputBorder.none),
+                                      onChanged: (value) {
+                                        _landSize = value;
+                                      },
+                                ),
+                              )),
+                              SizedBox(width: Responsive.width(2, context)),
+
+    // Unit dropdown
+                              Container(
+                                height: Responsive.height(5, context),
+                                width: Responsive.width(25, context),
+                                padding: EdgeInsets.symmetric(horizontal: Responsive.width(3, context)),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: const Color.fromRGBO(149, 149, 149, 1)),
+                                  borderRadius: BorderRadius.circular(6),
+                                  // color: Colors.white,
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: _selectedUnit,
+                                    isExpanded: true,
+                                    items: _units.map((String unit) {
+                                      return DropdownMenuItem<String>(
+                                        value: unit,
+                                        child: Text(unit),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedUnit = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: Responsive.height(2.2, context),
                     ),
